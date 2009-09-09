@@ -51,9 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataManipulator.cs" />
     <Compile Include="DataMerger.cs" />
-    <Compile Include="IDataManipulator.cs" />
     <Compile Include="IDataMerger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

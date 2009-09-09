@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Data.OleDb;
+using System.Data;
+using System.Xml;
 
 namespace BlackCat
 {
@@ -14,6 +17,11 @@ namespace BlackCat
         const int MINIMUM_AMT_OF_DISKSPACE = 1000;
         //TODOs:
 
+        public bool validationFileType(string filePath, string fileType)
+        {
+            //TODO: implement
+            return true;
+        }
 
         public bool validationFileFomart(string filePath, string fileFormat)
         {

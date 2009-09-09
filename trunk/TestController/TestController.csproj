@@ -53,13 +53,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestController.cs" />
+    <Compile Include="TestKMLParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\dataModel\dataModel.csproj">
+    <ProjectReference Include="..\dataModel\DataModel.csproj">
       <Project>{8B1EEEA5-7778-4DBD-915C-A0B220785484}</Project>
-      <Name>dataModel</Name>
+      <Name>DataModel</Name>
     </ProjectReference>
     <ProjectReference Include="..\ParserEngine\Controller.csproj">
       <Project>{36C49DC0-C310-4635-B308-C2BABCD6AF83}</Project>
