@@ -9,7 +9,7 @@ using BlackCat;
 namespace TestController
 {
     [TestFixture] 
-    public class TestController
+    public class TestKMLParser
     {
         private Controller controller;
 
