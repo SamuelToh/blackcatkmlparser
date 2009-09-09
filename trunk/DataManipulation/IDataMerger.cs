@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BlackCat
 {
-    public interface IDataMergerx
+    public interface IDataMerger
     {
         //Constructor
         //DataMerger DataMerger();

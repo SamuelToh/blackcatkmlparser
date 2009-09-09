@@ -7,6 +7,10 @@ namespace BlackCat
 {
     public interface IValidator
     {
+        //check the file type.
+        //pre: filePath
+        //post: 
+        bool validationFileType(string filePath, string fileType);
         // Check the given drive for the sufficient space to write the file
         //Pre: drive exists and the string drive is not the empty string
         //Post: Returns true iff there is sufficient space.
@@ -35,17 +39,18 @@ namespace BlackCat
         //Tests if the given Excel file has the correct format
         //Pre : excelURL must exist and excelURL is not the empty string
         //Post : Returns true iff file structure corresponds to that expected for an Excel file
-        bool validateExcelFormat(String excelURL);
+        bool validateFERQExcelFormat(String excelURL);
+        bool validateQFREExcelFormat(String excelURL);
 
         // Tests if the given .mid file has the correct format
         //Pre : midURL exists and midURL is not the empty string
         //Post : Returns true iff file structure corresponds to that expected for a .mid file.
-        bool validateMidFormat(String midURL);
+        bool validateMidFormat(String mifURL, String midURL);
 
         //Tests if the given .mif file has the correct format
         //Pre : mifURLexists and mifURL is not the empty string
         //Post : Returns true iff file structure corresponds to that expected for a .mif file
-        bool validateMifFormat(String mifURL);
+        bool validateMifFormat(String mifURL, String midURL);
 
         //Tests if the given KML file has the correct format
         //Pre : kmlURL exists and kmlURL is not the empty string

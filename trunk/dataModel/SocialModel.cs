@@ -11,109 +11,157 @@ namespace BlackCat
     public class SocialModel : ISocialModel
     {
 
-        //Contains a list of party names 
-        private List<String> partyNames;
+        //Contains a list of column names 
+        private ArrayList socioCols;
 
-        //A list of seats with their associated data. 
-        private List<SeatElectionData> electionInfo;
+        //origical data table
+        private DataTable tblSocialData;
+        // data table including winner party
+        private DataTable updatedTbl;
 
-        //The data field names for performing the matching operation. 
-        private List<String> dataFields;
+        //stores party names
+        private ArrayList firstPrefParties;
+        private ArrayList tppNames;
 
-
-        private class SeatElectionData
+        //Constructor
+        public SocialModel()
         {
-            //Constructor.
-            SeatElectionData(string seatCode, List<string> Parties){}
+            socioCols = new ArrayList();
+            tblSocialData = new DataTable();
+            updatedTbl = new DataTable();
+            firstPrefParties = new ArrayList();
+            tppNames = new ArrayList();
+        }
 
-            //The name of the seat 
-            string seatCde;
-            //The party who won the seat
-            string winnerParty;
-            //A hash table containing 
 
-            //Properties
-            //TO BE IMPLEMENTED YOURSELF
+        //Overload constructor
+        //Pre: colList, table, firstPrefParties and tpp are not null
+        //Post: The SocialModel object is populated with the data contained in the Excel file
+        public SocialModel(ArrayList colList, DataTable table, ArrayList firstPrefParties, ArrayList tpp)
+        {
+            this.socioCols = new ArrayList(colList);
+            this.tblSocialData = table.Copy();
+            this.updatedTbl = table.Copy();
+            this.firstPrefParties = new ArrayList(firstPrefParties);
+            this.tppNames = new ArrayList(tpp);
+        }
 
-            /* SAMPLE PROPERTY METHOD
-             * 
-             public string myRegionName
+        // pre: true
+        // post: returns the sociological column names
+        public ArrayList getColumnNames()
+        {
+            return socioCols;
+        }
+
+        // pre: true
+        // post: returns the original sociological table
+        public DataTable getDataTbl()
+        {
+            return tblSocialData;
+        }
+
+        // pre: true
+        // post: returns list of first preferences party names
+        public ArrayList getFirstPrefParties()
+        {
+            return this.firstPrefParties;
+        }
+
+        // pre: true
+        // post: returns list of TPP names
+        public ArrayList getTPPNames()
+        {
+            return tppNames;
+        }
+
+        //This method is used to update social data table. The winner party is calculated by 
+        //  . If a party in the first preferrences vote > 50.0, this party is winner.
+        //  . Else highest in TPP is a winner party.
+        //pre: true
+        //post: social data table includes winner party in each row.
+        public void calculateWinners()
+        {
+            // stores winning party name
+            String winPartyName;
+
+            String percent;
+            double dbPercent;
+            int percentIndex;
+
+            //type for the DataColumns
+            Type typString = typeof(String);
+
+            // create a column and add column data
+            DataColumn col = new DataColumn("winnerParty", typString);
+            updatedTbl.Columns.Add(col);
+
+            DataRow[] currentRows = updatedTbl.Select(
+                             null, null, DataViewRowState.CurrentRows);
+
+            foreach (DataRow row in currentRows)
+            {
+                foreach (DataColumn column in updatedTbl.Columns)
                 {
-                    get { return this.regionName; }
-                    set { this.regionName = value; }
+                    if (column.ColumnName.Contains("First"))
+                    {
+                        percent = row[column].ToString();
+                        dbPercent = Convert.ToDouble(percent);
+                        //find out any votes are >50 in the first preferences
+                        if (dbPercent > 50)
+                        {
+                            percentIndex = column.ColumnName.IndexOf('%');
+                            winPartyName = column.ColumnName.Remove(percentIndex);
+                            //add party name in the winningParty column
+                            row["winnerParty"] = winPartyName;
+                            break;
+                        }
+                    }
+                    else if (column.ColumnName.Contains("TPP"))
+                    {
+                        percent = row[column].ToString();
+                        dbPercent = Convert.ToDouble(percent);
+                        //find out which votes are >50 in the two party preferred votes
+                        if (dbPercent > 50)
+                        {
+                            percentIndex = column.ColumnName.IndexOf('%');
+                            winPartyName = column.ColumnName.Remove(percentIndex);
+                            //add party name in the winningParty column
+                            row["winnerParty"] = winPartyName;
+                            break;
+                        }
+                    }
                 }
-            */
 
-            //Properties.
-            //TO BE IMPLEMENTED YOURSELF
-            //string stateCode{get; set}
-            //string winner{get; set}
-            
-	        //Add a party and its vote count to the list of participating parties, if it is not already there.
-	        //Pre: partyName is not the empty string
-	        //Post: partyName has been added to the list, if it is not already there.
-            public void addParticipatingParty(string partyName, double votePercent) { }
+            }
         }
 
-        
-        //Return the hash table containing the party names and vote counts.
-	    //Pre: True
-	    //Post: participatingParties has been returned.
-        public SortedDictionary<string, string> getParticipatingParties() {
-            return new SortedDictionary<string, string>();
+        // pre: true
+        // post: returns a sociological table including winner parties
+        public DataTable getUpdatedTable()
+        {
+            return updatedTbl;
         }
 
-        //*NOTE: I have replaced HashTable with SortedDictionary (something similiar) because C# do not have HashTable
+        // pre: electorate is not empty string and also is not null
+        // post: returns a winning party name of specified electorate. If specified electorate could not
+        //       find, returns an empty string.
+        public string getSeatWinner(string electorate)
+        {
+            string winnerParty = "";
 
+            DataRow[] currentRows = updatedTbl.Select(
+                             null, null, DataViewRowState.CurrentRows);
 
+            foreach (DataRow row in currentRows)
+            {
+                // check matching electorate
+                if (row["Division"].Equals(electorate))
+                {
+                    winnerParty = row["winnerParty"].ToString();
+                }
+            }
 
-
-        //Populates the SocialModel object from a StreamReader object tied to a sociological data set.
-        //Pre: reader is not null
-        //Post: The SocialModel object the method is called on is populated with the data contained in the Excel file
-        public void buildSocialModel(StreamReader reader) {
-            //return this;
+            return winnerParty;
         }
-
-        //Get the list of data field names associated with the original data file.
-        //Pre: True
-        //Post: The list of data field names has been returned.
-        public List<String> DataFields() {
-            return new List<String>();
-        } //property method : Remove if needed
-
-        //Returns a list of participating political parties
-        //Pre: True
-        //Post: A list of political parties has been returned
-        public List<String> PartyNames() {
-            return new List<string>();
-        } //property method : Remove if needed
-
-        //Returns a list of seat names
-        //Pre: True
-        //Post: A list of seat names has been returned
-        public List<String> getSeatNames() {
-            return new List<string>();
-        }
-
-        //Returns the voting details for the electorate of seatCode.
-        //Pre: seatCode is not the empty string
-        //Post: A list of seat names has been returned
-        public List<String> getSeatElectionInfo(String seatCode) {
-            return new List<string>();
-        }
-
-        //Set the name of the party that was the winner of seatCode
-        //Pre: seatCode is not null and winner is not null
-        //Post: The name of the party that was the winner of seatCode has been set
-        public void setSeatWinner(String seatCode, String winner) { }
-
-        //Return the name of the party that was the winner of seatCode
-        //Pre: seatCode is not null
-        //Post: The name of the party that was the winner of seatCode is returned
-        public String getSeatWinner(string seatCode) {
-            return "";
-        }
-
     }
 }

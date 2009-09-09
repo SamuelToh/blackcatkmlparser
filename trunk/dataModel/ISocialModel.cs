@@ -8,43 +8,36 @@ namespace BlackCat
 {
     public interface ISocialModel
     {
+        // pre: true
+        // post: returns the sociological column names
+        ArrayList getColumnNames();
 
+        // pre: true
+        // post: returns the original sociological table
+        DataTable getDataTbl();
 
-        //Populates the SocialModel object from a StreamReader object tied to a sociological data set.
-        //Pre: reader is not null
-        //Post: The SocialModel object the method is called on is populated with the data contained in the Excel file
-        void buildSocialModel(StreamReader reader);
+        // pre: true
+        // post: returns list of first preferences party names
+        ArrayList getFirstPrefParties();
 
-        //Get the list of data field names associated with the original data file.
-        //Pre: True
-        //Post: The list of data field names has been returned.
-        List<String> DataFields(); //property method : Remove if needed
+        // pre: true
+        // post: returns list of TPP names
+        ArrayList getTPPNames();
 
-        //Returns a list of participating political parties
-        //Pre: True
-        //Post: A list of political parties has been returned
-        List<String> PartyNames(); //property method : Remove if needed
+        //This method is used to update social data table. The winner party is calculated by 
+        //  . If a party in the first preferrences vote > 50.0, this party is winner.
+        //  . Else highest in TPP is a winner party.
+        //pre: true
+        //post: social data table includes winner party in each row.
+        void calculateWinners();
 
-        //Returns a list of seat names
-        //Pre: True
-        //Post: A list of seat names has been returned
-        List<String> getSeatNames();
+        // pre: true
+        // post: returns a sociological table including winner parties
+        DataTable getUpdatedTable();
 
-        //Returns the voting details for the electorate of seatCode.
-        //Pre: seatCode is not the empty string
-        //Post: A list of seat names has been returned
-        List<String> getSeatElectionInfo(String seatCode);
-
-        //Set the name of the party that was the winner of seatCode
-        //Pre: seatCode is not null and winner is not null
-        //Post: The name of the party that was the winner of seatCode has been set
-        void setSeatWinner(String seatCode, String winner);
-
-        //Return the name of the party that was the winner of seatCode
-        //Pre: seatCode is not null
-        //Post: The name of the party that was the winner of seatCode is returned
-        String getSeatWinner(string seatCode);
-
-
+        // pre: electorate is not empty string and also is not null
+        // post: returns a winning party name of specified electorate. If specified electorate could not
+        //       find, returns an empty string.
+        string getSeatWinner(string electorate);
     }
 }
