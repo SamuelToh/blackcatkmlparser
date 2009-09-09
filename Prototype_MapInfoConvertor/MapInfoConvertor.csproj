@@ -129,6 +129,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UIConvertKML.resx">
       <DependentUpon>UIConvertKML.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="UISelectOutput.resx">
       <DependentUpon>UISelectOutput.cs</DependentUpon>

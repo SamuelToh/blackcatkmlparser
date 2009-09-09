@@ -1,13 +1,10 @@
-﻿
-namespace Controller
-{
-    using System;
-    using System.IO;
-    using ControllerInterface;
-    using Input;
-    using System.Collections.Generic;
-    using System.Windows.Forms;
+﻿using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Windows.Forms;
 
+namespace BlackCat
+{    
     public class KMLParserControl : IKMLParserControl
     {
         // Required to implement this class as a Singleton.
@@ -20,10 +17,10 @@ namespace Controller
         private SocialModel excelModel;
 
         //Holds the user provided KML file as a data model for future use.
-        private KMLModel inputKMLModel;
+        //TODO: private KMLModel inputKMLModel;
 
         //Holds the KMLModel generated from a user provided pair of MapInfo files as a data model for future use.
-        private KMLModel outputKMLModel; 
+        //TODO: private KMLModel outputKMLModel; 
 
         // Holds the name of the geographical data field to link on.
         private string geoLinkField;
@@ -33,12 +30,12 @@ namespace Controller
 
         // No arguments protected constructor.
 
-         public KMLParserControl KMLParserControl()
+         public KMLParserControl()
          {
              mapInfoModel = new GeographModel();
              excelModel = new SocialModel();
-             inputKMLModel = new KMLModel();
-             outputKMLModel = new KMLModel();
+             //TODO: inputKMLModel = new KMLModel();
+             //TODO: outputKMLModel = new KMLModel();
          }
 
         // Special property needed to implement the Singleton design pattern. Either instantiates
@@ -62,24 +59,24 @@ namespace Controller
 
          public bool canLink(String geoField, String socField)
          {
-             bool link;
-             DataMerger merger = new DataMerger();
+             bool link = true;
+             //DataMerger merger = new DataMerger();
 
              // Work out which of the two geographical models is populated and call the appropriate method.
              // If mapInfoModel is null, then we have a KML Model as input, otherwise we have a GeographModel.
 
-             if (mapInfoModel == null)
+             /*TODO: if (mapInfoModel == null)
                  link = merger.canLink(inputKMLModel, geoField, excelModel, socField);
              else
                  link = merger.canLink(mapInfoModel, geoField, excelModel, socField);
 
              // If the test was successful, save the values of the linking columns for later use.
-
+             
              if (link)
              {
                  geoLinkField = geoField;
                  socialLinkField = socField;
-             }
+             }*/
              return link;
          }
 
@@ -92,14 +89,14 @@ namespace Controller
 
          public int generateKMLFile(String outputFileURL, ProgressBar progressBar)
          {
-             // NOTE: THE PROGRESS BAR IS VERY CRUDELY INCREMENTED AT THIS STAGE. I STILL HAVE TO 
+             /* NOTE: THE PROGRESS BAR IS VERY CRUDELY INCREMENTED AT THIS STAGE. I STILL HAVE TO 
              // FINE TUNE HOW BEST TO MANIPULATE IT.
              // AT THIS STAGE I AM DIVIDING THE OPERATION INTO 3 PARTS AND TREATING THEM AS EQUALS.
              // I DON'T THINK THIS WILL PROVE TO BE THE CASE. BUT AS I AM CALLING METHODS, I AM NOT
              // SURE HOW ELSE TO INCREMENT.
 
              int errorCode = 0;
-             ResourceWriter rWriter;
+             //TODO: ResourceWriter rWriter;
              StreamWriter writer;
 
              // Set up the progress bar.
@@ -176,7 +173,8 @@ namespace Controller
 
              progressBar.Increment(1);
 
-             return errorCode;
+             return errorCode;*/
+             return 1;
          }
 
         // Returns a list of the data fields in the MapInfo data set that could be used to perform 
@@ -187,7 +185,8 @@ namespace Controller
 
         public List<string> getGeographicalDataFields()
         {
-            return mapInfoModel.DataFieldNames();
+            //return mapInfoModel.DataFieldNames();
+            return null;
         }
 
         //Returns a list of the data fields in the KML data file that could be used to perform 
@@ -198,7 +197,8 @@ namespace Controller
 
         public List<string> getKMLDataFields()
         {
-            return inputKMLModel.getDataFieldNames();
+            //return inputKMLModel.getDataFieldNames();
+            return null;
         }
 
         // Returns a list of the data fields in the sociological data file that could be used to 
@@ -209,7 +209,8 @@ namespace Controller
 
         public List<string> getSociologicalDataFields()
         {
-            return excelModel.DataFields();
+            //return excelModel.DataFields();
+            return null;
         }
 
         // Returns a boolean indicating whether it is possible to link the supplied geographical and 
@@ -225,7 +226,7 @@ namespace Controller
 
         public bool linkGeographicalAndSocialData(String geoField, String socialField)
         {
-            DataMerger merger;
+            /*DataMerger merger;
             
             // Link the data.
 
@@ -238,7 +239,8 @@ namespace Controller
             if (errorCode == 0)
                 return true;
             else
-                return false;
+                return false;*/
+            return true;
         }
 
         // Loads the Excel file fileURL into the system, displaying progress of the operation in the 
@@ -254,7 +256,7 @@ namespace Controller
 
         public int loadExcel(String fileURL, ProgressBar progressBar)
         {
-            int errorValue = 0;
+            /*int errorValue = 0;
             ResourceReader excelReader;
 
             // NOTE: This method needs to pass on the progress bar to the buildSocialModel method.
@@ -278,7 +280,8 @@ namespace Controller
 
             // And return the value 0 to denote success.
 
-            return errorValue;
+            return errorValue;*/
+            return 0;
         }
 
         // Loads the KML file fileURL into the system, displaying progress of the operation in 
@@ -296,7 +299,7 @@ namespace Controller
         public int loadKML(String fileURL, ProgressBar progressBar)
         {
             int errorValue = 0;
-            ResourceReader kmlReader;
+            /*ResourceReader kmlReader;
 
             // NOTE: This method needs to pass on the progress bar to the buildKMLModel method.
             // Only buildKMLModel can measure its own progress.
@@ -318,7 +321,7 @@ namespace Controller
             inputKMLModel.buildKMLModel(kmlReader);
 
             // And return the value 0 to denote success.
-
+            */
             return errorValue;
         }
 
@@ -341,7 +344,7 @@ namespace Controller
         public int loadMapInfo(String midFileURL, String mifFileURL, ProgressBar progressBar)
         {
             int errorValue = 0;
-            ResourceReader midReader;
+            /*ResourceReader midReader;
             ResourceReader mifReader;
 
             // NOTE: This method needs to pass on the progress bar to the buildGeographModel method.
@@ -374,7 +377,7 @@ namespace Controller
             mapInfoModel.buildGeographModel(midReader, mifReader);
 
             // And return the value 0 to denote success.
-
+            */
             return errorValue;
         }
 
@@ -399,7 +402,7 @@ namespace Controller
             // Get the drive letter, which is assumed to be one character long and the first
             // character in the path string, which is the full path string, not just the file name.
 
-            char driveName = folderURL.Substring(0, 1);
+            string driveName = folderURL.Substring(0, 1);
 
             // Test 1: Check that the folder exists. If not, return a value of 1.
 
@@ -465,7 +468,7 @@ namespace Controller
 
             // Test 2: Check that the folder is readable. If not, return a value of 2.
 
-            passedTest = myValidator.fileIsReadable(folderURL);
+            passedTest = myValidator.fileIsReadable(fileURL);
 
             if (!passedTest)
             {
@@ -478,12 +481,12 @@ namespace Controller
             switch (fileExtension.ToLower())
             {
                 case "mid":
-                    passedTest = myValidator.validateMidFormat(fileURL);
+                    passedTest = myValidator.validateMidFormat(fileURL, "tempString");
                     
                     break;
 
                 case "mif":
-                    passedTest = myValidator.validateMifFormat(fileURL);
+                    passedTest = myValidator.validateMifFormat(fileURL, "tempString");
                     break;
 
                 case "kml":
@@ -492,7 +495,7 @@ namespace Controller
 
                 case "xls":
                 case "csv":
-                    passedTest = myValidator.validateExcelFormat(fileURL);
+                    passedTest = myValidator.validateFERQExcelFormat(fileURL);
                     break;
 
                 default: 

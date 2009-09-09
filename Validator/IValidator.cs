@@ -39,8 +39,9 @@ namespace BlackCat
         //Tests if the given Excel file has the correct format
         //Pre : excelURL must exist and excelURL is not the empty string
         //Post : Returns true iff file structure corresponds to that expected for an Excel file
-        bool validateFERQExcelFormat(String excelURL);
-        bool validateQFREExcelFormat(String excelURL);
+        bool validateExcelFileFormat(String excelURL);
+        //bool validateFERQExcelFormat(String excelURL);
+        //bool validateQFREExcelFormat(String excelURL);
 
         // Tests if the given .mid file has the correct format
         //Pre : midURL exists and midURL is not the empty string

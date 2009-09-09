@@ -1,8 +1,9 @@
-﻿
-namespace ControllerInterface
-{
-    using System;
+﻿using System;
+using System.Windows.Forms;
+using System.Collections.Generic;
 
+namespace BlackCat
+{
     interface IKMLParserControl
     {
         // Constructor is protected. It cannot be called from outside the class. Use Instance instead.
@@ -11,8 +12,7 @@ namespace ControllerInterface
         // the class if this has not occurred yet or returns a reference to the class if 
         // instantiation has occurred. Meaning there is never more than one instance of this class
         // at any time.
-
-        static KMLParserControl Instance();
+        //static KMLParserControl Instance();
 
         // Returns a boolean indicating whether the geographic and sociological data fields can 
         // be linked using the fields geoField and socField.
@@ -37,7 +37,7 @@ namespace ControllerInterface
         // Pre: A MapInfo data set has been loaded into the system 
         // Post: A list of the data fields present in the MapInfo data set has been returned.
 
-        list<string> getGeographicalDataFields();
+        List<string> getGeographicalDataFields();
 
         // Returns a list of the data fields in the KML data file that could be used to perform 
         // data linking on.
@@ -45,7 +45,7 @@ namespace ControllerInterface
         // Pre: A KML data file has been loaded into the system 
         // Post: A list of the data fields present in the KML file has been returned.
 
-        list<string> getKMLDataFields();
+        List<string> getKMLDataFields();
 
         // Returns a list of the data fields in the sociological data file that could be used to 
         // perform data linking on.
@@ -53,7 +53,7 @@ namespace ControllerInterface
         // Pre: A sociological data file has been loaded into the system
         // Post: A list of the data fields present in the sociological data file has been returned.
 
-        list<string> getSociologicalDataFields();
+        List<string> getSociologicalDataFields();
 
         // Returns a boolean indicating whether it is possible to link the supplied geographical and 
         // sociological data using the data fields supplied.
