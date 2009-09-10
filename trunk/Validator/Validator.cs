@@ -16,6 +16,23 @@ namespace BlackCat
     {
         const int MINIMUM_AMT_OF_DISKSPACE = 1000;
         //TODOs:
+        public bool validateExcelFileFormat(string filePath)
+        {
+            return false;
+        }
+        public bool validateMidFormat(string filePath)
+        {
+            return false;
+        }
+        public bool validateMifFormat(string filePath)
+        {
+            return false;
+        }
+        public bool validateMapInfoFormat(string mifPath, string midPath)
+        {
+            return false;
+        }
+
 
         public bool validationFileType(string filePath, string fileType)
         {

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
 
-namespace ReadExcelData
+namespace BlackCat
 {
     interface IExcelReader
     {
@@ -23,5 +24,8 @@ namespace ReadExcelData
         // pre: true
         // post: Returns TPP party names
         ArrayList getTPPNames();
+        
+        //List<String> getColumnHeaders(;
+        //List<String> getDataRow(String columnName, String columnValue);
     }
 }

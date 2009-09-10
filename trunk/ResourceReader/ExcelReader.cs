@@ -6,9 +6,9 @@ using System.Collections;
 using System.Data;
 using System.Data.OleDb;
 
-namespace ReadExcelData
+namespace BlackCat
 {
-    class ExcelReader : IExcelReader
+    public class ExcelReader : IExcelReader
     {
         private const int numFirstPref = 6;
         private ArrayList colList = new ArrayList();
