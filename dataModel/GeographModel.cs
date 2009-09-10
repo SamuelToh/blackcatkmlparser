@@ -9,7 +9,7 @@ using log4net.Config;
 namespace BlackCat
 {
     //this class stores the [ region ] information found in both mid and mif files
-    public class GeographModel : IGeographModel
+    public class GeographModel 
     {
         //data members
         private int dataCount;
