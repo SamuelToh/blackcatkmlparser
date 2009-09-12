@@ -7,7 +7,7 @@ namespace BlackCat
 {
     public class Style
     {
-        private string color;
+        /*private string color;
         private string name;
 
         //Constructor
@@ -29,6 +29,27 @@ namespace BlackCat
         {
             get { return this.name; }
             set { name = value; }
+        }*/
+
+        //Constructor
+        public Style(string colorCode, string styleName)
+        {
+            this.colorCode = colorCode;
+            this.styleName = styleName;
+        }
+
+        //Properties
+        public String colorCode
+        {
+            get { return this.colorCode; }
+            set { this.colorCode = value; }
+        }
+
+        //prop
+        public String styleName
+        {
+            get { return this.styleName; }
+            set { styleName = value; }
         }
     }
 }

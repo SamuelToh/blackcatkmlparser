@@ -8,8 +8,6 @@ using System.Data;
 
 namespace BlackCat
 {
-
-    //This class stores the [Party] and [states] information of a country
     public class SocialModel : ISocialModel
     {
 
@@ -164,6 +162,23 @@ namespace BlackCat
             }
 
             return winnerParty;
+        }
+
+        // This method retrieves selected column data from the sociological data table
+        // pre: tblSocialData is not null and selectedColName is not empty string
+        // post: Returns the selected sociological column data
+        public ArrayList getSocioColumnData(String selectedColName)
+        {
+            ArrayList socDataList = new ArrayList();
+
+            DataRow[] currentRows = tblSocialData.Select(
+                             null, null, DataViewRowState.CurrentRows);
+            foreach (DataRow row in currentRows)
+            {
+                socDataList.Add(row[selectedColName]);
+
+            }
+            return socDataList;
         }
     }
 }
