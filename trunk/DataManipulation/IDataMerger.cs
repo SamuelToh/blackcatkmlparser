@@ -7,14 +7,14 @@ namespace BlackCat
 {
     public interface IDataMerger
     {
-        //Constructor
-        //DataMerger DataMerger();
+        // Tests whether kml model and sociological model can link by the selected columns.
+        // Returns true if kml model and sociological model can link. Otherwise, returns false.
+        // Pre: kmlModel and socialTbl are not null and kmlColumnName and socColumnName are not empty strings
+        // Post: Returns true if column names are matched, otherwise returns false. 
+        bool canLink(SocialModel socialM, String socColumnName);
 
-        //Tests if kmlModel and socModel can be linked through kmlColumnName and socColumnName. Returns a boolean.
-        //Pre: kmlModel and socModel are not null and kmlColumnName and socColumnName are not empty strings
-        //Post: True. 
-        bool canLink( KMLDataModel kmlModel, String kmlColumnName, SocialModel socModel, String socModelName);
+
         //Links a KMLModel with the data in a SocialModel using the columns the user has indicated should be used. Extends the inputted KMLModel to contain the desired sociological data. Returns an integer denoting success(0) or failure (1).
-        int linkDataModels(KMLDataModel kmlModel, String kmlColumnName, SocialModel socModel, String socModelName);
+        int linkDataModels(GeoModel geoM, SocialModel socialM, string geoColName, string socialColName);
     }
 }
