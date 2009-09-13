@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BlackCat</RootNamespace>
-    <AssemblyName>DdataModel</AssemblyName>
+    <AssemblyName>DataModel</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -50,10 +50,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GeographModel.cs" />
     <Compile Include="GeoModel.cs" />
+    <Compile Include="GeoModelMapInfo.cs" />
     <Compile Include="IGeoModel.cs" />
     <Compile Include="ISocialModel.cs" />
+    <Compile Include="MapInfoFormatException.cs" />
+    <Compile Include="MapInfoMismatchException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SocialModel.cs" />
     <Compile Include="Style.cs" />

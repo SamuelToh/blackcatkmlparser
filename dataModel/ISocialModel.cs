@@ -16,26 +16,32 @@ namespace BlackCat
 
         // pre: true
         // post: returns the original sociological table
-        DataTable getDataTbl();
+        //DataTable getDataTbl();
+        //We don't want the table - it's too much information outside the class
 
         // pre: true
         // post: returns list of first preferences party names
-        ArrayList getFirstPrefParties();
+        //ArrayList getFirstPrefParties();
+        // Is this being used? If not, remove it
 
         // pre: true
         // post: returns list of TPP names
-        ArrayList getTPPNames();
+        //ArrayList getTPPNames();
+        // Is this being used? If not, remove it
+
 
         //This method is used to update social data table. The winner party is calculated by 
         //  . If a party in the first preferrences vote > 50.0, this party is winner.
         //  . Else highest in TPP is a winner party.
         //pre: true
         //post: social data table includes winner party in each row.
-        void calculateWinners();
+        // void calculateWinners();
+        // I think we should just calculate the winners when asked (getSeatWinner) on a one-by-one basis
 
         // pre: true
         // post: returns a sociological table including winner parties
-        DataTable getUpdatedTable();
+        //DataTable getUpdatedTable();
+        //We don't want the table - it's too much information outside the class
 
         // pre: electorate is not empty string and also is not null
         // post: returns a winning party name of specified electorate. If specified electorate could not
