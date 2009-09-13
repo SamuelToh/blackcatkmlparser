@@ -11,16 +11,16 @@ namespace BlackCat
         private static KMLParserControl instance;
 
         //Holds the MapInfo files as a data model for future use.
-        private GeographModel mapInfoModel;
+        private GeoModel mapInfoModel;
 
         //Holds the Excel file as a data model for future use.
         private SocialModel excelModel;
 
         //Holds the user provided KML file as a data model for future use.
-        //TODO: private KMLModel inputKMLModel;
+        //private KMLModel inputKMLModel;
 
         //Holds the KMLModel generated from a user provided pair of MapInfo files as a data model for future use.
-        //TODO: private KMLModel outputKMLModel; 
+        //private KMLModel outputKMLModel;
 
         // Holds the name of the geographical data field to link on.
         private string geoLinkField;
@@ -30,26 +30,26 @@ namespace BlackCat
 
         // No arguments protected constructor.
 
-         public KMLParserControl()
-         {
-             mapInfoModel = new GeographModel();
-             excelModel = new SocialModel();
-             //TODO: inputKMLModel = new KMLModel();
-             //TODO: outputKMLModel = new KMLModel();
-         }
+        public KMLParserControl()
+        {
+            mapInfoModel = new GeoModel();
+            excelModel = new SocialModel();
+            //inputKMLModel = new KMLModel();
+            //outputKMLModel = new KMLModel();
+        }
 
         // Special property needed to implement the Singleton design pattern. Either instantiates
         // the class if this has not occurred yet or returns a reference to the class if 
         // instantiation has occurred.
 
-         public static KMLParserControl Instance()
-         {
-             if (instance == null)
-             {
-                 instance = new KMLParserControl();
-             }
-             return instance;
-         }
+        /*public static KMLParserControl Instance()
+        {
+            if (instance == null)
+            {
+                instance = new KMLParserControl();
+            }
+            return instance;
+        }*/
 
         // Returns a boolean indicating whether the geographic and sociological data fields can 
         // be linked using the fields geoField and socField.
@@ -57,28 +57,28 @@ namespace BlackCat
         // Pre: geoField is not the empty string and socField is not the empty string. 
         // Post: A boolean indicating whether the desired linking operation can occur has been returned.
 
-         public bool canLink(String geoField, String socField)
-         {
-             bool link = true;
-             //DataMerger merger = new DataMerger();
+        public bool canLink(String geoField, String socField)
+        {
+            bool link = false;
+            DataMerger merger = new DataMerger();
 
-             // Work out which of the two geographical models is populated and call the appropriate method.
-             // If mapInfoModel is null, then we have a KML Model as input, otherwise we have a GeographModel.
+            // Work out which of the two geographical models is populated and call the appropriate method.
+            // If mapInfoModel is null, then we have a KML Model as input, otherwise we have a GeographModel.
 
-             /*TODO: if (mapInfoModel == null)
-                 link = merger.canLink(inputKMLModel, geoField, excelModel, socField);
-             else
-                 link = merger.canLink(mapInfoModel, geoField, excelModel, socField);
+            /*if (mapInfoModel == null)
+                link = merger.canLink(inputKMLModel, geoField, excelModel, socField);
+            else
+                link = merger.canLink(mapInfoModel, geoField, excelModel, socField);*/
 
-             // If the test was successful, save the values of the linking columns for later use.
-             
-             if (link)
-             {
-                 geoLinkField = geoField;
-                 socialLinkField = socField;
-             }*/
-             return link;
-         }
+            // If the test was successful, save the values of the linking columns for later use.
+
+            if (link)
+            {
+                geoLinkField = geoField;
+                socialLinkField = socField;
+            }
+            return link;
+        }
 
         // Creates the KML file using the files previously supplied by the user, writing it to the 
         // location desired and displaying a progress bar updated as the operation proceeds. 
@@ -87,95 +87,94 @@ namespace BlackCat
         // Pre: outputFileURL is not the empty string and progressBar is not null.
         // Post: A new KML file is written to outputFolderURL, created from the input files.
 
-         public int generateKMLFile(String outputFileURL, ProgressBar progressBar)
-         {
-             /* NOTE: THE PROGRESS BAR IS VERY CRUDELY INCREMENTED AT THIS STAGE. I STILL HAVE TO 
-             // FINE TUNE HOW BEST TO MANIPULATE IT.
-             // AT THIS STAGE I AM DIVIDING THE OPERATION INTO 3 PARTS AND TREATING THEM AS EQUALS.
-             // I DON'T THINK THIS WILL PROVE TO BE THE CASE. BUT AS I AM CALLING METHODS, I AM NOT
-             // SURE HOW ELSE TO INCREMENT.
+        public int generateKMLFile(String outputFileURL, ProgressBar progressBar)
+        {
+            // NOTE: THE PROGRESS BAR IS VERY CRUDELY INCREMENTED AT THIS STAGE. I STILL HAVE TO 
+            // FINE TUNE HOW BEST TO MANIPULATE IT.
+            // AT THIS STAGE I AM DIVIDING THE OPERATION INTO 3 PARTS AND TREATING THEM AS EQUALS.
+            // I DON'T THINK THIS WILL PROVE TO BE THE CASE. BUT AS I AM CALLING METHODS, I AM NOT
+            // SURE HOW ELSE TO INCREMENT.
 
-             int errorCode = 0;
-             //TODO: ResourceWriter rWriter;
-             StreamWriter writer;
+            int errorCode = 0;
+            //ResourceWriter rWriter;
+            StreamWriter writer;
 
-             // Set up the progress bar.
+            // Set up the progress bar.
 
-             progressBar.Minimum = 0;
-             progressBar.Maximum = 3;
+            progressBar.Minimum = 0;
+            progressBar.Maximum = 3;
 
-             // First, if there is a GeographModel, convert it to a KMLModel, otherwise inputKMLModel
-             // must be populated and we can point outputKMLModel at the input model.
+            // First, if there is a GeographModel, convert it to a KMLModel, otherwise inputKMLModel
+            // must be populated and we can point outputKMLModel at the input model.
 
-             // Note that if we start out with a GeographModel, we won't be able to use the user provided
-             // data column directly for linking as we have converted from the MapInfo format 
-             // to the KML format by the time we get to this method. The field name in the KMLModel
-             // is highly likely to be different to that of the original MapInfo file. So we need to 
-             // pass the linking method the name of the field as it appears in the KMLModel, not as it
-             // appeared in the GeographModel.
+            // Note that if we start out with a GeographModel, we won't be able to use the user provided
+            // data column directly for linking as we have converted from the MapInfo format 
+            // to the KML format by the time we get to this method. The field name in the KMLModel
+            // is highly likely to be different to that of the original MapInfo file. So we need to 
+            // pass the linking method the name of the field as it appears in the KMLModel, not as it
+            // appeared in the GeographModel.
 
-             // In reality, linking can only occur on fields that could form primary keys if the data were
-             // stored in a database. In the KML file, there is only one field that conforms to this 
-             // description and that is whatever appears inside the name tag that is within each placemark
-             // tag. So the list of available data fields for the KMLModel should contain only one field and
-             // that field is assumed to be the one that we know we can link on.
+            // In reality, linking can only occur on fields that could form primary keys if the data were
+            // stored in a database. In the KML file, there is only one field that conforms to this 
+            // description and that is whatever appears inside the name tag that is within each placemark
+            // tag. So the list of available data fields for the KMLModel should contain only one field and
+            // that field is assumed to be the one that we know we can link on.
 
-             if (mapInfoModel != null)
-             {
-                 List<String> KMLFields;
+            if (mapInfoModel != null)
+            {
+                List<String> KMLFields;
 
-                 // Builds the KMLModel from the GeographModel, retrieves the associated 1 item list of
-                 // data fields then sets geoLinkField as the first value in this list.
+                // Builds the KMLModel from the GeographModel, retrieves the associated 1 item list of
+                // data fields then sets geoLinkField as the first value in this list.
 
-                 outputKMLModel.buildKMLModel(mapInfoModel);
-                 KMLFields = outputKMLModel.getDataFieldNames();
-                 geoLinkField = KMLFields[0];
-             }
-             else
-                 outputKMLModel = inputKMLModel;
+                outputKMLModel.buildKMLModel(mapInfoModel);
+                KMLFields = outputKMLModel.getDataFieldNames();
+                geoLinkField = KMLFields[0];
+            }
+            else
+                outputKMLModel = inputKMLModel;
 
-             // Increment the progress bar by one third.
+            // Increment the progress bar by one third.
 
-             progressBar.Increment(1);
+            progressBar.Increment(1);
 
-             // Link the data if required. The nested if attempts to link the data and set the error code
-             // in one operation.
+            // Link the data if required. The nested if attempts to link the data and set the error code
+            // in one operation.
 
-             if (excelModel != null)
-             {
-                 if (!(linkGeographicalAndSocialData(geoLinkField, socialLinkField)))
-                 {
-                     // 1 indicates a problem, so exit immediately.
+            if (excelModel != null)
+            {
+                if (!(linkGeographicalAndSocialData(geoLinkField, socialLinkField)))
+                {
+                    // 1 indicates a problem, so exit immediately.
 
-                     errorCode = 1;
-                     return errorCode;
-                 }
-                 // Otherwise no problem, so do nothing.
-             }
+                    errorCode = 1;
+                    return errorCode;
+                }
+                // Otherwise no problem, so do nothing.
+            }
 
-             // Increment the progress bar by one third - now through 2/3 of the steps in the operation.
+            // Increment the progress bar by one third - now through 2/3 of the steps in the operation.
 
-             progressBar.Increment(1);
+            progressBar.Increment(1);
 
             // If we reach here, all has gone well so far. Now we write the model to file.
             // First get a writer.
             // I have a funny feeling the writer will be restructured similarly to the reader.
             // However, for the moment, the given syntax has been used.
 
-             rWriter = new ResourceWriter();
-             writer = rWriter.getWriter(outputFileURL);
+            rWriter = new ResourceWriter();
+            writer = rWriter.getWriter(outputFileURL);
 
             // Give it to the outputKMLModel object so that it can produce a stream for the writer to write.
 
-             outputKMLModel.write(writer);
+            outputKMLModel.write(writer);
 
-             // Increment the progress bar by one third - now we are finished.
+            // Increment the progress bar by one third - now we are finished.
 
-             progressBar.Increment(1);
+            progressBar.Increment(1);
 
-             return errorCode;*/
-             return 1;
-         }
+            return errorCode;
+        }
 
         // Returns a list of the data fields in the MapInfo data set that could be used to perform 
         // data linking on.
@@ -185,8 +184,7 @@ namespace BlackCat
 
         public List<string> getGeographicalDataFields()
         {
-            //return mapInfoModel.DataFieldNames();
-            return null;
+            return mapInfoModel.getRegionIdentifiers();
         }
 
         //Returns a list of the data fields in the KML data file that could be used to perform 
@@ -197,8 +195,7 @@ namespace BlackCat
 
         public List<string> getKMLDataFields()
         {
-            //return inputKMLModel.getDataFieldNames();
-            return null;
+            return inputKMLModel.getDataFieldNames();
         }
 
         // Returns a list of the data fields in the sociological data file that could be used to 
@@ -209,8 +206,7 @@ namespace BlackCat
 
         public List<string> getSociologicalDataFields()
         {
-            //return excelModel.DataFields();
-            return null;
+            return excelModel.DataFields();
         }
 
         // Returns a boolean indicating whether it is possible to link the supplied geographical and 
@@ -226,8 +222,8 @@ namespace BlackCat
 
         public bool linkGeographicalAndSocialData(String geoField, String socialField)
         {
-            /*DataMerger merger;
-            
+            DataMerger merger;
+
             // Link the data.
 
             merger = new DataMerger();
@@ -239,8 +235,7 @@ namespace BlackCat
             if (errorCode == 0)
                 return true;
             else
-                return false;*/
-            return true;
+                return false;
         }
 
         // Loads the Excel file fileURL into the system, displaying progress of the operation in the 
@@ -256,7 +251,7 @@ namespace BlackCat
 
         public int loadExcel(String fileURL, ProgressBar progressBar)
         {
-            /*int errorValue = 0;
+            int errorValue = 0;
             ResourceReader excelReader;
 
             // NOTE: This method needs to pass on the progress bar to the buildSocialModel method.
@@ -280,8 +275,7 @@ namespace BlackCat
 
             // And return the value 0 to denote success.
 
-            return errorValue;*/
-            return 0;
+            return errorValue;
         }
 
         // Loads the KML file fileURL into the system, displaying progress of the operation in 
@@ -299,7 +293,7 @@ namespace BlackCat
         public int loadKML(String fileURL, ProgressBar progressBar)
         {
             int errorValue = 0;
-            /*ResourceReader kmlReader;
+            ResourceReader kmlReader;
 
             // NOTE: This method needs to pass on the progress bar to the buildKMLModel method.
             // Only buildKMLModel can measure its own progress.
@@ -321,7 +315,7 @@ namespace BlackCat
             inputKMLModel.buildKMLModel(kmlReader);
 
             // And return the value 0 to denote success.
-            */
+
             return errorValue;
         }
 
@@ -344,7 +338,7 @@ namespace BlackCat
         public int loadMapInfo(String midFileURL, String mifFileURL, ProgressBar progressBar)
         {
             int errorValue = 0;
-            /*ResourceReader midReader;
+            ResourceReader midReader;
             ResourceReader mifReader;
 
             // NOTE: This method needs to pass on the progress bar to the buildGeographModel method.
@@ -377,7 +371,7 @@ namespace BlackCat
             mapInfoModel.buildGeographModel(midReader, mifReader);
 
             // And return the value 0 to denote success.
-            */
+
             return errorValue;
         }
 
@@ -402,7 +396,7 @@ namespace BlackCat
             // Get the drive letter, which is assumed to be one character long and the first
             // character in the path string, which is the full path string, not just the file name.
 
-            string driveName = folderURL.Substring(0, 1);
+            char driveName = folderURL.Substring(0, 1);
 
             // Test 1: Check that the folder exists. If not, return a value of 1.
 
@@ -413,7 +407,7 @@ namespace BlackCat
                 errorType = 1;
                 return errorType;
             }
-            
+
             // Test 2: Check that the folder is writable. If not, return a value of 2.
 
             passedTest = myValidator.folderIsWritable(folderURL);
@@ -440,7 +434,7 @@ namespace BlackCat
             return errorType;
         }
 
-//#########################################################################################################
+        //#########################################################################################################
 
         // Private helper methods for use with the publically available methods.
 
@@ -468,7 +462,7 @@ namespace BlackCat
 
             // Test 2: Check that the folder is readable. If not, return a value of 2.
 
-            passedTest = myValidator.fileIsReadable(fileURL);
+            passedTest = myValidator.fileIsReadable(folderURL);
 
             if (!passedTest)
             {
@@ -481,12 +475,12 @@ namespace BlackCat
             switch (fileExtension.ToLower())
             {
                 case "mid":
-                    passedTest = myValidator.validateMidFormat(fileURL, "tempString");
-                    
+                    passedTest = myValidator.validateMidFormat(fileURL);
+
                     break;
 
                 case "mif":
-                    passedTest = myValidator.validateMifFormat(fileURL, "tempString");
+                    passedTest = myValidator.validateMifFormat(fileURL);
                     break;
 
                 case "kml":
@@ -495,10 +489,10 @@ namespace BlackCat
 
                 case "xls":
                 case "csv":
-                    passedTest = myValidator.validateFERQExcelFormat(fileURL);
+                    passedTest = myValidator.validateExcelFormat(fileURL);
                     break;
 
-                default: 
+                default:
                     passedTest = false;
                     break;
             }

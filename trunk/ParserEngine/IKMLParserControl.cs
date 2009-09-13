@@ -12,6 +12,7 @@ namespace BlackCat
         // the class if this has not occurred yet or returns a reference to the class if 
         // instantiation has occurred. Meaning there is never more than one instance of this class
         // at any time.
+
         //static KMLParserControl Instance();
 
         // Returns a boolean indicating whether the geographic and sociological data fields can 
@@ -29,8 +30,8 @@ namespace BlackCat
         // Pre: outputFileURL is not the empty string and progressBar is not null.
         // Post: A new KML file is written to outputFolderURL, created from the input files.
 
-        int generateKMLFile(String outputFileURL, ProgressBar progressBar); 
-        
+        int generateKMLFile(String outputFileURL, ProgressBar progressBar);
+
         // Returns a list of the data fields in the MapInfo data set that could be used to perform 
         // data linking on.
 
@@ -45,7 +46,7 @@ namespace BlackCat
         // Pre: A KML data file has been loaded into the system 
         // Post: A list of the data fields present in the KML file has been returned.
 
-        List<string> getKMLDataFields();
+        //List<string> getKMLDataFields();
 
         // Returns a list of the data fields in the sociological data file that could be used to 
         // perform data linking on.
@@ -67,7 +68,7 @@ namespace BlackCat
         // and sociological data in the manner indicated by the user.
 
         bool linkGeographicalAndSocialData(String geoField, String socialField);
-        
+
         // Loads the Excel file fileURL into the system, displaying progress of the operation in the 
         // progress bar progressBar. Returns an integer denoting the result of the operation as follows:
 
@@ -80,7 +81,7 @@ namespace BlackCat
         // Post: fileURL have been loaded and an integer denoting success or otherwise has been returned.
 
         int loadExcel(String fileURL, ProgressBar progressBar);
-        
+
         // Loads the KML file fileURL into the system, displaying progress of the operation in 
         // the progress bar progressBar. Returns an integer denoting the result of the operation 
         // as follows:
@@ -108,7 +109,7 @@ namespace BlackCat
         // Post: midFileURL and mifFileURL have been loaded and an integer denoting success or otherwise 
         // has been returned.
 
-        int loadMapInfo(String midFileURL, String mifFileURL ,ProgressBar progressBar);
+        int loadMapInfo(String midFileURL, String mifFileURL, ProgressBar progressBar);
 
         // Requests validation of a folder to ensure it exists, can be written to etc. Returns an 
         // integer denoting the result of the verification as follows:
@@ -122,6 +123,6 @@ namespace BlackCat
         // Post: The status of the folder has been verified and an integer denoting the folder’s status 
         // has been returned.
 
-        int validateFolder(string folderURL);
+        // int validateFolder(string folderURL);
     }
 }

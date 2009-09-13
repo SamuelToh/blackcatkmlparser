@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 
@@ -66,7 +67,7 @@ namespace BlackCat
         // Links a Geographical Model with the data in a SocialModel using the columns the user has indicated should be used. 
         // pre: geoM and socialM are not null. geoColName and socialColName are not empty string.
         // post: Returns an integer denoting success(0) or failure (1).
-        public int linkDataModels(GeoModel geoM, SocialModel socialM, string geoColName, string socialColName)
+        public int linkDataModels(IGeoModel geoM, ISocialModel socialM, string geoColName, string socialColName)
         {
             int success = 0;
             // create a hash table that stores key:region name and value:winner party

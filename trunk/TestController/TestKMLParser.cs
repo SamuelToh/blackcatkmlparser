@@ -11,7 +11,7 @@ namespace TestController
     [TestFixture] 
     public class TestKMLParser
     {
-        private Controller controller;
+        private KMLParserControl controller;
 
         [Test]
         public void mockTestExample()
@@ -22,12 +22,12 @@ namespace TestController
             testDataFieldNames.Add("field2");
 
             //Create a mock version of KMLDataModel
-            DynamicMock mockKmlModel = new DynamicMock(typeof(IKMLDataModel));
+            DynamicMock mockKmlModel = new DynamicMock(typeof(IGeoModel));
             //Tell the mock object that when the getDataFieldNames() method is called to return our test field list
             mockKmlModel.ExpectAndReturn("getDataFieldNames", testDataFieldNames);
 
             //Construct a controller with the mock kml model
-            controller = new Controller((IKMLDataModel)mockKmlModel.MockInstance);
+            //controller = new KMLParserControl((IGeoModel)mockKmlModel.MockInstance);
 
             //Test a controller method
             List<String> dataFields = controller.getKMLDataFields();

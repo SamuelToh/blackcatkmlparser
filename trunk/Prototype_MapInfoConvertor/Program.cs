@@ -17,5 +17,19 @@ namespace BlackCat
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new UIMain());
         }
+        
+        static void InitialiseLogging(String configPath)
+        {
+            if (configPath == null)
+            {
+                BasicConfigurator.Configure();
+            }
+            else
+            {
+                XmlConfigurator.Configure(new FileInfo(configPath));
+            }
+            //log = LogManager.GetLogger(typeof(Program));
+        }
+
     }
 }
