@@ -76,7 +76,7 @@ namespace BlackCat
             Style style;
 
             // get all regions in the model and store them in the array
-            string[] regions = geoM.getRegionIdentifiers();
+            string[] regions = geoM.GetRegionIdentifiers();
 
             foreach (string region in regions)
             {
@@ -108,7 +108,7 @@ namespace BlackCat
                     style = new Style("ff00ffff", "Yellow");
                 }
 
-                geoM.setRegionStyle(region, style);
+                geoM.SetRegionStyle(region, style);
             }
 
             return success;

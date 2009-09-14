@@ -6,12 +6,15 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml;
 using System.Text.RegularExpressions;
+using log4net;
+using log4net.Config;
 
 namespace BlackCat
 {
-    public class GeoModel : IGeoModel
+    public partial class GeoModel : IGeoModel
     {
 
+        ILog log = LogManager.GetLogger(typeof(GeoModel));
 
         private const string KML_NAMESPACE_ADDR = "http://www.opengis.net/kml/2.2";
         public const string BLUE_CODE = "7dff0000";
@@ -132,7 +135,7 @@ namespace BlackCat
             return true;
         }
 
-        public bool BuildGeoModel
+        /*public bool BuildGeoModel
                 (String midFileURL, String mifFileURL, ProgressBar bar)
         {
             string line = "";
@@ -159,7 +162,7 @@ namespace BlackCat
             }
             mifReader.Close();
             return true;
-        }
+        }*/
 
         //14September
         private void populateDataFields

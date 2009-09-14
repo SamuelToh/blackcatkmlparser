@@ -55,7 +55,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestGeoModelMapInfo.cs" />
+    <Compile Include="TestGeoModelKMLBuild.cs" />
+    <Compile Include="TestGeoModelMapInfoBuild.cs" />
     <Compile Include="TestGeoModel.cs" />
     <Compile Include="TestSocialModel.cs" />
   </ItemGroup>
@@ -67,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Federal Election Results-Qld-2004.xls" />
+    <None Include="Data\testKML1.kml" />
     <None Include="Data\testMap1.mif" />
   </ItemGroup>
   <ItemGroup>
