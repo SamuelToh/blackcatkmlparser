@@ -67,80 +67,10 @@
     <Compile Include="BlackCatParserUIcs.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UISelectAdditionalInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UISelectAdditionalInfo.Designer.cs">
-      <DependentUpon>UISelectAdditionalInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UILinkDataSource.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UILinkDataSource.Designer.cs">
-      <DependentUpon>UILinkDataSource.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UISelectFileB.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UISelectFileB.Designer.cs">
-      <DependentUpon>UISelectFileB.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UIConvertKML.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UIConvertKML.Designer.cs">
-      <DependentUpon>UIConvertKML.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UISelectOutput.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UISelectOutput.Designer.cs">
-      <DependentUpon>UISelectOutput.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UIMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UIMain.Designer.cs">
-      <DependentUpon>UIMain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UISelectAdditionalInfoB.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UISelectAdditionalInfoB.Designer.cs">
-      <DependentUpon>UISelectAdditionalInfoB.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="BlackCatParserUIcs.resx">
       <DependentUpon>BlackCatParserUIcs.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UISelectAdditionalInfo.resx">
-      <DependentUpon>UISelectAdditionalInfo.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UILinkDataSource.resx">
-      <DependentUpon>UILinkDataSource.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UISelectFileB.resx">
-      <DependentUpon>UISelectFileB.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UIConvertKML.resx">
-      <DependentUpon>UIConvertKML.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UISelectOutput.resx">
-      <DependentUpon>UISelectOutput.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UIMain.resx">
-      <DependentUpon>UIMain.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UISelectAdditionalInfoB.resx">
-      <DependentUpon>UISelectAdditionalInfoB.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -148,8 +78,36 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="UIConvertKML.resx">
+      <DependentUpon>UIConvertKML.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UILinkDataSource.resx">
+      <DependentUpon>UILinkDataSource.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UIMain.resx">
+      <DependentUpon>UIMain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UISelectAdditionalInfo.resx">
+      <DependentUpon>UISelectAdditionalInfo.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UISelectAdditionalInfoB.resx">
+      <DependentUpon>UISelectAdditionalInfoB.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="UISelectFile.resx">
       <DependentUpon>UISelectFile.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UISelectFileB.resx">
+      <DependentUpon>UISelectFileB.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UISelectOutput.resx">
+      <DependentUpon>UISelectOutput.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -166,11 +124,53 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="UIConvertKML.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIConvertKML.designer.cs">
+      <DependentUpon>UIConvertKML.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UILinkDataSource.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UILinkDataSource.designer.cs">
+      <DependentUpon>UILinkDataSource.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UIMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UIMain.designer.cs">
+      <DependentUpon>UIMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UISelectAdditionalInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UISelectAdditionalInfo.designer.cs">
+      <DependentUpon>UISelectAdditionalInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UISelectAdditionalInfoB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UISelectAdditionalInfoB.designer.cs">
+      <DependentUpon>UISelectAdditionalInfoB.cs</DependentUpon>
+    </Compile>
     <Compile Include="UISelectFile.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UISelectFile.Designer.cs">
+    <Compile Include="UISelectFile.designer.cs">
       <DependentUpon>UISelectFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UISelectFileB.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UISelectFileB.designer.cs">
+      <DependentUpon>UISelectFileB.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UISelectOutput.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UISelectOutput.designer.cs">
+      <DependentUpon>UISelectOutput.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

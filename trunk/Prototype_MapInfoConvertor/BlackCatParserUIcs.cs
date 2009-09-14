@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace BlackCat
+namespace Prototype_MapInfoConvertor
 {
     public class BlackCatParserUI : Form
     {

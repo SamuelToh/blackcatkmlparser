@@ -6,8 +6,9 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Controller;
 
-namespace BlackCat
+namespace Prototype_MapInfoConvertor
 {
     public partial class UIMain : Form
     {
@@ -42,7 +43,7 @@ namespace BlackCat
 
         private void button3_Click(object sender, EventArgs e)
         {
-            
+            Application.Exit();
         }
 
       
