@@ -13,7 +13,7 @@ namespace BlackCat
         // instantiation has occurred. Meaning there is never more than one instance of this class
         // at any time.
 
-        //static KMLParserControl Instance();
+        // static KMLParserControl Instance();
 
         // Returns a boolean indicating whether the geographic and sociological data fields can 
         // be linked using the fields geoField and socField.
