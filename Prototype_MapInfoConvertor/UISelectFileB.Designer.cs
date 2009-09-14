@@ -1,4 +1,4 @@
-﻿namespace BlackCat
+﻿namespace Prototype_MapInfoConvertor
 {
     partial class UISelectFileB
     {
@@ -45,6 +45,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.openExistKMLFile = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -96,6 +97,7 @@
             this.button3.TabIndex = 82;
             this.button3.Text = "&Browse";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button4
             // 
@@ -105,6 +107,7 @@
             this.button4.TabIndex = 99;
             this.button4.Text = "&Cancel";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button1
             // 
@@ -115,6 +118,7 @@
             this.button1.TabIndex = 97;
             this.button1.Text = "<< &Previous";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -217,7 +221,11 @@
             this.label2.TabIndex = 6;
             this.label2.Text = "Select Files";
             // 
-            // Function2SelectFilesA
+            // openExistKMLFile
+            // 
+            this.openExistKMLFile.FileName = "openFileDialog1";
+            // 
+            // UISelectFileB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -234,7 +242,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox2);
-            this.Name = "Function2SelectFilesA";
+            this.Name = "UISelectFileB";
             this.Text = "Black Cat KML Parser ";
             this.Load += new System.EventHandler(this.Function2SelectFilesA_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
@@ -265,5 +273,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.OpenFileDialog openExistKMLFile;
     }
 }

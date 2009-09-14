@@ -1,4 +1,4 @@
-﻿namespace BlackCat
+﻿namespace Prototype_MapInfoConvertor
 {
     partial class UILinkDataSource
     {
@@ -163,6 +163,7 @@
             this.button1.TabIndex = 126;
             this.button1.Text = "&Cancel";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -172,6 +173,7 @@
             this.button2.TabIndex = 124;
             this.button2.Text = "<< &Previous";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // label10
             // 
@@ -261,7 +263,7 @@
             this.pictureBox2.TabIndex = 119;
             this.pictureBox2.TabStop = false;
             // 
-            // Function1n2LinkDataSource
+            // UILinkDataSource
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -280,7 +282,7 @@
             this.Controls.Add(this.button5);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "Function1n2LinkDataSource";
+            this.Name = "UILinkDataSource";
             this.Text = "Black Cat KML Parser";
             this.Load += new System.EventHandler(this.Function1n2LinkDataSource_Load);
             this.groupBox1.ResumeLayout(false);

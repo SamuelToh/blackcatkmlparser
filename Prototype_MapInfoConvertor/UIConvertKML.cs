@@ -6,11 +6,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Controller;
+using System.IO;
 
-namespace BlackCat
+namespace Prototype_MapInfoConvertor
 {
     public partial class UIConvertKML : BlackCatParserUI
     {
+        public KMLParserControl KMLParserControl = new KMLParserControl();
         private String MidFileURL;
         private String MifFileURL;
         private String KMLFileURL;
@@ -30,6 +33,13 @@ namespace BlackCat
 
         public UIConvertKML()
         {
+            UISelectFile UISelectFile = new UISelectFile();
+            MidFileURL=UISelectFile.midFilePath;
+            MifFileURL = UISelectFile.mifFilePath;
+            UISelectFileB UISelectFileB = new UISelectFileB();
+            KMLFileURL=UISelectFileB.KMLFilePath;
+            UISelectAdditionalInfo UISelectAdditionalInfo = new UISelectAdditionalInfo();
+            ExcelFileURL = UISelectAdditionalInfo.excelFilePath;
             InitializeComponent();
         }
 
@@ -152,12 +162,59 @@ namespace BlackCat
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            Application.Exit();
+            UIMain UIMain = new UIMain();
+            UIMain.Show();
+            this.Dispose(); Application.Exit();
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-
+            UISelectOutput UISelectOutput = new UISelectOutput();
+            if (UISelectOutput.outPutKMLFilePath != null)
+            {
+                if (KMLParserControl.generateKMLFile(UISelectOutput.outPutKMLFilePath, progressBar1) > 0)
+                {
+                    DialogResult MsgBoxResult;
+                    MsgBoxResult = MessageBox.Show("The KML file can not be created.", "Black Cat Parser Application", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                    if (MsgBoxResult == DialogResult.No)
+                    {
+                        UIMain UIMain = new UIMain();
+                        UIMain.Show();
+                        this.Dispose();
+                    }
+                }
+                else
+                {
+                    DialogResult MsgBoxResult;
+                    MsgBoxResult = MessageBox.Show("The KML file is created.", "Black Cat Parser Application", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                    if (MsgBoxResult == DialogResult.Yes)
+                    {
+                        Application.Exit();
+                    }
+                }
+            }
+            else if (KMLFileURL != null) {
+                if (KMLParserControl.generateKMLFile(KMLFileURL, progressBar1) > 0)
+                {
+                    DialogResult MsgBoxResult;
+                    MsgBoxResult = MessageBox.Show("The KML file can not be created.", "Black Cat Parser Application", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                    if (MsgBoxResult == DialogResult.No)
+                    {
+                        UIMain UIMain = new UIMain();
+                        UIMain.Show();
+                        this.Dispose();
+                    }
+                }
+                else
+                {
+                    DialogResult MsgBoxResult;
+                    MsgBoxResult = MessageBox.Show("The KML file is created.", "Black Cat Parser Application", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                    if (MsgBoxResult == DialogResult.Yes)
+                    {
+                        Application.Exit();
+                    }
+                }
+            }
         }
 
     }

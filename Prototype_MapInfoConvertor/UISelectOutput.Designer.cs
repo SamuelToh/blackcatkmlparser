@@ -1,4 +1,4 @@
-﻿namespace BlackCat
+﻿namespace Prototype_MapInfoConvertor
 {
     partial class UISelectOutput
     {
@@ -45,6 +45,7 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.saveKMLFile = new System.Windows.Forms.SaveFileDialog();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -142,6 +143,7 @@
             this.button1.TabIndex = 99;
             this.button1.Text = "&Cancel";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -151,6 +153,7 @@
             this.button2.TabIndex = 97;
             this.button2.Text = "<< &Previous";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // button5
             // 
@@ -170,6 +173,7 @@
             this.button3.TabIndex = 102;
             this.button3.Text = "&Browse";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // textBox3
             // 
@@ -177,7 +181,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(296, 20);
             this.textBox3.TabIndex = 101;
-            this.textBox3.Text = "C:\\ 10082009_MyTest.Kml";
+            this.textBox3.Text = "C:\\10082009_MyTest.Kml";
             // 
             // label7
             // 
@@ -216,7 +220,7 @@
             this.pictureBox2.TabIndex = 42;
             this.pictureBox2.TabStop = false;
             // 
-            // Function1Destination_Folder
+            // UISelectOutput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -233,7 +237,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox2);
-            this.Name = "Function1Destination_Folder";
+            this.Name = "UISelectOutput";
             this.Text = "Black Cat KML Parser";
             this.Load += new System.EventHandler(this.Function1Destination_Folder_Load);
             this.groupBox1.ResumeLayout(false);
@@ -264,5 +268,6 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.TextBox textBox3;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.SaveFileDialog saveKMLFile;
     }
 }

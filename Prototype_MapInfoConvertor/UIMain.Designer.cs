@@ -1,4 +1,4 @@
-﻿namespace BlackCat
+﻿namespace Prototype_MapInfoConvertor
 {
     partial class UIMain
     {

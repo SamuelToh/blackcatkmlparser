@@ -1,4 +1,4 @@
-﻿namespace BlackCat
+﻿namespace Prototype_MapInfoConvertor
 {
     partial class UISelectAdditionalInfoB
     {
@@ -46,6 +46,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.openXlsFile = new System.Windows.Forms.OpenFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -60,6 +61,7 @@
             this.button3.TabIndex = 105;
             this.button3.Text = "&Browse";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label6
             // 
@@ -87,7 +89,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(298, 20);
             this.textBox3.TabIndex = 103;
-            this.textBox3.Text = "C:\\ 10082009_MyTest.xls";
+            this.textBox3.Text = "C:\\10082009_MyTest.xls";
             // 
             // label7
             // 
@@ -106,6 +108,7 @@
             this.button4.TabIndex = 108;
             this.button4.Text = "&Cancel";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button1
             // 
@@ -115,6 +118,7 @@
             this.button1.TabIndex = 106;
             this.button1.Text = "<< &Previous";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -225,7 +229,11 @@
             this.label9.TabIndex = 110;
             this.label9.Text = "Choose your Excel file to add additional information.";
             // 
-            // Function2SelectFilesB
+            // openXlsFile
+            // 
+            this.openXlsFile.FileName = "openFileDialog1";
+            // 
+            // UISelectAdditionalInfoB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -243,7 +251,7 @@
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox2);
-            this.Name = "Function2SelectFilesB";
+            this.Name = "UISelectAdditionalInfoB";
             this.Text = "Black Cat KML Parser ";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -274,5 +282,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.OpenFileDialog openXlsFile;
     }
 }

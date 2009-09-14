@@ -6,11 +6,15 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
+using Controller;
 
-namespace BlackCat
+namespace Prototype_MapInfoConvertor
 {
     public partial class UISelectAdditionalInfoB : Form
     {
+        public KMLParserControl KMLParserControl = new KMLParserControl();
+        public string excelFilePath;
         public UISelectAdditionalInfoB()
         {
             InitializeComponent();
@@ -19,21 +23,69 @@ namespace BlackCat
 
         private void button2_Click(object sender, EventArgs e)
         {
+            ProgressBar progressbar = new ProgressBar();
             if (this.textBox3.Text != "")
             {
-                UILinkDataSource lds = new UILinkDataSource();
-                lds.Show();
-                this.Dispose();
+                if (KMLParserControl.validateFolder(Path.GetDirectoryName(excelFilePath)) > 0) {
+                    DialogResult MsgBoxResult;
+                    MsgBoxResult = MessageBox.Show("The Excel file you selected is not available.", "Black Cat Parser Application", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                    if (MsgBoxResult == DialogResult.No)
+                    {
+                        Application.Exit();
+                    }
+                }
+                else if (KMLParserControl.loadExcel(excelFilePath, progressbar) > 0)
+                {
+                    DialogResult MsgBoxResult;
+                    MsgBoxResult = MessageBox.Show("The Excel file you selected is not available.", "Black Cat Parser Application", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                    if (MsgBoxResult == DialogResult.No)
+                    {
+                        Application.Exit();
+                    }
+                }
+                else
+                {
+                    this.Visible = false;
+                    UILinkDataSource addInfo = new UILinkDataSource();
+                    addInfo.Show();
+                    this.Dispose();
+                }
 
             }
             else
             {
-                this.Visible = false;
-                UISelectOutput addInfo = new UISelectOutput();
-                addInfo.Show();
-                this.Dispose();
+                DialogResult MsgBoxResult;
+                MsgBoxResult = MessageBox.Show("The Excel file you selected is not available.", "Black Cat Parser Application", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                if (MsgBoxResult == DialogResult.No)
+                {
+                    Application.Exit();
+                }
             }
             
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            UISelectFileB UISelectFileB = new UISelectFileB();
+            UISelectFileB.Show();
+            this.Dispose();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            openXlsFile.InitialDirectory = "C:\\";
+            openXlsFile.FileName = "";
+            openXlsFile.Filter = "Excel File (*.xls)|*.xls";
+            openXlsFile.ShowDialog();
+            excelFilePath = openXlsFile.FileName;
+            textBox3.Text = excelFilePath;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            UIMain UIMain = new UIMain();
+            UIMain.Show();
+            this.Dispose();
         }
     }
 }

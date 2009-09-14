@@ -1,4 +1,4 @@
-﻿namespace BlackCat
+﻿namespace Prototype_MapInfoConvertor
 {
     partial class UISelectFile
     {
@@ -40,7 +40,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -49,6 +48,8 @@
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.openMidFile = new System.Windows.Forms.OpenFileDialog();
+            this.openMifFile = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -109,7 +110,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(289, 20);
             this.textBox4.TabIndex = 37;
-            this.textBox4.Text = "C:\\ MyTest_02.mif";
+            this.textBox4.Text = "C:\\MyTest_02.mif";
             // 
             // label9
             // 
@@ -126,7 +127,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(289, 20);
             this.textBox3.TabIndex = 35;
-            this.textBox3.Text = "C:\\ MyTest.mid";
+            this.textBox3.Text = "C:\\MyTest.mid";
             // 
             // label8
             // 
@@ -172,10 +173,6 @@
             this.label6.TabIndex = 39;
             this.label6.Text = "Step #1 - Select MapInfo files";
             // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.FileName = "openFileDialog1";
-            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(452, 335);
@@ -184,6 +181,7 @@
             this.button1.TabIndex = 96;
             this.button1.Text = "&Cancel";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -213,6 +211,7 @@
             this.button3.TabIndex = 97;
             this.button3.Text = "&Browse";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button6
             // 
@@ -222,6 +221,7 @@
             this.button6.TabIndex = 98;
             this.button6.Text = "&Browse";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // pictureBox4
             // 
@@ -251,7 +251,15 @@
             this.pictureBox1.TabIndex = 24;
             this.pictureBox1.TabStop = false;
             // 
-            // Function1SelectFiles
+            // openMidFile
+            // 
+            this.openMidFile.FileName = "openFileDialog1";
+            // 
+            // openMifFile
+            // 
+            this.openMifFile.FileName = "openFileDialog1";
+            // 
+            // UISelectFile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -271,7 +279,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "Function1SelectFiles";
+            this.Name = "UISelectFile";
             this.Text = "Black Cat KML Parser";
             this.Load += new System.EventHandler(this.Function1SelectFiles_Load);
             this.groupBox1.ResumeLayout(false);
@@ -300,12 +308,13 @@
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.OpenFileDialog openMidFile;
+        private System.Windows.Forms.OpenFileDialog openMifFile;
 
     }
 }
