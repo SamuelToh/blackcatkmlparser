@@ -12,11 +12,12 @@ namespace BlackCat
     public class GeoModel : IGeoModel
     {
 
+
         private const string KML_NAMESPACE_ADDR = "http://www.opengis.net/kml/2.2";
-        public const string BLUE_CODE = "#0000FF";
-        public const string GREEN_CODE = "#00FF00";
-        public const string RED_CODE = "FF0000";
-        public const string YELLOW_CODE = "FFFF00";
+        public const string BLUE_CODE = "7dff0000";
+        public const string GREEN_CODE = "7d00ff00";
+        public const string RED_CODE = "7d0000ff";
+        public const string YELLOW_CODE = "7d00ffff";
         public const string POLYGON_CODE = "POLYGON";
         public const string PLINE_CODE = "PLINE";
         public const string LINE_CODE = "LINE";
@@ -25,6 +26,7 @@ namespace BlackCat
 
         private List<Style> styles = new List<Style>();
         private List<Region> regions = new List<Region>();
+        private List<string> dataFields = new List<string>();
 
         public class Region
         {
@@ -37,6 +39,14 @@ namespace BlackCat
             private Style m_regStyle;
 
             //Constructor
+            public Region(string regionName,
+                    string coordinates,
+                    string regType)
+            {
+                this.regionName = regionName;
+                this.coordinates.Add(coordinates);
+                this.regionType = regionType;
+            }
             public Region(string regionName,
                     string coordinates)
             {
@@ -136,6 +146,11 @@ namespace BlackCat
 
                         ReadRegion(mifReader);
 
+                    else if
+                        (line.ToUpper().StartsWith("COLUMNS"))
+
+                        populateDataFields(mifReader, line);
+
                 }
             }
             catch
@@ -144,6 +159,30 @@ namespace BlackCat
             }
             mifReader.Close();
             return true;
+        }
+
+        //14September
+        private void populateDataFields
+                (StreamReader mifReader, string data)
+        {
+            string[] columnInfo = data.Split(' ');
+
+            if (columnInfo.Length > 1)
+            {
+                int columns =
+                        Convert.ToInt16(columnInfo[1]);
+
+                for (int i = 0; i < columns; i++)
+                {
+                    string[] columnNames = mifReader.ReadLine()
+                                                    .ToString()
+                                                    .TrimStart()
+                                                    .Split(' ');
+
+                    //Take in first identifier, we dont want data type ident
+                    this.dataFields.Add(columnNames[0]);
+                }
+            }
         }
 
         private void ReadRegion(StreamReader mifReader)
@@ -305,7 +344,8 @@ namespace BlackCat
         private void buildRegion(XmlTextReader reader)
         {
             string regionName = "",
-                             coord = "";
+                             regType = "";
+            Region r = new Region();
             reader.Read();
 
             while (reader.Name.ToLower() != "placemark" &&
@@ -316,14 +356,30 @@ namespace BlackCat
                 if (reader.Name.
                             ToLower() == "name")
 
-                    regionName = reader.ReadContentAsString();
+                    r.regionName
+                        = reader.ReadString();
 
 
                 //Search for <polygon> 
                 else if (reader.Name.
                                  ToLower() == "polygon")
+                {
+                    r.regionType = POLYGON_CODE;
+                    r.coordinates = extractCoord(reader);
+                }
+                else if (reader.Name.
+                                 ToLower() == "linestring") //or pline
+                {
+                    r.regionType = LINE_CODE;
+                    r.coordinates = extractCoord(reader);
+                }
+                else if (reader.Name.
+                                 ToLower() == "point")
+                {
+                    r.regionType = POINT_CODE;
+                    r.coordinates = extractCoord(reader);
+                }
 
-                    coord += extractCoord(reader);
                 //break;
 
 
@@ -332,18 +388,20 @@ namespace BlackCat
             }
 
 
-            this.regions.Add
-                (new Region(regionName, coord));
+            this.regions.Add(r);
 
         }
 
-        private string extractCoord(XmlTextReader reader)
+        private List<string> extractCoord(XmlTextReader reader)
         {
+            List<string> coord = new List<string>();
 
             while (reader.Read())
             {
 
-                if (reader.Name.ToLower() == "polygon"
+                if ((reader.Name.ToLower() == "polygon"
+                        || reader.Name.ToLower() == "point"
+                        || reader.Name.ToLower() == "linestring")
                         && reader.NodeType == XmlNodeType.EndElement)
 
                     break;
@@ -352,11 +410,11 @@ namespace BlackCat
                 if (reader.Name.
                            ToLower() == "coordinates")
 
-                    return reader.ReadString();
+                    coord.Add(reader.ReadString());
 
             }
 
-            return "";
+            return coord;
 
         }
 
@@ -459,9 +517,15 @@ namespace BlackCat
                 writer.WriteAttributeString("id",
                                 this.styles[i].styleName);
 
-                writer.WriteStartElement("Polystyle");
+                writer.WriteStartElement("LineStyle");
+                writer.WriteStartElement("width");
+                writer.WriteString("2");
+                writer.WriteEndElement();
+                writer.WriteEndElement();
 
-                writer.WriteStartElement("Color");
+                writer.WriteStartElement("PolyStyle");
+
+                writer.WriteStartElement("color");
                 writer.WriteString(this.styles[i].colorCode);
                 writer.WriteEndElement(); //</color>
 
@@ -625,12 +689,15 @@ namespace BlackCat
         {
             //First element as inner boundary
             writer.WriteStartElement("Polygon");
+            writer.WriteStartElement("extrude"); //indicating the style
+            writer.WriteString("1");
+            writer.WriteEndElement(); //</extrude>
             writer.WriteStartElement("tessellate"); //indicating the style
             writer.WriteString("1");
             writer.WriteEndElement(); //</tessellate>
 
             writer.WriteStartElement("altitudeMode"); //indicating the style
-            writer.WriteString("absolute"); //show the polygon
+            writer.WriteString("clampToGround"); //show the polygon
             writer.WriteEndElement(); //</altitudeMode>
 
             writer.WriteStartElement("outerBoundaryIs"); //indicating the style
@@ -673,14 +740,44 @@ namespace BlackCat
         public void SetRegionStyle
                (string regionIdentifier, Style style)
         {
-            //TODO
-            //this.regions[regIndex].regionStyle = style;
+
+            foreach (Region r in regions)
+
+                if (r.regionName == regionIdentifier)
+                {
+                    r.regionStyle = style;
+                    break;
+                }
+
+            chkModelStyle(style);
+        }
+
+        private void chkModelStyle(Style style)
+        {
+            if (this.styles.Count < 1)
+                styles.Add(style);
+            else
+            {
+                bool hasStyle = false;
+
+                foreach (Style s in styles)
+                    if (s.styleName == style.styleName)
+                        hasStyle = true;
+
+                if (!hasStyle)
+                    this.styles.Add(style);
+            }
         }
 
         public String[] GetRegionIdentifiers()
         {
-            //TODO
-            return new string[3];
+            string[] ident =
+                new string[regions.Count];
+
+            for (int i = 0; i < ident.Length; i++)
+                ident[i] = regions[i].regionName;
+
+            return ident;
         }
 
         private XmlTextWriter getWriter
@@ -713,5 +810,14 @@ namespace BlackCat
         {
             return new StreamReader(fileUrl);
         }
+
+        /*
+         *Added on 14 Sep 
+         */
+        public List<String> DataFieldNames()
+        {
+            return dataFields;
+        }
+
     }
 }
