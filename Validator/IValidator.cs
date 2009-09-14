@@ -10,7 +10,7 @@ using System.Xml;
 using System.Security.AccessControl;
 using System.Xml.Schema;
 
-namespace Validator
+namespace BlackCat
 {
     public interface IValidator
     {

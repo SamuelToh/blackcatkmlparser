@@ -4,17 +4,20 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
+using log4net;
+using log4net.Config;
 
 namespace BlackCat
 {
     public partial class GeoModel
     {
-        public void buildGeoModel(string midURL, string mifURL, ProgressBar bar)
+        public bool BuildGeoModel(string midURL, string mifURL, ProgressBar bar)
         {
             regions = new List<Region>();
 
             StreamReader mifReader = new StreamReader(mifURL);
             StreamReader midReader = new StreamReader(midURL);
+
 
             // READ mif header
             Char delim;
@@ -36,6 +39,8 @@ namespace BlackCat
             // READ mid file - if there is data
             if (dataCount > 0)
                 readMidFile(midReader, delim, regionNameIndex);
+            else
+                log.Info("There was no column information in the mif file - not reading mid file");
 
             // READ mif region information
             int regionCount = 0;
@@ -44,25 +49,26 @@ namespace BlackCat
             {
                 if (line != null)
                 {
-                    if (line.ToLower().StartsWith("Region"))
+                    if (line.ToUpper().StartsWith("REGION"))
                     {
-                        String[] lineParts = line.Split(new Char[] { delim }, StringSplitOptions.RemoveEmptyEntries);
-                        if (lineParts.Length != 2)
-                            throw new MapInfoFormatException("Unexpected \"Region\" line format - wrong number of words on line.");
-                        if (lineParts[0].ToLower().Equals("region"))
-                        {
-                            int polyCount;
-                            bool polyCountSuccess = int.TryParse(lineParts[1], out polyCount);
-                            if (!polyCountSuccess)
-                                throw new MapInfoFormatException("Unexpected \"Region\" line format - count of polygons is not an integer");
-                            readMapInfoRegion(mifReader, polyCount, regionCount);
-                            regionCount++;
-                        }
+                        line = line.Substring(6).Trim();
+                        int polyCount;
+                        bool polyCountSuccess = int.TryParse(line, out polyCount);
+                        if (!polyCountSuccess)
+                            throw new MapInfoFormatException("Unexpected \"Region\" line format - count of polygons is not an integer");
+                        readMapInfoRegion(mifReader, polyCount, regionCount);
+                        log.Debug("Region " + regionCount + " read, incrementing count");
+                        regionCount++;
                     }
                 }
                 line = mifReader.ReadLine();
+                //Remove Pen, Brush, Center information - if it is there
+                while (line.Trim().ToUpper().StartsWith("PEN") || line.Trim().ToUpper().StartsWith("BRUSH") || line.Trim().ToUpper().StartsWith("CENTER"))
+                {
+                    line = mifReader.ReadLine();
+                }
             }
-            
+            return true;
         }
 
         //Reads info from a mif file until it reaches a line beginning with "data" (case insensitive)
@@ -77,13 +83,13 @@ namespace BlackCat
             data[1] = "0";
 
             String line = mifReader.ReadLine();
-            while (!line.Trim().ToLower().Equals("data"))
+            while (!line.Trim().ToUpper().Equals("DATA"))
             {
-                if (line.Trim().ToLower().StartsWith("delimiter"))
+                if (line.Trim().ToUpper().StartsWith("DELIMITER"))
                 {
                     data[0] = line.Substring(line.IndexOf('"') + 1, 1);
                 }
-                else if (line.Trim().ToLower().StartsWith("columns"))
+                else if (line.Trim().ToUpper().StartsWith("COLUMNS"))
                 {
                     String[] lineParts = line.Split(new Char[]{' '}, StringSplitOptions.RemoveEmptyEntries);
                     if(lineParts.Length > 0)
@@ -122,23 +128,28 @@ namespace BlackCat
             //Create new region if necessary
             if (regions[regionIndex] == null)
                 regions[regionIndex] = new Region();
-            
+
             String line;
             int currentPoly = 0;
             while (currentPoly < polygonCount)
             {
+                line = mifReader.ReadLine();
+
                 //Read the number of coordinates in this polygon
                 int coordCount;
-                line = mifReader.ReadLine();
                 Boolean coordSuccess = int.TryParse(line.Trim(), out coordCount);
                 if (!coordSuccess)
                     throw new MapInfoFormatException("Unexpected format in Region - count of coordinates in a polygon was not an integer");
 
                 //Add all coords to region object
-                for(int i = 0 ; i < coordCount ; i++)
+                for (int i = 0; i < coordCount; i++)
+                {
                     regions[regionIndex].coordinates.Add(mifReader.ReadLine());
+                }
+                currentPoly++;
             }
                 
         }
+
     }
 }
