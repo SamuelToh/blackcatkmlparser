@@ -2,42 +2,55 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using System.Collections;
+using System.Data;
+using System.Data.OleDb;
+using System.Xml;
+using System.Security.AccessControl;
+using System.Xml.Schema;
 
-namespace BlackCat
+namespace Validator
 {
     public interface IValidator
     {
+
+        //Check the file format.
+        //pre: filePath != null && fileFormat != null
+        //post: return true the required fileFormat is consistent with the file indicated by filePath..
+        bool validationFileFomart(string filePath, string fileFormat);
+
         // Check the given drive for the sufficient space to write the file
         //Pre: drive exists and the string drive is not the empty string
         //Post: Returns true iff there is sufficient space.
-        //bool hasSufficientDiskSpace(String driveLetter);
+        bool hasSufficientDiskSpace(String driveLetter);
 
         //Tests if the user has write permissions on the given folder
         //Pre : folderURL must exist and folderURL is not the empty string
         //Post : Returns true iff the folder path is writable for the current user.
-        //bool folderIsWritable(String folderURL);
+        bool folderIsWritable(String folderURL);
 
         //Tests if the given folder path exists
         //Pre : folderURL not the empty string
         //Post : Returns true iff a folder can be found at the given path
-        //bool folderExists(String folderURL);
+        bool folderExists(String folderURL);
 
         //Tests if the given file path is readable
         //Pre : fileURL is not the empty string
         //Post : Returns true iff file is indeed readable
-        //bool fileIsReadable(String fileURL);
+        bool fileIsReadable(String fileURL);
 
         //Tests if the given file exists
         //Pre : fileURL is not the empty string
         //Post : Returns true iff the file could be found at the givel location
-        //bool fileExists(String fileURL);
+        bool fileExists(String fileURL);
 
         /// <summary>
         /// Checks that the url is not too long to be written to by .NET.
         /// </summary>
         /// <param name="fileURL"></param>
         /// <returns></returns>
-        //bool urlLengthIsValid(String fileURL);
+        bool urlLengthIsValid(String fileURL);
 
         /// <summary>
         /// Tests if the format of the file is valid. 
