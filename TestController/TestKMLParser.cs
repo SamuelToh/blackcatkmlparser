@@ -16,7 +16,7 @@ namespace TestController
         [Test]
         public void mockTestExample()
         {
-            //Create a test version of some data fields
+            /*/Create a test version of some data fields
             List<String> testDataFieldNames = new List<string>();
             testDataFieldNames.Add("field1");
             testDataFieldNames.Add("field2");
@@ -30,9 +30,9 @@ namespace TestController
             //controller = new KMLParserControl((IGeoModel)mockKmlModel.MockInstance);
 
             //Test a controller method
-            List<String> dataFields = controller.getKMLDataFields();
+            List<String> dataFields = controller.GetKMLDataFields();
             Assert.AreEqual("field1", dataFields[0]);
-            Assert.AreEqual("field2", dataFields[1]);
+            Assert.AreEqual("field2", dataFields[1]);*/
         }
     }
 }

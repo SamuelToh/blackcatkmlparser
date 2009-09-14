@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using log4net.Config;
+using log4net;
 
 namespace BlackCat
 {
@@ -26,7 +28,7 @@ namespace BlackCat
             }
             else
             {
-                XmlConfigurator.Configure(new FileInfo(configPath));
+                //XmlConfigurator.Configure(new FileInfo(configPath));
             }
             //log = LogManager.GetLogger(typeof(Program));
         }

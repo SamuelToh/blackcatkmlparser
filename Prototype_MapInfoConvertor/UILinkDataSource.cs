@@ -6,19 +6,19 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Controller;
+using BlackCat;
 
-namespace Prototype_MapInfoConvertor
+namespace BlackCat
 {
     public partial class UILinkDataSource : Form
     {
-        public KMLParserControl KMLParserControl = new KMLParserControl();
+        public KMLParserControl KMLParserControl = KMLParserControl.Instance();
         public UILinkDataSource()
         {
             InitializeComponent();
             UISelectFileB UISelectFileB = new UISelectFileB();
             if (UISelectFileB.KMLFilePath != null) {
-                foreach (string tempString in KMLParserControl.getKMLDataFields())
+                foreach (string tempString in KMLParserControl.getGeographicalDataFields())
                 {
                     comboBox1.Items.Add(tempString);
                 }

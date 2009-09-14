@@ -6,14 +6,13 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Controller;
 using System.IO;
 
-namespace Prototype_MapInfoConvertor
+namespace BlackCat
 {
     public partial class UISelectFileB : Form
     {
-        public KMLParserControl KMLParserControl = new KMLParserControl();
+        public KMLParserControl KMLParserControl = KMLParserControl.Instance();
         public string KMLFilePath;
         public UISelectFileB()
         {

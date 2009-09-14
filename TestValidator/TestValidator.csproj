@@ -59,12 +59,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestFiles\nonreadable.txt" />
-    <Content Include="TestFiles\readable.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="TestFiles\nonwritable\" />
-    <Folder Include="TestFiles\writable\" />
+    <Folder Include="TestFiles\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

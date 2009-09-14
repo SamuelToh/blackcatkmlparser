@@ -6,14 +6,14 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Controller;
+using BlackCat;
 using System.IO;
 
-namespace Prototype_MapInfoConvertor
+namespace BlackCat
 {
     public partial class UIConvertKML : BlackCatParserUI
     {
-        public KMLParserControl KMLParserControl = new KMLParserControl();
+        public KMLParserControl KMLParserControl = KMLParserControl.Instance();
         private String MidFileURL;
         private String MifFileURL;
         private String KMLFileURL;
