@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Data.OleDb;
+using System.Collections;
 using System.Data;
+using System.Data.OleDb;
 using System.Xml;
 using System.Security.AccessControl;
+using System.Xml.Schema;
 
-namespace BlackCat
+
+namespace Validator
 {
 
     //This class contains a list of methods to verify file/folder 
     //and native file format.
-    public class Validator : IValidator
+    public class ValidationCls : IValidator
     {
         const int MINIMUM_AMT_OF_DISKSPACE = 1000;
 
@@ -210,7 +213,7 @@ namespace BlackCat
 
 
 
-        /*TODO: not usedpublic bool validationFileFomart(string filePath, string fileFormat)
+        public bool validationFileFomart(string filePath, string fileFormat)
         {
             if (filePath == "" || filePath == null || fileFormat == "" || fileFormat == null)
             {
@@ -222,7 +225,7 @@ namespace BlackCat
                 return false;
             }
             return true;
-        }*/
+        }
 
         public bool hasSufficientDiskSpace(String drivePath)
         {
@@ -236,7 +239,7 @@ namespace BlackCat
                 return true;
             }
         }
-        /*TODO: unnecessary methods
+
         public bool folderIsWritable(String folderURL)
         {
             DirectoryInfo directory = new DirectoryInfo(folderURL);
@@ -315,14 +318,18 @@ namespace BlackCat
             {
                 return true;
             }
-        }*/
+        }
 
         public bool validateQFREExcelFormat(String excelURL)
         {//Qld_FederalResults by Electorate-2004.xls
             string conn = " Provider = Microsoft.Jet.OLEDB.4.0 ; Data Source = " + excelURL + ";Extended Properties=Excel 8.0";
             OleDbConnection myConn = new OleDbConnection(conn);
             string comm = " SELECT * FROM [2004 Election$] ";
-            myConn.Open();
+            try
+            {
+                myConn.Open();
+            }
+            catch { return false; }
             OleDbDataAdapter myCommand = new OleDbDataAdapter(comm, myConn);
             DataSet myDataSet = new DataSet();
             myCommand.Fill(myDataSet, "[2004 Election$]");
@@ -755,7 +762,7 @@ namespace BlackCat
             return true;
         }
 
-
+      
 
     }
 
