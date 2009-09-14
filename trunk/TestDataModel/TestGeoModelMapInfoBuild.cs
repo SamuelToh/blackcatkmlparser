@@ -13,9 +13,9 @@ namespace TestDataModel
     [TestFixture]
     public class TestGeoModelMapInfoBuild
     {
-        private String dataFolder = @"..\..\Data";
-        private GeoModel model1;
-        private ProgressBar bar1;
+        private String midFilePath = @"..\..\Data\testMap1.mid";
+        private String mifFilePath = @"..\..\Data\testMap1.mif";
+        private GeoModel model;
 
         [TestFixtureSetUp]
         public void fixtureSetUp()
@@ -26,11 +26,8 @@ namespace TestDataModel
         [SetUp]
         public void setUp()
         {
-            String midPath = Path.Combine(dataFolder, "testMap1.mid");
-            String mifPath = Path.Combine(dataFolder, "testMap1.mif");
-            model1 = new GeoModel();
-            bar1 = new ProgressBar();
-            model1.BuildGeoModel(midPath, mifPath, bar1);
+            model = new GeoModel();
+            model.BuildGeoModel(midFilePath, mifFilePath, new ProgressBar());
         }
         /// <summary>
         /// Populates the model from the supplied mid and mif files. The progress bar is updated throughout.
@@ -44,7 +41,7 @@ namespace TestDataModel
         [Test]
         public void testBuildModelHasRegionIdentifiers()
         {
-            String[] ids = model1.GetRegionIdentifiers();
+            String[] ids = model.GetRegionIdentifiers();
             Assert.AreEqual(3, ids.Length);
             Assert.IsTrue(ids.Contains("regionName1"));
             Assert.IsTrue(ids.Contains("regionName2"));
@@ -54,12 +51,12 @@ namespace TestDataModel
         [Test]
         public void testBuildModelHasRegionCoordinates()
         {
-            String[] coords = model1.GetRegionCoordinates("regionName1");
+            String[] coords = model.GetRegionCoordinates("regionName1");
             Assert.AreEqual(2, coords.Length);
             Assert.AreEqual("152 -27", coords[0]);
             Assert.AreEqual("153 -29", coords[1]);
 
-            coords = model1.GetRegionCoordinates("regionName2");
+            coords = model.GetRegionCoordinates("regionName2");
             Assert.AreEqual(12, coords.Length);
             Assert.AreEqual("156 -34", coords[0]);
             Assert.AreEqual("45 -23", coords[1]);
@@ -74,7 +71,7 @@ namespace TestDataModel
             Assert.AreEqual("57 -87", coords[10]);
             Assert.AreEqual("45 -666", coords[11]);
 
-            coords = model1.GetRegionCoordinates("regionName3");
+            coords = model.GetRegionCoordinates("regionName3");
             Assert.AreEqual(9, coords.Length);
             Assert.AreEqual("152 -27", coords[0]);
             Assert.AreEqual("153 -29", coords[1]);
@@ -87,5 +84,15 @@ namespace TestDataModel
             Assert.AreEqual("123 -78", coords[8]);
         }
 
+        [Test]
+        public void testBuildModelUpdatesProgressBar()
+        {
+            GeoModel progressModel = new GeoModel();
+            ProgressBar bar = new ProgressBar();
+
+            Assert.AreEqual(0, bar.Value);
+            progressModel.BuildGeoModel(midFilePath, mifFilePath, bar);
+            Assert.AreEqual(100, bar.Value);
+        }
     }
 }

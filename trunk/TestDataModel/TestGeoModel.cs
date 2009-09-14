@@ -2,23 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using NUnit.Framework;
+using BlackCat;
 
 namespace TestDataModel
 {
-    [TestFixture] 
+    
     public class TestGeoModel
     {
-
-        /// <summary>
-        /// Populates the model from the supplied kml file. The progress bar is updated throughout.
-        /// Pre: The kml file is valid.
-        /// Post: The model is populated.
-        /// </summary>
-        /// <param name="kmlFileURL">The url of the KML file. Must not be null</param>
-        /// <param name="progressBar">This will be updated during the process.</param>
-        //void buildGeoModel(String kmlFileURL, ProgressBar progressBar);
-
         /// <summary>
         /// Writes the model in KML format to the supplied output URL. The progress bar is updated throughout.
         /// Pre: The outputFileURL is a valid, writable path.
@@ -34,12 +26,56 @@ namespace TestDataModel
         /// <param name="regionIdentifier">The region to set.</param>
         /// <param name="style">The style - if this is null, the style will be set to the default style.</param>
         //void setRegionStyle(String regionIdentifier, Style style);
+        [Test]
+        public void testSetRegionStyleBuiltFromMapInfo()
+        {
+            //Create the model
+            String midFilePath = @"..\..\Data\testMap1.mid";
+            String mifFilePath = @"..\..\Data\testMap1.mif";
+            GeoModel model = new GeoModel();
+            model.BuildGeoModel(midFilePath, mifFilePath, new ProgressBar());
 
-        /// <summary>
-        /// Return the identifiers for all regions in the model.
-        /// </summary>
-        /// <returns>An array of region identifiers.</returns>
-        //String[] getRegionIdentifiers();
+            //and the styles
+            Style testStyle1 = new Style("color1", "name1");
+            Style testStyle2 = new Style("color2", "name2");
+            Style testStyle3 = new Style("color3", "name3");
+
+            //set the styles
+            String[] ids = model.GetRegionIdentifiers();
+            model.SetRegionStyle(ids[0], testStyle1);
+            model.SetRegionStyle(ids[1], testStyle2);
+            model.SetRegionStyle(ids[2], testStyle3);
+
+            //check the styles
+            Assert.AreSame(testStyle1, model.GetRegionStyle(ids[0]));
+            Assert.AreSame(testStyle2, model.GetRegionStyle(ids[1]));
+            Assert.AreSame(testStyle3, model.GetRegionStyle(ids[2]));
+        }
+
+        [Test]
+        public void testSetRegionStyleBuiltFromKML()
+        {
+            //Create the model
+            String testKML = @"..\..\Data\testKML1.kml";
+            GeoModel model = new GeoModel();
+            model.BuildGeoModel(testKML, new ProgressBar());
+
+            //and the styles
+            Style testStyle1 = new Style("color1", "name1");
+            Style testStyle2 = new Style("color2", "name2");
+            Style testStyle3 = new Style("color3", "name3");
+
+            //set the styles
+            String[] ids = model.GetRegionIdentifiers();
+            model.SetRegionStyle(ids[0], testStyle1);
+            model.SetRegionStyle(ids[1], testStyle2);
+            model.SetRegionStyle(ids[2], testStyle3);
+
+            //check the styles
+            Assert.AreSame(testStyle1, model.GetRegionStyle(ids[0]));
+            Assert.AreSame(testStyle2, model.GetRegionStyle(ids[1]));
+            Assert.AreSame(testStyle3, model.GetRegionStyle(ids[2]));
+        }
 
     }
 }

@@ -39,6 +39,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.mocks, Version=2.5.2.9222, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\nunit.mocks.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -64,6 +68,10 @@
     <ProjectReference Include="..\dataModel\DataModel.csproj">
       <Project>{8B1EEEA5-7778-4DBD-915C-A0B220785484}</Project>
       <Name>DataModel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ResourceReader\Input.csproj">
+      <Project>{4847A6CD-76EA-4CBD-8FC4-FB8471B697AC}</Project>
+      <Name>Input</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

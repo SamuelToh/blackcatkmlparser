@@ -6,7 +6,7 @@ using System.Data;
 
 namespace BlackCat
 {
-    interface IResourceReader
+    public interface IResourceReader
     {
 
         // pre: true

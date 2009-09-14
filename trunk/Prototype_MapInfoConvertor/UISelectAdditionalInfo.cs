@@ -7,13 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
-using Controller;
 
-namespace Prototype_MapInfoConvertor
+namespace BlackCat
 {
     public partial class UISelectAdditionalInfo : Form
     {
-        public KMLParserControl KMLParserControl = new KMLParserControl();
+        public KMLParserControl KMLParserControl = KMLParserControl.Instance();
         public string excelFilePath;
         public string excelFolderPath;
         public UISelectAdditionalInfo()

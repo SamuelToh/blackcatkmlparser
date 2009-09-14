@@ -3,49 +3,37 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using System.Text;
+using System.Data;
 
 namespace BlackCat
 {
-    public class DataMerger //: IDataMerger
+    public class DataMerger : IDataMerger
     {
+        
         // constructor
-        public DataMerger()
-        {
+        public DataMerger() 
+        {       
         }
 
-        // Tests whether kml model and sociological model can link by the selected columns.
+        // Tests whether geographical model and sociological model can link by the selected columns.
         // Returns true if kml model and sociological model can link. Otherwise, returns false.
         // Pre: kmlModel and socialTbl are not null and kmlColumnName and socColumnName are not empty strings
         // Post: Returns true if column names are matched, otherwise returns false. 
-        public bool canLink(SocialModel socialM, String socColumnName)
+        public bool canLink(IGeoModel geoM, String geoColumnName, ISocialModel socialM, String socColumnName)
         {
-            ArrayList socioDataList;
-            ArrayList kmlDataList;
+            List<String> socioDataList = socialM.getSocioColumnData(socColumnName);
+            String[] geoDataList = geoM.GetRegionIdentifiers();
             bool matched = false;
             int i = 0;
             int j = 0;
-
-            //gets sociological data that is selected sociological column name
-            socioDataList = new ArrayList(socialM.getSocioColumnData(socColumnName));
-            //gets kml data that is selected kml column name  **********
-            kmlDataList = new ArrayList();
-
-            //- for testing only
-            kmlDataList.Add("Blair");
-            kmlDataList.Add("Bonner");
-            kmlDataList.Add("Bowman");
-            kmlDataList.Add("Brisbane");
-            //kmlDataList.Add("123");
-            kmlDataList.Add("Capricornia");
-
-            //-----------------------------
-            int kmlDataCount = kmlDataList.Count;
+                        
+            int geoDataCount = geoDataList.Length;
             int socialDataCount = socioDataList.Count;
 
             // search matching column names
-            while (j < socialDataCount && i < kmlDataCount)
+            while (j < socialDataCount && i < geoDataCount)
             {
-                if (kmlDataList[i].Equals(socioDataList[j]))
+                if (geoDataList[i].Equals(socioDataList[j]))
                 {
                     // found matched data
                     matched = true;
@@ -63,7 +51,7 @@ namespace BlackCat
 
             return matched;
         }
-
+        
         // Links a Geographical Model with the data in a SocialModel using the columns the user has indicated should be used. 
         // pre: geoM and socialM are not null. geoColName and socialColName are not empty string.
         // post: Returns an integer denoting success(0) or failure (1).
@@ -113,7 +101,6 @@ namespace BlackCat
 
             return success;
         }
-    
 
     }
 }

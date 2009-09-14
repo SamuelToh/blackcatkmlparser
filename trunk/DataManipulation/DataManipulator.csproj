@@ -56,6 +56,10 @@
       <Project>{8B1EEEA5-7778-4DBD-915C-A0B220785484}</Project>
       <Name>DataModel</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TestDataModel\TestDataModel.csproj">
+      <Project>{170A5507-2592-4A20-BA70-EF83F56338D1}</Project>
+      <Name>TestDataModel</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
