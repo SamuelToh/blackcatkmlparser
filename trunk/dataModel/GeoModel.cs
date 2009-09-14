@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml;
 using System.Text.RegularExpressions;
+using System.Threading;
 using log4net;
 using log4net.Config;
 
@@ -30,6 +31,11 @@ namespace BlackCat
         private List<Style> styles = new List<Style>();
         private List<Region> regions = new List<Region>();
         private List<string> dataFields = new List<string>();
+
+        long totalSize;
+        long currRead = 1;
+        ProgressBar tempBar;
+        static Mutex mutex = new Mutex(false, "blackCatLock");
 
         public class Region
         {
@@ -89,6 +95,13 @@ namespace BlackCat
         {
             bool endOfFile = false;
 
+            this.totalSize = getFileSize(kmlFileURL);
+            this.tempBar = bar;
+            ThreadStart theprogress = new ThreadStart(updateBar);
+            Thread startprogress = new Thread(theprogress);
+            startprogress.Start();
+
+
             XmlTextReader reader = getReader(kmlFileURL);
             try
             {
@@ -98,7 +111,7 @@ namespace BlackCat
                     string tagName = reader.Name
                                                   .ToLower();
 
-
+                    incrementRead();
 
                     switch (tagName)
                     {
@@ -132,14 +145,44 @@ namespace BlackCat
                 return false;
             }
 
+            startprogress.Abort();
+            this.totalSize = 0;
+            this.currRead = 1;
             return true;
         }
 
-        /*public bool BuildGeoModel
+        private long getFileSize(string fileURL)
+        {
+            return File.ReadAllLines(fileURL).Length;
+            //return fileSize.Length;
+        }
+
+        private void updateBar()
+        {
+            while (tempBar.Value < 90)
+            {
+                Thread.Sleep(50);
+                mutex.WaitOne();
+                double m_Value = Convert.ToDouble(currRead) / Convert.ToDouble(this.totalSize);
+                tempBar.Value = Convert.ToInt16(m_Value * 100);
+                //Console.WriteLine("The value now is : " + tempBar.Value);
+                mutex.ReleaseMutex();
+            }
+        }
+
+        /*
+        public bool BuildGeoModel
                 (String midFileURL, String mifFileURL, ProgressBar bar)
         {
             string line = "";
             StreamReader mifReader = this.getReader(mifFileURL, true);
+
+            this.totalSize = getFileSize(mifFileURL);
+            this.tempBar = bar;
+            ThreadStart theprogress = new ThreadStart(updateBar);
+            Thread startprogress = new Thread(theprogress);
+            startprogress.Start();
+
             try
             {
                 //Data Section
@@ -161,6 +204,9 @@ namespace BlackCat
                 return false;
             }
             mifReader.Close();
+            startprogress.Abort();
+            this.totalSize = 0;
+            this.currRead = 1;
             return true;
         }*/
 
@@ -181,11 +227,19 @@ namespace BlackCat
                                                     .ToString()
                                                     .TrimStart()
                                                     .Split(' ');
-
+                    incrementRead();
                     //Take in first identifier, we dont want data type ident
                     this.dataFields.Add(columnNames[0]);
                 }
             }
+        }
+
+        //14September - Threading for progress Bar
+        private void incrementRead()
+        {
+            mutex.WaitOne();
+            this.currRead++;
+            mutex.ReleaseMutex();
         }
 
         private void ReadRegion(StreamReader mifReader)
@@ -195,6 +249,8 @@ namespace BlackCat
 
             while ((line = mifReader.ReadLine()) != null)
             {
+                incrementRead();
+
                 lineParts = line.Split(' ');
 
                 if (lineParts.Length > 1)
@@ -253,6 +309,8 @@ namespace BlackCat
                                  Replace(' ', ',') + ",0 \n"
                                  + RAW_INDENTATION;
 
+                    incrementRead();
+
                     if (!brushPattern.IsMatch(temp) ||
                            !penPattern.IsMatch(temp))
 
@@ -276,6 +334,7 @@ namespace BlackCat
 
             for (int i = 0; i < plineCount; i++)
             {
+                incrementRead();
                 //Not last item
                 if (i != plineCount - 1)
                     coord += mifReader.ReadLine().
@@ -298,13 +357,16 @@ namespace BlackCat
             Region reg = new Region(LINE_CODE);
 
             for (int i = 1; i < lineData.Length; i++)
+            {
+                incrementRead();
+
                 if (i % 2 == 0)
                     coord += lineData[i]
                                 + "\n" + RAW_INDENTATION;
                 else
                     coord += lineData[i] + ",";
 
-
+            }
             coord = coord.Substring(0,
                             coord.Length - 1); //remove \n and extra .
             // + "\n"
@@ -321,6 +383,7 @@ namespace BlackCat
             (StreamReader mifReader, string[] lineData)
         {
             mifReader.ReadLine(); //Reads Symbol data and ignore it;
+            incrementRead();
             string coord = "";
 
             Region reg = new Region(POINT_CODE);
@@ -346,10 +409,9 @@ namespace BlackCat
 
         private void buildRegion(XmlTextReader reader)
         {
-            string regionName = "",
-                             regType = "";
             Region r = new Region();
             reader.Read();
+            incrementRead();
 
             while (reader.Name.ToLower() != "placemark" &&
                        reader.NodeType != XmlNodeType.EndElement)
@@ -387,7 +449,7 @@ namespace BlackCat
 
 
                 reader.Skip();
-
+                incrementRead();
             }
 
 
@@ -401,6 +463,7 @@ namespace BlackCat
 
             while (reader.Read())
             {
+                incrementRead();
 
                 if ((reader.Name.ToLower() == "polygon"
                         || reader.Name.ToLower() == "point"
@@ -454,6 +517,7 @@ namespace BlackCat
 
             while (reader.Read())
             {
+                incrementRead();
                 //Incase we couldnt find color tag we break off the loop
                 if (reader.Name.ToLower() == "polystyle"
                             && reader.NodeType == XmlNodeType.EndElement)
@@ -824,3 +888,5 @@ namespace BlackCat
 
     }
 }
+
+
