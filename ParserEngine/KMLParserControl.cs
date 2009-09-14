@@ -26,8 +26,8 @@ namespace BlackCat
 
          private KMLParserControl()
          {
-             geoModel = new GeoModel();
-             excelModel = new SocialModel();
+             GeoModel geoModel = new GeoModel();
+             SocialModel excelModel = new SocialModel();
          }
 
         // Special property needed to implement the Singleton design pattern. Either instantiates
@@ -420,23 +420,23 @@ namespace BlackCat
 
             switch (fileExtension.ToLower())
             {
-                case "mid":
+                case ".mid":
                     passedTest = myValidator.validateMidFormat(fileURL);
                     // What is this?
                     //passedTest = myValidator.validateMidFormat(fileURL, "tempString");
                     break;
 
-                case "mif":
+                case ".mif":
                     passedTest = myValidator.validateMifFormat(fileURL);
                     //passedTest = myValidator.validateMifFormat(fileURL, "tempString");
                     break;
 
-                case "kml":
+                case ".kml":
                     passedTest = myValidator.validateKMLFormat(fileURL);
                     break;
 
-                case "xls":
-                case "csv":
+                case ".xls":
+                case ".csv":
                     passedTest = myValidator.validateExcelFormat(fileURL);
                     break;
 
