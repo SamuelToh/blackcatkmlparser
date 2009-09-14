@@ -6,17 +6,17 @@ using System.Collections;
 using System.Data;
 using System.Data.OleDb;
 
-namespace ReadExcelData
+namespace BlackCat
 {
-    class ResourceReader : IResourceReader
+    public class ResourceReader : IResourceReader
     {
         private const int numFirstPref = 6;
         private ArrayList colList = new ArrayList();
         private DataTable socialTable = new DataTable("SocialTable");
-        // stores first preference party names
-        private ArrayList firstPrefParties = new ArrayList();
-        // stores TPP
-        private ArrayList tppNames = new ArrayList();
+
+        public ResourceReader() 
+        {
+        }
 
         // Reads excel file from the specified path. List of column names, table data, 
         // first preferences party names and TPP names are stored.
@@ -56,6 +56,11 @@ namespace ReadExcelData
 
                 //stores party names
                 int num = 0;
+                // stores first preference party names
+                ArrayList firstPrefParties = new ArrayList();
+                // stores TPP
+                ArrayList tppNames = new ArrayList();
+
                 foreach (DataColumn partyCol in dsParty.Tables[0].Columns)
                 {
                     if (num < numFirstPref)
@@ -117,7 +122,7 @@ namespace ReadExcelData
                     //type for the DataColumns
                     Type typString = typeof(String);
                     // create column
-                    foreach (String colName in getColList())
+                    foreach (String colName in colList)
                     {
                         DataColumn col = new DataColumn(colName, typString);
                         socialTable.Columns.Add(col);
@@ -156,18 +161,10 @@ namespace ReadExcelData
         }
 
         // pre: true
-        // post: Returns list of column names
-        public ArrayList getColList()
-        {
-            return colList;
-        }
-
-        // pre: true
         // post: Returns a sociological table
         public DataTable getSocialTable()
         {
             return socialTable;
         }
-
-    }
+     }
 }
