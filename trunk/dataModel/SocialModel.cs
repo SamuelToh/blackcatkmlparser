@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
-using System.Collections;
 using System.Data;
 
 namespace BlackCat
@@ -12,66 +12,37 @@ namespace BlackCat
     {
 
         //Contains a list of column names 
-        private ArrayList socioCols;
-
-        //origical data table
-        private DataTable tblSocialData;
-        // data table including winner party
-        private DataTable updatedTbl;
-
-        //stores party names
-        private ArrayList firstPrefParties;
-        private ArrayList tppNames;
+        //private ArrayList socioCols;
+        private List<String> socioCols;
+        
+        private ResourceReader reader;
 
         //Constructor
         public SocialModel()
         {
-            socioCols = new ArrayList();
-            tblSocialData = new DataTable();
-            updatedTbl = new DataTable();
-            firstPrefParties = new ArrayList();
-            tppNames = new ArrayList();
+            socioCols = new List<String>();
         }
 
 
         //Overload constructor
         //Pre: colList, table, firstPrefParties and tpp are not null
         //Post: The SocialModel object is populated with the data contained in the Excel file
-        public SocialModel(ArrayList colList, DataTable table, ArrayList firstPrefParties, ArrayList tpp)
+        public SocialModel(ResourceReader reader)
         {
-            this.socioCols = new ArrayList(colList);
-            this.tblSocialData = table.Copy();
-            this.updatedTbl = table.Copy();
-            this.firstPrefParties = new ArrayList(firstPrefParties);
-            this.tppNames = new ArrayList(tpp);
+            this.reader = new ResourceReader();
+            this.reader = reader;
+            this.socioCols = new List<string>();
         }
 
         // pre: true
         // post: returns the sociological column names
-        public ArrayList getColumnNames()
+        public List<String> getColumnNames()
         {
+            foreach (DataColumn col in reader.getSocialTable().Columns) 
+            {
+                socioCols.Add(col.ToString());
+            }
             return socioCols;
-        }
-
-        // pre: true
-        // post: returns the original sociological table
-        public DataTable getDataTbl()
-        {
-            return tblSocialData;
-        }
-
-        // pre: true
-        // post: returns list of first preferences party names
-        public ArrayList getFirstPrefParties()
-        {
-            return this.firstPrefParties;
-        }
-
-        // pre: true
-        // post: returns list of TPP names
-        public ArrayList getTPPNames()
-        {
-            return tppNames;
         }
 
         //This method is used to update social data table. The winner party is calculated by 
@@ -79,7 +50,7 @@ namespace BlackCat
         //  . Else highest in TPP is a winner party.
         //pre: true
         //post: social data table includes winner party in each row.
-        public void calculateWinners()
+        private void calculateWinners()
         {
             // stores winning party name
             String winPartyName;
@@ -93,14 +64,15 @@ namespace BlackCat
 
             // create a column and add column data
             DataColumn col = new DataColumn("winnerParty", typString);
-            updatedTbl.Columns.Add(col);
+            
+            reader.getSocialTable().Columns.Add(col);
 
-            DataRow[] currentRows = updatedTbl.Select(
+            DataRow[] currentRows = reader.getSocialTable().Select(
                              null, null, DataViewRowState.CurrentRows);
 
             foreach (DataRow row in currentRows)
             {
-                foreach (DataColumn column in updatedTbl.Columns)
+                foreach (DataColumn column in reader.getSocialTable().Columns)
                 {
                     if (column.ColumnName.Contains("First"))
                     {
@@ -135,29 +107,24 @@ namespace BlackCat
             }
         }
 
-        // pre: true
-        // post: returns a sociological table including winner parties
-        public DataTable getUpdatedTable()
-        {
-            return updatedTbl;
-        }
-
         // pre: electorate is not empty string and also is not null
         // post: returns a winning party name of specified electorate. If specified electorate could not
         //       find, returns an empty string.
         public string getSeatWinner(string electorate)
         {
-            string winnerParty = "";
+            string winnerParty ="";
 
-            DataRow[] currentRows = updatedTbl.Select(
+            DataRow[] currentRows = reader.getSocialTable().Select(
                              null, null, DataViewRowState.CurrentRows);
+
+            calculateWinners();
 
             foreach (DataRow row in currentRows)
             {
                 // check matching electorate
                 if (row["Division"].Equals(electorate))
                 {
-                    winnerParty = row["winnerParty"].ToString();
+                    winnerParty = row["winnerParty"].ToString();  
                 }
             }
 
@@ -171,12 +138,12 @@ namespace BlackCat
         {
             ArrayList socDataList = new ArrayList();
 
-            DataRow[] currentRows = tblSocialData.Select(
+            DataRow[] currentRows = reader.getSocialTable().Select(
                              null, null, DataViewRowState.CurrentRows);
+
             foreach (DataRow row in currentRows)
             {
                 socDataList.Add(row[selectedColName]);
-
             }
             return socDataList;
         }
