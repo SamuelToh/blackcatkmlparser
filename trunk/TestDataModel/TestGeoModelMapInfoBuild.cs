@@ -94,5 +94,17 @@ namespace TestDataModel
             progressModel.BuildGeoModel(midFilePath, mifFilePath, bar);
             Assert.AreEqual(100, bar.Value);
         }
+
+
+        [Test]
+        public void testGeoModelBuild()
+        {
+            GeoModel model = new GeoModel();
+            String testMid = @"..\..\Data\QLD_Federal_Electoral_Boundaries.MID";
+            String testMif = @"..\..\Data\QLD_Federal_Electoral_Boundaries.mif";
+
+            bool result = model.BuildGeoModel(testMid, testMif, new ProgressBar());
+            Assert.IsTrue(result);
+        }
     }
 }

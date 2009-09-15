@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Input", "ResourceReader\Inp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestInput", "TestInput\TestInput.csproj", "{E7C1654C-B4E4-417C-886F-36EC8B11744D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestIntegration", "TestIntegration\TestIntegration.csproj", "{6A11A552-2C3D-47DA-81EA-F4DC30237F7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{E7C1654C-B4E4-417C-886F-36EC8B11744D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E7C1654C-B4E4-417C-886F-36EC8B11744D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E7C1654C-B4E4-417C-886F-36EC8B11744D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A11A552-2C3D-47DA-81EA-F4DC30237F7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A11A552-2C3D-47DA-81EA-F4DC30237F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A11A552-2C3D-47DA-81EA-F4DC30237F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A11A552-2C3D-47DA-81EA-F4DC30237F7B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,5 +98,6 @@ Global
 		{EF7FCC9E-C787-455F-9C85-15CD32EB19FD} = {F42F7E84-66E4-4679-A395-E2E9305DFD62}
 		{25C75DC8-2665-453B-B193-CE06B5EA0261} = {F42F7E84-66E4-4679-A395-E2E9305DFD62}
 		{E7C1654C-B4E4-417C-886F-36EC8B11744D} = {F42F7E84-66E4-4679-A395-E2E9305DFD62}
+		{6A11A552-2C3D-47DA-81EA-F4DC30237F7B} = {F42F7E84-66E4-4679-A395-E2E9305DFD62}
 	EndGlobalSection
 EndGlobal

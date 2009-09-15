@@ -29,8 +29,12 @@
         private void InitializeComponent()
         {
             this.progressGenerating = new System.Windows.Forms.ProgressBar();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblConverting = new System.Windows.Forms.Label();
             this.SuspendLayout();
+            // 
+            // btnCancel
+            // 
+            this.btnCancel.Text = "&Finish";
             // 
             // btnNext
             // 
@@ -49,28 +53,28 @@
             this.progressGenerating.TabIndex = 116;
             this.progressGenerating.Value = 55;
             // 
-            // label7
+            // lblConverting
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(233, 156);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(67, 13);
-            this.label7.TabIndex = 115;
-            this.label7.Text = "Converting...";
+            this.lblConverting.AutoSize = true;
+            this.lblConverting.Location = new System.Drawing.Point(233, 156);
+            this.lblConverting.Name = "lblConverting";
+            this.lblConverting.Size = new System.Drawing.Size(67, 13);
+            this.lblConverting.TabIndex = 115;
+            this.lblConverting.Text = "Converting...";
             // 
             // UIConvertKML
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(537, 370);
             this.Controls.Add(this.progressGenerating);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.lblConverting);
             this.Name = "UIConvertKML";
             this.Load += new System.EventHandler(this.UIConvertKML_Load);
             this.Controls.SetChildIndex(this.btnNext, 0);
             this.Controls.SetChildIndex(this.btnPrevious, 0);
             this.Controls.SetChildIndex(this.btnCancel, 0);
             this.Controls.SetChildIndex(this.lblStepDescriptor, 0);
-            this.Controls.SetChildIndex(this.label7, 0);
+            this.Controls.SetChildIndex(this.lblConverting, 0);
             this.Controls.SetChildIndex(this.progressGenerating, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -80,6 +84,6 @@
         #endregion
 
         private System.Windows.Forms.ProgressBar progressGenerating;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblConverting;
     }
 }

@@ -16,63 +16,79 @@ namespace BlackCat
         {
             regions = new List<Region>();
 
-            StreamReader mifReader = new StreamReader(mifURL);
-            StreamReader midReader = new StreamReader(midURL);
-            bar.Maximum = 100;
-
-            // READ mif header
-            Char delim;
-            int dataCount;
-            String[] headerData = readHeader(mifReader);
-
-            bool delimSuccess = char.TryParse(headerData[0], out delim);
-            bool dataCountSuccess = int.TryParse(headerData[1], out dataCount);
-            if (!delimSuccess)
-                throw new MapInfoFormatException("Mif file Delimiter information in unexpected format");
-            if (!dataCountSuccess)
-                throw new MapInfoFormatException("Mif file Column information in unexpected format");
-
-            //TODO: this is hard coded to be the second data item - in our test MapInfo files, this is Elect_div
-            int regionNameIndex = 0;
-            if (dataCount > 1)
-                regionNameIndex = 1;
-
-            // READ mid file - if there is data
-            if (dataCount > 0)
-                readMidFile(midReader, delim, regionNameIndex);
-            else
-                log.Info("There was no column information in the mif file - not reading mid file");
-                        
-            // READ mif DATA information
-            int regionCount = 0;
-            String line = mifReader.ReadLine();
-            while (!mifReader.EndOfStream)
+            try
             {
-                if (line != null)
+                StreamReader mifReader = new StreamReader(mifURL);
+                StreamReader midReader = new StreamReader(midURL);
+                bar.Maximum = 100;
+
+                // READ mif header
+                Char delim;
+                int dataCount;
+                String[] headerData = readHeader(mifReader);
+
+                bool delimSuccess = char.TryParse(headerData[0], out delim);
+                bool dataCountSuccess = int.TryParse(headerData[1], out dataCount);
+                if (!delimSuccess)
+                    throw new MapInfoFormatException("Mif file Delimiter information in unexpected format");
+                if (!dataCountSuccess)
+                    throw new MapInfoFormatException("Mif file Column information in unexpected format");
+
+                //TODO: this is hard coded to be the second data item - in our test MapInfo files, this is Elect_div
+                int regionNameIndex = 0;
+                if (dataCount > 1)
                 {
-                    if (line.ToUpper().StartsWith("REGION"))
-                    {
-                        line = line.Substring(6).Trim();
-                        int polyCount;
-                        bool polyCountSuccess = int.TryParse(line, out polyCount);
-                        if (!polyCountSuccess)
-                            throw new MapInfoFormatException("Unexpected \"Region\" line format - count of polygons is not an integer");
-                        readMapInfoRegion(mifReader, polyCount, regionCount);
-                        log.Debug("Region " + regionCount + " read, incrementing count");
-                        regionCount++;
-                    }
-                }
-                line = mifReader.ReadLine();
-                //Remove Pen, Brush, Center information - if it is there
-                while (line.Trim().ToUpper().StartsWith("PEN") || line.Trim().ToUpper().StartsWith("BRUSH") || line.Trim().ToUpper().StartsWith("CENTER"))
-                {
-                    line = mifReader.ReadLine();
+                    regionNameIndex = 1;
+                    dataFields.Add("Elect_div");
                 }
 
-                //increment bar 
-                bar.Value = (int)(regionCount / regions.Count * 100);
+                // READ mid file - if there is data
+                if (dataCount > 0)
+                    readMidFile(midReader, delim, regionNameIndex);
+                else
+                    log.Info("There was no column information in the mif file - not reading mid file");
+
+                // READ mif DATA information
+                int regionCount = 0;
+                String line = mifReader.ReadLine();
+                while (!mifReader.EndOfStream)
+                {
+                    if (line != null)
+                    {
+                        if (line.ToUpper().StartsWith("REGION"))
+                        {
+                            line = line.Substring(6).Trim();
+                            int polyCount;
+                            bool polyCountSuccess = int.TryParse(line, out polyCount);
+                            if (!polyCountSuccess)
+                                throw new MapInfoFormatException("Unexpected \"Region\" line format - count of polygons is not an integer");
+                            readMapInfoRegion(mifReader, polyCount, regionCount);
+                            log.Debug("Region " + regionCount + " read, incrementing count");
+                            regionCount++;
+                        }
+                    }
+                    line = mifReader.ReadLine();
+                    //Remove Pen, Brush, Center information - if it is there
+                    while (line != null &&
+                        (line.Trim().ToUpper().StartsWith("PEN") ||
+                        line.Trim().ToUpper().StartsWith("BRUSH") ||
+                        line.Trim().ToUpper().StartsWith("CENTER")))
+                    {
+                        line = mifReader.ReadLine();
+                    }
+
+                    //increment bar 
+                    bar.Value = (int)(regionCount / regions.Count * 100);
+                }
+                return true;
             }
-            return true;
+            catch (Exception e)
+            {
+                //TODO: catch more specific exceptions
+                log.Error("Exception occurred while building GeoModel from MapInfo files");
+                log.Error(e.Message);
+            }
+            return false;
         }
 
         //Reads info from a mif file until it reaches a line beginning with "data" (case insensitive)
@@ -117,8 +133,15 @@ namespace BlackCat
             {
                 String[] lineParts = line.Split(delim);
                 Region reg = new Region();
-                if(regionNameIndex < lineParts.Length)
-                    reg.regionName = lineParts[regionNameIndex];
+                if (regionNameIndex < lineParts.Length)
+                {
+                    //Remove inverted commas if necessary - mapinfo adds these to string data
+                    char[] commas = new char[]{'\"'}; 
+                    string name = lineParts[regionNameIndex];
+                    name = name.TrimStart(commas);
+                    name = name.TrimEnd(commas);
+                    reg.regionName = name;
+                }
                 else
                     throw new MapInfoMismatchException("Data in .mif header does not match data in .mid file");
                 regions.Add(reg);

@@ -76,10 +76,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\Qld_FederalResults by Electorate-2004.xls" />
+    <None Include="Data\QLD_Federal_Electoral_Boundaries.mif" />
     <None Include="Data\testKML1.kml" />
     <None Include="Data\testMap1.mif" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\QLD_Federal_Electoral_Boundaries.MID" />
     <Content Include="Data\testMap1.mid" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -48,8 +48,6 @@
             // 
             this.cbbExcelField.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbbExcelField.FormattingEnabled = true;
-            this.cbbExcelField.Items.AddRange(new object[] {
-            "Division"});
             this.cbbExcelField.Location = new System.Drawing.Point(236, 259);
             this.cbbExcelField.Name = "cbbExcelField";
             this.cbbExcelField.Size = new System.Drawing.Size(284, 21);

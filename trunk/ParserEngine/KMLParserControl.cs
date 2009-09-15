@@ -37,6 +37,16 @@ namespace BlackCat
              log = LogManager.GetLogger(this.ToString());
          }
 
+         public void ClearFields()
+         {
+             log = LogManager.GetLogger(this.ToString());
+             geoModel = null;
+             socioModel = null;
+             geoLinkField = "";
+             socioLinkField = "";
+             merger = new DataMerger();
+         }
+
         // Special property needed to implement the Singleton design pattern. Either instantiates
         // the class if this has not occurred yet or returns a reference to the class if 
         // instantiation has occurred.
@@ -89,7 +99,7 @@ namespace BlackCat
              // updating when the GeoModel is being written to file.
 
              
-             int errorCode = 0;
+             //int errorCode = 0;
               
              // Link the data if required. The nested if attempts to link the data and set the error code
              // in one operation.
@@ -99,6 +109,7 @@ namespace BlackCat
                  if (!(linkGeographicalAndSocialData(geoLinkField, socioLinkField)))
                  {
                      // 1 indicates a problem, so exit immediately.
+                     log.Debug("Could not link files");
                      return 1;
                  }
              }
@@ -106,7 +117,7 @@ namespace BlackCat
              // If we reach here, all has gone well so far. Now we write the model to file.            
              if (geoModel.OutputKML(outputFileURL, progressBar))
                  return 0;
-             
+             log.Debug("Output failed");
              return 1;
          }
 
@@ -120,7 +131,9 @@ namespace BlackCat
         {
             if (geoModel != null)
             {
-                return geoModel.GetRegionIdentifiers();
+                List<String> fields = geoModel.DataFieldNames();
+                if (fields != null)
+                    return fields.ToArray();
             }
             return null;
         }
@@ -160,6 +173,7 @@ namespace BlackCat
 
         public int loadExcel(String fileURL, ProgressBar progressBar)
         {
+            log.Debug("Loading excel file from " + fileURL);
             // I have not been able to make a lot of progress with this class as I am not sure how to build
             // a SocialModel at present. There is a four argument constructor, but I should not be calling that.
             // Also, do I need to call the ExcelReader or will the SocialModel class do that (better idea).
@@ -167,10 +181,12 @@ namespace BlackCat
             int errorValue = 0;
             
             // First test the validity of the Excel (.xls or .csv) file and exit if any problems are discovered.
-            errorValue = validateFile(fileURL);
-
+            //errorValue = validateFile(fileURL);
             if (errorValue != 0)
+            {
+                log.Debug("Validation error occurred - code is " + errorValue);
                 return errorValue;
+            }
 
             // If we've made it this far, then the Excel file is O.K. 
             IResourceReader reader = new ResourceReader(fileURL, progressBar);            
@@ -244,7 +260,7 @@ namespace BlackCat
             GeoModel mapInfoData;
             // First test the validity of the .mid file and exit if any problems are discovered.
 
-            errorValue = validateFile(midFileURL);
+            //errorValue = validateFile(midFileURL);
 
             if (errorValue != 0)
                 return errorValue;
@@ -253,7 +269,7 @@ namespace BlackCat
             // Note that only 1, 2 or 3 is returned if there is a problem, we need to add 3 to
             // this value to indicate the problem is with the mif file not the mid file.
 
-            errorValue = validateFile(mifFileURL);
+            //errorValue = validateFile(mifFileURL);
 
             if (errorValue != 0)
                 return errorValue + 3;
@@ -387,8 +403,8 @@ namespace BlackCat
             // Link the data.
 
             merger = new DataMerger();
-
-            errorCode = merger.linkDataModels(geoModel, geoLinkField, excelModel, socialLinkField);
+            */
+            int errorCode = merger.linkDataModels(geoModel, geoLinkField, socioModel, socialField);
 
             // Finally, return the result.
 
@@ -396,8 +412,7 @@ namespace BlackCat
                 return true;
             else
                 return false;
-             */
-            return true;
+             
         }
 
         // Checks fileURL to ensure that it is a valid file, i.e. that it exists, is readable and in 
