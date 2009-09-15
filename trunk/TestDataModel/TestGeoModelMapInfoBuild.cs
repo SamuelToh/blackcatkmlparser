@@ -52,36 +52,21 @@ namespace TestDataModel
         public void testBuildModelHasRegionCoordinates()
         {
             String[] coords = model.GetRegionCoordinates("regionName1");
-            Assert.AreEqual(2, coords.Length);
-            Assert.AreEqual("152 -27", coords[0]);
-            Assert.AreEqual("153 -29", coords[1]);
+            Assert.AreEqual(1, coords.Length);
+            Assert.AreEqual("152,-27,0\r\n153,-29,0", coords[0].Trim());
 
             coords = model.GetRegionCoordinates("regionName2");
-            Assert.AreEqual(12, coords.Length);
-            Assert.AreEqual("156 -34", coords[0]);
-            Assert.AreEqual("45 -23", coords[1]);
-            Assert.AreEqual("87 -35", coords[2]);
-            Assert.AreEqual("345 -86", coords[3]);
-            Assert.AreEqual("67 -90", coords[4]);
-            Assert.AreEqual("45 -91", coords[5]);
-            Assert.AreEqual("56 -90", coords[6]);
-            Assert.AreEqual("57 -89", coords[7]);
-            Assert.AreEqual("58 -90", coords[8]);
-            Assert.AreEqual("56 -91", coords[9]);
-            Assert.AreEqual("57 -87", coords[10]);
-            Assert.AreEqual("45 -666", coords[11]);
+            Assert.AreEqual(1, coords.Length);
+            String coordString = "156,-34,0\r\n45,-23,0\r\n87,-35,0\r\n345,-86,0\r\n" +
+                "67,-90,0\r\n45,-91,0\r\n56,-90,0\r\n57,-89,0\r\n" +
+                "58,-90,0\r\n56,-91,0\r\n57,-87,0\r\n45,-666,0";
+            Assert.AreEqual(coordString, coords[0].Trim());
 
             coords = model.GetRegionCoordinates("regionName3");
-            Assert.AreEqual(9, coords.Length);
-            Assert.AreEqual("152 -27", coords[0]);
-            Assert.AreEqual("153 -29", coords[1]);
-            Assert.AreEqual("154 -28", coords[2]);
-            Assert.AreEqual("153 -34", coords[3]);
-            Assert.AreEqual("154 -23", coords[4]);
-            Assert.AreEqual("155 -27", coords[5]);
-            Assert.AreEqual("157 -28", coords[6]);
-            Assert.AreEqual("154 -56", coords[7]);
-            Assert.AreEqual("123 -78", coords[8]);
+            Assert.AreEqual(1, coords.Length);
+            coordString = "152,-27,0\r\n153,-29,0\r\n154,-28,0\r\n" +
+                "153,-34,0\r\n154,-23,0\r\n155,-27,0\r\n157,-28,0\r\n154,-56,0\r\n123,-78,0";
+            Assert.AreEqual(coordString, coords[0].Trim());
         }
 
         [Test]

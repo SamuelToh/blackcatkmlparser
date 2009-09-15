@@ -88,7 +88,7 @@ namespace TestDataModel
             File.Delete(tempKml);
 
             Assert.AreEqual("152,-27,0", coord1);
-            Assert.AreEqual("153,-29,0", coord2);
+            Assert.AreEqual("153,-29,0</coordinates>", coord2);
         }
 
         /// <summary>
