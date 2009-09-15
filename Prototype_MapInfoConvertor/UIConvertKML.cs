@@ -23,12 +23,14 @@ namespace BlackCat
             if (response == 0)
             {
                 lblConverting.Text = "Complete";
+                progressGenerating.Value = progressGenerating.Maximum;
             }
             else
             {
                 MessageBox.Show(Messages.OUTPUT_FAILED);
             }
         }
+
         /*
         private void UIConvertKML_Load(object sender, EventArgs e)
         {

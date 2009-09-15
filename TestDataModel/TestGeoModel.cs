@@ -6,12 +6,23 @@ using System.Text;
 using System.Windows.Forms;
 using NUnit.Framework;
 using BlackCat;
+using log4net;
+using log4net.Config;
 
 namespace TestDataModel
 {
-    
+    [TestFixture]
     public class TestGeoModel
     {
+        private ILog log;
+
+        [TestFixtureSetUp]
+        public void fixtureSetUp()
+        {
+            BasicConfigurator.Configure();
+            log = LogManager.GetLogger(this.ToString());
+        }
+
         /// <summary>
         /// Writes the model in KML format to the supplied output URL. The progress bar is updated throughout.
         /// Pre: The outputFileURL is a valid, writable path.
@@ -21,7 +32,7 @@ namespace TestDataModel
         /// <param name="progressBar">This will be updated during the process.</param>
         //void outputKML(String outputFileURL, ProgressBar progressBar);
         [Test]
-        public void testOutputReturnsTrueCreatesFile()
+        public void testOutputReturnsTrueCreatesFileKML()
         {
             GeoModel geoModel = new GeoModel();
             String testKML = @"..\..\Data\testKML1.kml";
@@ -32,7 +43,53 @@ namespace TestDataModel
             Assert.IsTrue( File.Exists(tempKml));
             File.Delete(tempKml);
         }
-            
+
+        [Test]
+        public void testOutputReturnsTrueCreatesFileMapInfo()
+        {
+            GeoModel geoModel = new GeoModel();
+            String testMid = @"..\..\Data\testMap1.mid";
+            String testMif = @"..\..\Data\testMap1.mif";
+            geoModel.BuildGeoModel(testMid, testMif, new ProgressBar());
+
+            string tempKml = @"..\..\Data\temp.kml";
+            bool result = geoModel.OutputKML(tempKml, new ProgressBar());
+            Assert.IsTrue(result);
+            Assert.IsTrue(File.Exists(tempKml));
+            File.Delete(tempKml);
+        }
+        
+        [Test]
+        public void testOutputPrintsCoordsMapInfo()
+        {
+            GeoModel geoModel = new GeoModel();
+            String testMid = @"..\..\Data\testMap1.mid";
+            String testMif = @"..\..\Data\testMap1.mif";
+            geoModel.BuildGeoModel(testMid, testMif, new ProgressBar());
+
+            string tempKml = @"..\..\Data\temp.kml";
+            bool result = geoModel.OutputKML(tempKml, new ProgressBar());
+
+            StreamReader reader = new StreamReader(File.OpenRead(tempKml));
+            String line = reader.ReadLine();
+            //skip to first coords
+            log.Debug("File:"); 
+            while (!line.Trim().StartsWith("<coordinates>"))
+            {
+                line = reader.ReadLine();
+            }
+            //read coords
+            string coord1 = reader.ReadLine();
+            string coord2 = reader.ReadLine();
+            log.Debug("coord1 - " + coord1);
+            log.Debug("coord2 - " + coord2);
+
+            reader.Close();
+            File.Delete(tempKml);
+
+            Assert.AreEqual("152,-27,0", coord1);
+            Assert.AreEqual("153,-29,0", coord2);
+        }
 
         /// <summary>
         /// Set the style of a region, if it exists in the model.
