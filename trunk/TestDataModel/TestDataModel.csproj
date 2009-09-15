@@ -75,7 +75,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Data\Federal Election Results-Qld-2004.xls" />
+    <None Include="Data\Qld_FederalResults by Electorate-2004.xls" />
     <None Include="Data\testKML1.kml" />
     <None Include="Data\testMap1.mif" />
   </ItemGroup>

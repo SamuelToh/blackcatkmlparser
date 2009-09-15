@@ -2,32 +2,39 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using log4net;
 
 namespace BlackCat
 {    
     public class KMLParserControl : IKMLParserControl
     {
+        private ILog log;
+
         // Required to implement this class as a Singleton.
         private static KMLParserControl instance;
 
         // Holds the MapInfo or KML data file(s) as a data model for future use.
-        private GeoModel geoModel;
+        private IGeoModel geoModel;
 
         // Holds the Excel file as a data model for future use.
-        private SocialModel excelModel;
+        private ISocialModel socioModel;
+
+        private IDataMerger merger = new DataMerger();
 
         // Holds the name of the geographical data field to link on.
         private string geoLinkField;
 
         // Holds the name of the sociological data field to link on.
-        private string socialLinkField;
+        private string socioLinkField;
 
         // No arguments private constructor.
 
          private KMLParserControl()
          {
-             GeoModel geoModel = new GeoModel();
-             SocialModel excelModel = new SocialModel();
+             //IGeoModel geoModel = new GeoModel();
+             //ISocialModel excelModel = new SocialModel();
+             //IDataMerger merger = new DataMerger();
+             log = LogManager.GetLogger(this.ToString());
          }
 
         // Special property needed to implement the Singleton design pattern. Either instantiates
@@ -43,28 +50,25 @@ namespace BlackCat
              return instance;
          }
 
+        // Stores the names of the fields to be linked and
         // Returns a boolean indicating whether the geographic and sociological data fields can 
         // be linked using the fields geoField and socField.
 
         // Pre: geoField is not the empty string and socField is not the empty string. 
         // Post: A boolean indicating whether the desired linking operation can occur has been returned.
 
-         public bool canLink(String geoField, String socField)
+         public bool setLinkFields(String geoField, String socField)
          {
              bool link = true;
              //DataMerger merger = new DataMerger();
 
-             // As we now only have one GeoModel, this is pretty straightforward from the Controller's
-             // point of view.
-
-             // link = merger.canLink(geoModel, geoField, excelModel, socialField);
+             link = merger.canLink(geoModel, geoField, socioModel, socField);
 
              // If the test was successful, save the values of the linking columns for later use.
-             
              if (link)
              {
                  geoLinkField = geoField;
-                 socialLinkField = socField;
+                 socioLinkField = socField;
              }
              return link;
          }
@@ -84,30 +88,25 @@ namespace BlackCat
              // to display a progress bar in its own right or whether we can get away with just 
              // updating when the GeoModel is being written to file.
 
-             /*
+             
              int errorCode = 0;
               
              // Link the data if required. The nested if attempts to link the data and set the error code
              // in one operation.
 
-             if (excelModel != null)
+             if (socioModel != null)
              {
-                 if (!(linkGeographicalAndSocialData(geoLinkField, socialLinkField)))
+                 if (!(linkGeographicalAndSocialData(geoLinkField, socioLinkField)))
                  {
                      // 1 indicates a problem, so exit immediately.
-
-                     errorCode = 1;
-                     return errorCode;
+                     return 1;
                  }
-                 // Otherwise no problem, so do nothing.
              }
 
-             // If we reach here, all has gone well so far. Now we write the model to file.
-            
-             errorCode = geoModel.outputKML(outputFileURL, progressBar);
-            
-             return errorCode;
-             */
+             // If we reach here, all has gone well so far. Now we write the model to file.            
+             if (geoModel.OutputKML(outputFileURL, progressBar))
+                 return 0;
+             
              return 1;
          }
 
@@ -117,9 +116,12 @@ namespace BlackCat
         // Pre: A geographical data set has been loaded into the system 
         // Post: A list of the data fields present in the geographical data set has been returned.
 
-        public List<string> getGeographicalDataFields()
+        public string[] getGeographicalDataFields()
         {
-            //return geoModel.DataFieldNames();
+            if (geoModel != null)
+            {
+                return geoModel.GetRegionIdentifiers();
+            }
             return null;
         }
 
@@ -129,9 +131,19 @@ namespace BlackCat
         // Pre: A sociological data file has been loaded into the system
         // Post: A list of the data fields present in the sociological data file has been returned.
 
-        public List<string> getSociologicalDataFields()
+        public string[] getSociologicalDataFields()
         {
-            //return excelModel.getColumnNames();
+            if (socioModel != null)
+            {
+                log.Debug("Socio model is not null");
+                List<String> fields = socioModel.getColumnNames();
+                if (fields != null)
+                    return fields.ToArray();
+            }
+            else
+            {
+                log.Debug("Socio model is null");
+            }
             return null;
         }
 
@@ -151,35 +163,20 @@ namespace BlackCat
             // I have not been able to make a lot of progress with this class as I am not sure how to build
             // a SocialModel at present. There is a four argument constructor, but I should not be calling that.
             // Also, do I need to call the ExcelReader or will the SocialModel class do that (better idea).
-
-            /*
+                        
             int errorValue = 0;
-            SocialModel socModel;
             
             // First test the validity of the Excel (.xls or .csv) file and exit if any problems are discovered.
-
             errorValue = validateFile(fileURL);
 
             if (errorValue != 0)
                 return errorValue;
 
-            // If we've made it this far, then the Excel file is O.K. Do I need to get a reader?
-           
-            socModel = new SocialModel();
-
-            // Now we can build a SocialModel from this file.
-
-            errorValue = socModel.buildSocialModel(fileURL, progressBar);
+            // If we've made it this far, then the Excel file is O.K. 
+            IResourceReader reader = new ResourceReader(fileURL, progressBar);            
+            socioModel = new SocialModel(reader);
             
-            // If there were no problems, keep a reference to socModel for later use.
-            
-            if(errorValue == 0)
-                excelModel = socModel;
-
             // Now return the value 0 to denote success or 1 to denote failure.
-
-            return errorValue;
-             */
             return 0;
         }
 
@@ -200,7 +197,7 @@ namespace BlackCat
             int errorValue = 0;
             GeoModel kmlData;
 
-            /*
+            
             // First test the validity of the .kml file and exit if any problems are discovered.
 
             errorValue = validateFile(fileURL);
@@ -212,7 +209,8 @@ namespace BlackCat
             // GeoModel from it.
 
             kmlData = new GeoModel();
-            errorValue = kmlData.buildModel(fileURL, progressBar);
+            if(kmlData.BuildGeoModel(fileURL, progressBar) == false)
+                errorValue = 1;
             
             // If there were no problems, keep a reference to kmlData for later use.
             
@@ -220,7 +218,6 @@ namespace BlackCat
                 geoModel = kmlData;
 
             // Now return the value 0 to denote success or 1 for failure.
-            */
             return errorValue;
         }
 
@@ -243,7 +240,7 @@ namespace BlackCat
         public int loadMapInfo(String midFileURL, String mifFileURL, ProgressBar progressBar)
         {
             int errorValue = 0;
-            /*
+            
             GeoModel mapInfoData;
             // First test the validity of the .mid file and exit if any problems are discovered.
 
@@ -265,7 +262,8 @@ namespace BlackCat
             // a GeoModel from them.
             
             mapInfoData = new GeoModel();
-            errorValue = mapInfoData.buildModel(midFileURL, mifFileURL, progressBar);
+            if (mapInfoData.BuildGeoModel(midFileURL, mifFileURL, progressBar) == false)
+                errorValue = 1;
             
             // If there were no problems, keep a reference to mapInfoData for later use.
             
@@ -273,7 +271,7 @@ namespace BlackCat
                 geoModel = mapInfoData;
 
             // Now return the value 0 to denote success or 1 for failure.
-            */
+            
             return errorValue;
         }
 
@@ -348,6 +346,31 @@ namespace BlackCat
             return errorType;
         }
 
+// Public methods added for testing purposes
+        public String GeoLinkField
+        {
+            get { return geoLinkField; }
+        }
+        public String SocioLinkField
+        {
+            get { return socioLinkField; }
+        }
+        public IGeoModel GeologicalModel
+        {
+            get{return geoModel;}
+            set { geoModel = value; }
+        }
+        public ISocialModel SociologicalModel
+        {
+            get { return socioModel; }
+            set { socioModel = value; }
+        }
+        public IDataMerger Merger
+        {
+            get { return merger; }
+            set { merger = value; }
+        }
+
 //#########################################################################################################
 
         // Private helper methods for use with the publically available methods.
@@ -356,7 +379,7 @@ namespace BlackCat
         // Post: A boolean has been returned that indicates if it is possible to link the geographical
         // and sociological data in the manner indicated by the user.
 
-        public bool linkGeographicalAndSocialData(String geoField, String socialField)
+        private bool linkGeographicalAndSocialData(String geoField, String socialField)
         {
             /*
             DataMerger merger;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Linq;
 using System.Text;
+using System.Windows.Forms;
 using NUnit.Framework;
 using BlackCat;
 using System.Data;
@@ -26,7 +27,7 @@ namespace TestInput
         [SetUp]
         public void SetUp()
         {
-            reader = new ResourceReader(@"..\..\Qld_FederalResults by Electorate-2004.xls");
+            reader = new ResourceReader(@"..\..\Qld_FederalResults by Electorate-2004.xls", new ProgressBar());
             table = reader.getSocialTable();
         }
 
