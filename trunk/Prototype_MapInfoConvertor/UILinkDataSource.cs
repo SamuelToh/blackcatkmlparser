@@ -44,7 +44,8 @@ namespace BlackCat
             if (geoFields != null)
             {
                 cbbGeographicalField.Items.AddRange(geoFields);
-                cbbGeographicalField.SelectedIndex = 0;
+                if(cbbGeographicalField.Items.Count > 0)
+                    cbbGeographicalField.SelectedIndex = 0;
             }
         }
     }

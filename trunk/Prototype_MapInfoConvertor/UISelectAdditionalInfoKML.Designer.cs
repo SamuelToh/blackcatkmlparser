@@ -37,6 +37,11 @@
             this.progressLoading = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
+            // lblAddAdditionalInput
+            // 
+            this.lblAddAdditionalInput.BackColor = System.Drawing.Color.MintCream;
+            this.lblAddAdditionalInput.ForeColor = System.Drawing.Color.Black;
+            // 
             // btnNext
             // 
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
@@ -83,7 +88,7 @@
             // 
             // openExcelFileDialog
             // 
-            this.openExcelFileDialog.Filter = "\"Excel 98 files|*.xls|All Files|*\"";
+            this.openExcelFileDialog.Filter = "Excel 98 files|*.xls|All Files|*";
             this.openExcelFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openExcelFileDialog_FileOk);
             // 
             // lblLoading
