@@ -30,7 +30,7 @@ namespace BlackCat
 
         private void newKml_Click(object sender, EventArgs e)
         {
-            firstForm = new UISelectFileMapInfo(null, controller);
+            firstForm = new UISelectFileMapInfo(null);
             firstForm.MainForm = this;
             firstForm.Show();
             this.Hide();
@@ -38,7 +38,7 @@ namespace BlackCat
 
         private void addInfo_Click(object sender, EventArgs e)
         {
-            firstForm = new UISelectFileKML(null, controller);
+            firstForm = new UISelectFileKML(null);
             firstForm.MainForm = this;
             firstForm.Show();
             this.Hide();

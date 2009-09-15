@@ -23,6 +23,12 @@ namespace TestController
             log = LogManager.GetLogger(this.ToString());
         }
 
+        [TearDown]
+        public void tearDown()
+        {
+            KMLParserControl.Instance().ClearFields();
+        }
+
         // Returns a boolean indicating whether the geographic and sociological data fields can 
         // be linked using the fields geoField and socField.
 

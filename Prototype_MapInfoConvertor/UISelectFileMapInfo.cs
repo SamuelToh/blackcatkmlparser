@@ -10,12 +10,11 @@ namespace BlackCat
 {
     public partial class UISelectFileMapInfo : BlackCatParserUI
     {
-        public UISelectFileMapInfo(BlackCatParserUI previous, IKMLParserControl controller)
-            :base(controller)
+        public UISelectFileMapInfo(BlackCatParserUI previous)
         {
-            this.previous = previous;
-            this.next = new UISelectAdditionalInfoMapInfo(this, controller);
             InitializeComponent();
+            this.previous = previous;
+            this.next = new UISelectAdditionalInfoMapInfo(this);
         }
 
         private void btnNext_Click(object sender, EventArgs e)

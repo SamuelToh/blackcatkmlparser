@@ -19,9 +19,9 @@ namespace BlackCat
         protected static string outputFilePath;
         protected ILog log; 
         
-        public BlackCatParserUI(IKMLParserControl controller)
+        public BlackCatParserUI()
         {
-            this.controller = controller;
+            this.controller = KMLParserControl.Instance();
             InitializeComponent();
             log = LogManager.GetLogger(this.Name);
         }
@@ -70,5 +70,10 @@ namespace BlackCat
         {
             showPrevious();
         }
+        /*
+        public void generateKML(string outputFilePath, ProgressBar bar)
+        {
+            int response = controller.generateKMLFile(outputFilePath, bar);
+        }*/
     }
 }

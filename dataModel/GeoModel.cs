@@ -480,10 +480,10 @@ namespace BlackCat
         /*
          *Added on 14 Sep 
          */
-        /*public List<String> DataFieldNames()
+        public List<String> DataFieldNames()
         {
             return dataFields;
-        }*/
+        }
 
     }
 }

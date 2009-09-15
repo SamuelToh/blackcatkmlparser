@@ -18,15 +18,12 @@ namespace BlackCat
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new UIMain(KMLParserControl.Instance()));
-            InitialiseLogging(null);
+            InitialiseLogging();
         }
         
-        static void InitialiseLogging(String configPath)
+        static void InitialiseLogging()
         {
-            if (configPath == null)
-            {
-                BasicConfigurator.Configure();
-            }
+            BasicConfigurator.Configure();
         }
 
     }

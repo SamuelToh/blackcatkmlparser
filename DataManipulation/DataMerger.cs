@@ -4,15 +4,18 @@ using System.Collections;
 using System.Linq;
 using System.Text;
 using System.Data;
+using log4net;
 
 namespace BlackCat
 {
     public class DataMerger : IDataMerger
     {
-        
+        private ILog log;
+
         // constructor
         public DataMerger() 
-        {       
+        {
+            log = LogManager.GetLogger(this.ToString());
         }
 
         // Tests whether geographical model and sociological model can link by the selected columns.
@@ -21,6 +24,7 @@ namespace BlackCat
         // Post: Returns true if column names are matched, otherwise returns false. 
         public bool canLink(IGeoModel geoM, String geoColumnName, ISocialModel socialM, String socColumnName)
         {
+            log.Debug("Start canLink");
             List<String> socioDataList = socialM.getSocioColumnData(socColumnName);
             String[] geoDataList = geoM.GetRegionIdentifiers();
             bool matched = false;
@@ -33,7 +37,7 @@ namespace BlackCat
             // search matching column names
             while (j < socialDataCount && i < geoDataCount)
             {
-                if (geoDataList[i].Equals(socioDataList[j]))
+                if (geoDataList[i].Trim().ToLower().Equals(socioDataList[j].Trim().ToLower()))
                 {
                     // found matched data
                     matched = true;
@@ -55,8 +59,9 @@ namespace BlackCat
         // Links a Geographical Model with the data in a SocialModel using the columns the user has indicated should be used. 
         // pre: geoM and socialM are not null. geoColName and socialColName are not empty string.
         // post: Returns an integer denoting success(0) or failure (1).
-        public int linkDataModels(IGeoModel geoM, ISocialModel socialM, string geoColName, string socialColName)
+        public int linkDataModels(IGeoModel geoM, string geoColName, ISocialModel socialM, string socialColName)
         {
+            log.Debug("Set up for linking");
             int success = 0;
             // create a hash table that stores key:region name and value:winner party
             Hashtable hTable = new Hashtable();
@@ -64,14 +69,17 @@ namespace BlackCat
             Style style;
 
             // get all regions in the model and store them in the array
+            log.Debug("Getting region ids");
             string[] regions = geoM.GetRegionIdentifiers();
 
             foreach (string region in regions)
             {
+                log.Debug("Determining winner");
                 winnerParty = socialM.getSeatWinner(region);
                 // if there is no winner party in the specified region, link is unsuccessful
                 if (winnerParty.Equals(""))
                 {
+                    log.Debug("Winner not found for " + region);
                     success = 1;
                 }
                 // add the region name and winner party in the hash table
@@ -95,7 +103,7 @@ namespace BlackCat
                 {
                     style = new Style("ff00ffff", "Yellow");
                 }
-
+                log.Debug("Setting region style for " + region + " to " + style.StyleName);
                 geoM.SetRegionStyle(region, style);
             }
 

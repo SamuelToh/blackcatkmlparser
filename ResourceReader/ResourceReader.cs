@@ -13,7 +13,7 @@ namespace BlackCat
 {
     public class ResourceReader : IResourceReader
     {
-        protected ILog log = LogManager.GetLogger(typeof(ResourceReader));
+        private ILog log;
 
         //private const int numFirstPref = 6;
         //private ArrayList colList = new ArrayList();
@@ -39,7 +39,8 @@ namespace BlackCat
         // pre: path is not empty string and exists.
         // post: An excel file has read and data is stored.
         public ResourceReader(String path, ProgressBar progress)
-        {
+        { 
+            log = LogManager.GetLogger(this.ToString());
             log.Debug("ResourceReader constructor");
 
             //Set up the DataTable columns
@@ -69,18 +70,20 @@ namespace BlackCat
             
             try
             {
-                log.Debug("Opening DB connection and loading data");
+                log.Debug("Opening DB connection");
                 con.Open();
 
+                log.Debug("Creating adapter");
                 OleDbDataAdapter electionAdapter = new OleDbDataAdapter();
                 //TODO: party? OleDbDataAdapter partyAdapter = new OleDbDataAdapter();
 
+                log.Debug("Setting command on adapter");
                 electionAdapter.SelectCommand = cmdElection;
                 //TODO: party? partyAdapter.SelectCommand = cmdParty;
 
                 DataSet dsElection = new DataSet();
                 //TODO: party? DataSet dsParty = new DataSet();
-                // fill data in a data set
+                log.Debug("fill data in the data set");
                 electionAdapter.Fill(dsElection);
                 //partyAdapter.Fill(dsParty);
 
@@ -201,12 +204,12 @@ namespace BlackCat
             catch (OleDbException oleEx)
             {
                 log.Debug("OleDbException occurred");
-                log.Error(oleEx.Message);
+                log.Debug(oleEx.Message);
             }
             catch (Exception ex)
             {
                 log.Debug("Exception occurred");
-                log.Error(ex.Message);
+                log.Debug(ex.Message);
             }
             finally
             {

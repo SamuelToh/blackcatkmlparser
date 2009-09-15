@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using NUnit.Framework;
@@ -19,6 +20,19 @@ namespace TestDataModel
         /// <param name="outputFileURL">The path to write the file to.</param>
         /// <param name="progressBar">This will be updated during the process.</param>
         //void outputKML(String outputFileURL, ProgressBar progressBar);
+        [Test]
+        public void testOutputReturnsTrueCreatesFile()
+        {
+            GeoModel geoModel = new GeoModel();
+            String testKML = @"..\..\Data\testKML1.kml";
+            geoModel.BuildGeoModel(testKML, new ProgressBar());
+
+            string tempKml = @"..\..\Data\temp.kml";
+            Assert.IsTrue(geoModel.OutputKML(tempKml, new ProgressBar()));
+            Assert.IsTrue( File.Exists(tempKml));
+            File.Delete(tempKml);
+        }
+            
 
         /// <summary>
         /// Set the style of a region, if it exists in the model.

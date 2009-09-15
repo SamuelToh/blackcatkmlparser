@@ -10,11 +10,10 @@ namespace BlackCat
 {
     public partial class UISelectOutput : BlackCat.BlackCatParserUI
     {
-        public UISelectOutput(BlackCatParserUI previous, IKMLParserControl controller)
-            : base(controller)
+        public UISelectOutput(BlackCatParserUI previous)
         {
             this.previous = previous;
-            this.next = new UIConvertKML(this, controller);
+            this.next = new UIConvertKML(this);
             InitializeComponent();
         }
 
@@ -24,14 +23,32 @@ namespace BlackCat
                 MessageBox.Show(Messages.NO_OUTPUT_FILE_PATH);
             else
             {
-                int response = controller.validateFolder(txtOutputPath.Text);
+                String path = txtOutputPath.Text;
+                path = path.Substring(0, path.LastIndexOf('\\'));
+                int response = controller.validateFolder(path);
                 if (response == 0)
                 {
                     outputFilePath = txtOutputPath.Text;
                     showNext();
                 }
                 else
-                    MessageBox.Show(Messages.OUTPUT_FOLDER_INVALID);
+                {
+                    string error = Messages.OUTPUT_PATH_INVALID;
+                    switch (response)
+                    {
+                        case 1: error = Messages.FOLDER_INVALID_1;
+                            break;
+                        case 2: error = Messages.FOLDER_INVALID_2;
+                            break;
+                        case 3: error = Messages.FOLDER_INVALID_3;
+                            break;
+                        case 4: error = Messages.FOLDER_INVALID_4;
+                            break;
+                        default:
+                            break;
+                    }
+                    MessageBox.Show(error);
+                }
             }
         }
 

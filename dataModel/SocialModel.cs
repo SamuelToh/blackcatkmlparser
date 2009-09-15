@@ -37,15 +37,16 @@ namespace BlackCat
         // post: returns the sociological column names
         // TODO: currently this is hard-coded to return only one name, for simplicity and because there is only one option
         public List<String> getColumnNames()
-        {/*
+        {
+            List<String> socioCols = new List<string>(1);
             foreach (DataColumn col in reader.getSocialTable().Columns) 
             {
                 socioCols.Add(col.ToString());
             }
-         */ 
-            List<String> socioCols = new List<string>(1);
-            socioCols.Add(reader.getSocialTable().Columns[0].ColumnName);
             return socioCols;
+            /*List<String> socioCols = new List<string>(1);
+            socioCols.Add(reader.getSocialTable().Columns[0].ColumnName);
+            return socioCols;*/
         }
 
 
@@ -70,7 +71,7 @@ namespace BlackCat
             foreach (DataRow row in currentRows)
             {
                 // check matching electorate
-                if (row["Division"].Equals(electorate))
+                if (row["Division"].ToString().ToLower().Equals(electorate.ToLower()))
                 {
                     foreach (DataColumn column in columnCollection)
                     {

@@ -1,0 +1,11 @@
+﻿<NUnitProject>
+  <Settings activeconfig="Debug" />
+  <Config name="Debug" binpathtype="Auto">
+    <assembly path="blackcatkmlparser\TestDataModel\bin\Debug\TestDataModel.dll" />
+    <assembly path="blackcatkmlparser\TestInput\bin\Debug\TestInput.dll" />
+    <assembly path="blackcatkmlparser\TestController\bin\Debug\TestController.dll" />
+    <assembly path="blackcatkmlparser\TestIntegration\bin\Debug\TestIntegration.dll" />
+    <assembly path="blackcatkmlparser\TestDataManipulator\bin\Debug\TestDataManipulator.dll" />
+  </Config>
+  <Config name="Release" binpathtype="Auto" />
+</NUnitProject>

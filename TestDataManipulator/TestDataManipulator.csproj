@@ -31,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=1.1.1.33753, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.5.2.9222, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\nunit.framework.dll</HintPath>
@@ -57,6 +61,10 @@
     <Compile Include="TestDataMerger.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DataManipulation\DataManipulator.csproj">
+      <Project>{083352C1-FD20-44B2-9075-A9D97A7D1FB9}</Project>
+      <Name>DataManipulator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\dataModel\DataModel.csproj">
       <Project>{8B1EEEA5-7778-4DBD-915C-A0B220785484}</Project>
       <Name>DataModel</Name>

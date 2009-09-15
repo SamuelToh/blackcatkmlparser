@@ -6,6 +6,7 @@ using NUnit.Framework;
 using NUnit.Mocks;
 using BlackCat;
 using System.Data;
+using log4net.Config;
 
 namespace TestDataModel
 {
@@ -24,6 +25,12 @@ namespace TestDataModel
         private static string ALP_TPP = "ALP%TPP";
 
         private SocialModel socialModel;
+
+        [TestFixtureSetUp]
+        public void fixtureSetUp()
+        {
+            BasicConfigurator.Configure();
+        }
 
         [SetUp]
         public void SetUp()
@@ -61,12 +68,11 @@ namespace TestDataModel
         // pre: true
         // post: returns the sociological column names
         //List<String> getColumnNames();
-        // Note - currently hard coded for convenience as there is only 1 possibility
         [Test]
         public void testGetColumnNamesCount()
         {
             List<String> cols = socialModel.getColumnNames();
-            Assert.AreEqual(1, cols.Count);
+            Assert.AreEqual(10, cols.Count);
         }
 
         [Test]
@@ -115,6 +121,13 @@ namespace TestDataModel
         public void testGetSeatWinnerFive()
         {
             string winner = socialModel.getSeatWinner("Div5");
+            Assert.AreEqual("LNP", winner);
+        }
+
+        [Test]
+        public void testGetSeatWinnerCaseInsensitive()
+        {
+            string winner = socialModel.getSeatWinner("DiV5");
             Assert.AreEqual("LNP", winner);
         }
 
