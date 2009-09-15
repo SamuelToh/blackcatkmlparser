@@ -18,6 +18,7 @@ namespace BlackCat
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new UIMain());
+            InitialiseLogging(null);
         }
         
         static void InitialiseLogging(String configPath)
@@ -26,11 +27,6 @@ namespace BlackCat
             {
                 BasicConfigurator.Configure();
             }
-            else
-            {
-                //XmlConfigurator.Configure(new FileInfo(configPath));
-            }
-            //log = LogManager.GetLogger(typeof(Program));
         }
 
     }
