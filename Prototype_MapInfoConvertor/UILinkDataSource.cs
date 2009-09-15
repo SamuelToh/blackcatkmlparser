@@ -10,15 +10,16 @@ namespace BlackCat
 {
     public partial class UILinkDataSource : BlackCat.BlackCatParserUI
     {
-        public UILinkDataSource(BlackCatParserUI previous)
+        public UILinkDataSource(BlackCatParserUI previous, IKMLParserControl controller)
+            : base(controller)
         {
-            this.next = new UIConvertKML(this);
+            this.next = new UIConvertKML(this, controller);
             InitializeComponent();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            bool canLink = controller.canLink(cbbGeographicalField.SelectedText, cbbExcelField.SelectedText);
+            bool canLink = controller.setLinkFields(cbbGeographicalField.SelectedText, cbbExcelField.SelectedText);
             if (canLink)
                 showNext();
             else
@@ -27,8 +28,12 @@ namespace BlackCat
 
         private void UILinkDataSource_Load(object sender, EventArgs e)
         {
-            cbbExcelField.Items.AddRange(controller.getSociologicalDataFields().ToArray());
-            cbbGeographicalField.Items.AddRange(controller.getGeographicalDataFields().ToArray());
+            String[] socioFields = controller.getSociologicalDataFields();
+            if(socioFields != null)
+                cbbExcelField.Items.AddRange(socioFields);
+            String[] geoFields = controller.getGeographicalDataFields();
+            if(geoFields != null)
+                cbbGeographicalField.Items.AddRange(geoFields);
         }
     }
 }

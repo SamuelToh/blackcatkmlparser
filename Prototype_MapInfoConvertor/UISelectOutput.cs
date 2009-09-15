@@ -10,10 +10,11 @@ namespace BlackCat
 {
     public partial class UISelectOutput : BlackCat.BlackCatParserUI
     {
-        public UISelectOutput(BlackCatParserUI previous)
+        public UISelectOutput(BlackCatParserUI previous, IKMLParserControl controller)
+            : base(controller)
         {
             this.previous = previous;
-            this.next = new UIConvertKML(this);
+            this.next = new UIConvertKML(this, controller);
             InitializeComponent();
         }
 

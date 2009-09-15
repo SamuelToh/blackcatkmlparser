@@ -7,7 +7,7 @@ using System.Collections;
 
 namespace BlackCat
 {
-    interface IDataMerger
+    public interface IDataMerger
     {
         // Tests whether kml model and sociological model can link by the selected columns.
         // The models are considered able to link if every value in the GeoModel column has a matching value

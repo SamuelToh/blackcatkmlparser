@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections;
 using System.Data;
 using System.Data.OleDb;
+using System.Windows.Forms;
 using log4net;
 using log4net.Config;
 
@@ -37,7 +38,7 @@ namespace BlackCat
         // first preferences party names and TPP names are stored.
         // pre: path is not empty string and exists.
         // post: An excel file has read and data is stored.
-        public ResourceReader(String path)
+        public ResourceReader(String path, ProgressBar progress)
         {
             log.Debug("ResourceReader constructor");
 

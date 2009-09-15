@@ -9,9 +9,10 @@ using System.Windows.Forms;
 namespace BlackCat
 {
     public partial class UIConvertKML : BlackCat.BlackCatParserUI
-    {       
+    {
 
-        public UIConvertKML(BlackCatParserUI previous)
+        public UIConvertKML(BlackCatParserUI previous, IKMLParserControl controller)
+            : base(controller)
         {
             this.previous = previous;
             InitializeComponent();

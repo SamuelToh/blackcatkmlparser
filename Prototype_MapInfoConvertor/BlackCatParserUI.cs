@@ -19,9 +19,9 @@ namespace BlackCat
         protected static string outputFilePath;
         protected ILog log; 
         
-        public BlackCatParserUI()
+        public BlackCatParserUI(IKMLParserControl controller)
         {
-            controller = KMLParserControl.Instance();
+            this.controller = controller;
             InitializeComponent();
             log = LogManager.GetLogger(this.Name);
         }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Data;
+using System.Windows.Forms;
 
 namespace BlackCat
 {
@@ -17,11 +18,10 @@ namespace BlackCat
         private IResourceReader reader;
 
         //Constructor
-        public SocialModel()
+        /*public SocialModel()
         {
             //socioCols = new List<String>();
-        }
-
+        }*/
 
         //Overload constructor
         //Pre: colList, table, firstPrefParties and tpp are not null

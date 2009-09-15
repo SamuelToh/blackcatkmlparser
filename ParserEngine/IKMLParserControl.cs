@@ -6,22 +6,13 @@ namespace BlackCat
 {
     public interface IKMLParserControl
     {
-        // Constructor is protected. It cannot be called from outside the class. Use Instance instead.
-
-        // Special property needed to implement the Singleton design pattern. Either instantiates
-        // the class if this has not occurred yet or returns a reference to the class if 
-        // instantiation has occurred. Meaning there is never more than one instance of this class
-        // at any time.
-
-        // static KMLParserControl Instance();
-
         // Returns a boolean indicating whether the geographic and sociological data fields can 
         // be linked using the fields geoField and socField.
 
         // Pre: geoField is not the empty string and socField is not the empty string. 
         // Post: A boolean indicating whether the desired linking operation can occur has been returned.
 
-        bool canLink(String geoField, String socField);
+        bool setLinkFields(String geoField, String socField);
 
         // Creates the KML file using the files previously supplied by the user, writing it to the 
         // location desired and arranging the updating of a progress bar as the operation proceeds. 
@@ -38,7 +29,7 @@ namespace BlackCat
         // Pre: A geographical data set has been loaded into the system 
         // Post: A list of the data fields present in the geographical data set has been returned.
 
-        List<string> getGeographicalDataFields();
+        string[] getGeographicalDataFields();
 
         // Returns a list of the data fields in the sociological data file that could be used to 
         // perform data linking on.
@@ -46,7 +37,7 @@ namespace BlackCat
         // Pre: A sociological data file has been loaded into the system
         // Post: A list of the data fields present in the sociological data file has been returned.
 
-        List<string> getSociologicalDataFields();
+        string[] getSociologicalDataFields();
 
         // Loads the Excel file fileURL into the system, arranging the updating of a progress bar as the 
         // operation proceeds. Returns an integer denoting the result of the operation as follows:

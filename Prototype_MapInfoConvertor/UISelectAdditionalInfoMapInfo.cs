@@ -10,7 +10,8 @@ namespace BlackCat
 {
     public partial class UISelectAdditionalInfoMapInfo : BlackCat.BlackCatParserUI
     {
-        public UISelectAdditionalInfoMapInfo(BlackCatParserUI previous)
+        public UISelectAdditionalInfoMapInfo(BlackCatParserUI previous, IKMLParserControl controller)
+            : base(controller)
         {
             this.previous = previous;
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace BlackCat
                 int response = controller.loadExcel(txtExcelFile.Text, progressLoading);
                 if (response == 0)
                 {
-                    next = new UISelectOutput(this);
+                    next = new UISelectOutput(this, controller);
                     showNext();
                 }
                 else
@@ -33,7 +34,7 @@ namespace BlackCat
             }
             else
             {
-                next = new UILinkDataSource(this);
+                next = new UILinkDataSource(this, controller);
                 showNext();
             }
         }

@@ -53,8 +53,8 @@ namespace BlackCat
         /// <summary>
         /// Return the data column of mapinfo files
         /// </summary>
-        /// <returns>A list of string containning the names of column.</returns>
-        List<String> DataFieldNames();
+        /// <returns>A list of string containing the names of column.</returns>
+        //List<String> DataFieldNames();
 
     }
 }

@@ -10,10 +10,11 @@ namespace BlackCat
 {
     public partial class UISelectFileKML : BlackCat.BlackCatParserUI
     {
-        public UISelectFileKML(BlackCatParserUI previous)
+        public UISelectFileKML(BlackCatParserUI previous, IKMLParserControl controller)
+            : base(controller)
         {
             this.previous = previous;
-            this.next = new UISelectAdditionalInfoKML(this);
+            this.next = new UISelectAdditionalInfoKML(this, controller);
             InitializeComponent();
         }
 

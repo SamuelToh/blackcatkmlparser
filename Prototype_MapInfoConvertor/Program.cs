@@ -17,7 +17,7 @@ namespace BlackCat
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new UIMain());
+            Application.Run(new UIMain(KMLParserControl.Instance()));
             InitialiseLogging(null);
         }
         
