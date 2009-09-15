@@ -64,6 +64,7 @@ namespace BlackCat
             }
 
             //startprogress.Abort();
+            bar.Value = 100;
             this.totalSize = 0;
             this.currRead = 1;
             return true;
