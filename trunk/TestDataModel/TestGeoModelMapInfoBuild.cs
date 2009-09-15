@@ -56,17 +56,20 @@ namespace TestDataModel
             Assert.AreEqual("152,-27,0\r\n153,-29,0", coords[0].Trim());
 
             coords = model.GetRegionCoordinates("regionName2");
-            Assert.AreEqual(1, coords.Length);
-            String coordString = "156,-34,0\r\n45,-23,0\r\n87,-35,0\r\n345,-86,0\r\n" +
-                "67,-90,0\r\n45,-91,0\r\n56,-90,0\r\n57,-89,0\r\n" +
-                "58,-90,0\r\n56,-91,0\r\n57,-87,0\r\n45,-666,0";
-            Assert.AreEqual(coordString, coords[0].Trim());
+            Assert.AreEqual(3, coords.Length);
+            String coordString1 = "156,-34,0\r\n45,-23,0\r\n87,-35,0\r\n345,-86,0"; //set 1 region coord
+            String coordString2 = "67,-90,0\r\n45,-91,0";  //set 2
+            String coordString3 = "56,-90,0\r\n57,-89,0\r\n58,-90,0\r\n56,-91,0\r\n57,-87,0\r\n45,-666,0"; //set 3
+            Assert.AreEqual(coordString1, coords[0].Trim());
+            Assert.AreEqual(coordString2, coords[1].Trim());
+            Assert.AreEqual(coordString3, coords[2].Trim());
 
             coords = model.GetRegionCoordinates("regionName3");
-            Assert.AreEqual(1, coords.Length);
-            coordString = "152,-27,0\r\n153,-29,0\r\n154,-28,0\r\n" +
-                "153,-34,0\r\n154,-23,0\r\n155,-27,0\r\n157,-28,0\r\n154,-56,0\r\n123,-78,0";
-            Assert.AreEqual(coordString, coords[0].Trim());
+            Assert.AreEqual(2, coords.Length);
+            coordString1 = "152,-27,0\r\n153,-29,0"; //154,-28,0\r\n" +
+            coordString2 = "154,-28,0\r\n153,-34,0\r\n154,-23,0\r\n155,-27,0\r\n157,-28,0\r\n154,-56,0\r\n123,-78,0";
+            Assert.AreEqual(coordString1, coords[0].Trim());
+            Assert.AreEqual(coordString2, coords[1].Trim());
         }
 
         [Test]
