@@ -89,19 +89,19 @@ namespace BlackCat
                 if (winnerParty.Equals("ALP"))
                 {
                     //colour is a hex notation(ABGR)
-                    style = new Style("700000ff", "Red");
+                    style = new Style("7d0000ff", "Red");
                 }
                 else if (winnerParty.Equals("LP") || winnerParty.Equals("LNP") || winnerParty.Equals("NP"))
                 {
-                    style = new Style("70ff0000", "Blue");
+                    style = new Style("7dff0000", "Blue");
                 }
                 else if (winnerParty.Equals("GRN"))
                 {
-                    style = new Style("7000ff00", "Green");
+                    style = new Style("7d00ff00", "Green");
                 }
                 else
                 {
-                    style = new Style("7000ffff", "Yellow");
+                    style = new Style("7d00ffff", "Yellow");
                 }
                 log.Debug("Setting region style for " + region + " to " + style.StyleName);
                 geoM.SetRegionStyle(region, style);
