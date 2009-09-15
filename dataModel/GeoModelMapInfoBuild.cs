@@ -66,6 +66,27 @@ namespace BlackCat
                             log.Debug("Region " + regionCount + " read, incrementing count");
                             regionCount++;
                         }
+                        //16 September 
+                        else if (line.ToUpper().StartsWith("PLINE"))
+                        {
+                            string[] plineCount = line.Split(' ');
+                           ReadPLINE(mifReader,
+                                           Convert.ToInt16(plineCount[1]),
+                                           regionCount);
+                           regionCount++;
+                        }
+                        else if (line.ToUpper().StartsWith("POINT"))
+                        {
+                            ReadPoint(mifReader,
+                                           line.Split(' '),
+                                           regionCount);
+                            regionCount++;
+                        }
+                        else if (line.ToUpper().StartsWith("LINE"))
+                        {
+                            ReadLine(line.Split(' '), regionCount);
+                            regionCount++;
+                        }
                     }
                     line = mifReader.ReadLine();
                     //Remove Pen, Brush, Center information - if it is there
@@ -277,12 +298,19 @@ namespace BlackCat
             this.regions.Add(reg);
         }
 
-        private void ReadPLINE(StreamReader mifReader, int plineCount)
+        private void ReadPLINE(StreamReader mifReader, int plineCount, int regCount)
         {
             string coord = "\n" + RAW_INDENTATION;
             mifReader.ReadLine();
 
-            Region reg = new Region(PLINE_CODE);
+            //17 sep
+            //Create new region if necessary
+            if (regions[regCount] == null)
+                regions[regCount] = new Region(PLINE_CODE);
+            else
+                regions[regCount].regionType = PLINE_CODE;
+
+            //Region reg = new Region(PLINE_CODE);
 
             for (int i = 0; i < plineCount; i++)
             {
@@ -295,17 +323,26 @@ namespace BlackCat
                 //else last item we ignore the pen object   
             }
 
-            reg.coordinates.Add(coord);
+            //see point 3rd variable?
+            //16 september
+            regions[regCount].coordinates.Add(coord);
+            //reg.coordinates.Add(coord);
 
-            this.regions.Add(reg);
-
+            //this.regions.Add(reg);
+          
         }
 
-        private void ReadLine(string[] lineData)
+        private void ReadLine(string[] lineData, int lineCount)
         {
             string coord = "\n" + RAW_INDENTATION;
 
-            Region reg = new Region(LINE_CODE);
+            //17 sep
+            //Create new region if necessary
+            if (regions[lineCount] == null)
+                regions[lineCount] = new Region(LINE_CODE);
+            else
+                regions[lineCount].regionType = LINE_CODE;
+
 
             for (int i = 1; i < lineData.Length; i++)
             {
@@ -323,21 +360,32 @@ namespace BlackCat
             // + "\n"
             // + RAW_INDENTATION; 
 
-            reg.coordinates.Add(coord);
+            regions[lineCount].coordinates.Add(coord);
 
-            this.regions.Add
-                    (reg);
+            //reg.coordinates.Add(coord);
+
+            //this.regions.Add
+              //      (reg);
 
         }
 
         private void ReadPoint
-            (StreamReader mifReader, string[] lineData)
+            (StreamReader mifReader, string[] lineData, int ptCount)
         {
             mifReader.ReadLine(); //Reads Symbol data and ignore it;
             //incrementRead();
             string coord = "";
 
-            Region reg = new Region(POINT_CODE);
+            //Create new region if necessary
+            if (regions[ptCount] == null)
+                regions[ptCount] = new Region(POINT_CODE);
+            else
+                regions[ptCount].regionType = POINT_CODE;
+            //define the KML type
+            //regions[regionIndex].regionType = POLYGON_CODE;
+
+
+            //Region reg = new Region(POINT_CODE);
 
             for (int i = 1; i < lineData.Length; i++)
                 if (i % 2 == 0)
@@ -352,10 +400,12 @@ namespace BlackCat
             // + "\n"
             // + RAW_INDENTATION; 
 
-            reg.coordinates.Add(coord);
+            //reg.coordinates.Add(coord);
 
-            this.regions.Add
-                    (reg);
+            //16 september
+            regions[ptCount].coordinates.Add(coord);
+            //this.regions[ptCount].Add
+              //      (reg);
         }
 
         private StreamReader getReader
