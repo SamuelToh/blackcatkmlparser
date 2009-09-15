@@ -152,8 +152,7 @@ namespace BlackCat
 
         public bool OutputKML(string outputPath, ProgressBar bar)
         {
-            XmlTextWriter writer = this.getWriter
-                                        (outputPath);
+            XmlTextWriter writer = this.getWriter(outputPath);
             try
             {
                 writeKMLHeader(writer);
@@ -228,9 +227,10 @@ namespace BlackCat
             {
                 writer.WriteStartElement("Placemark");
                 writer.WriteStartElement("name");
-                if (regions[i].regionName != "")
+                //if (regions[i].regionName != "")
 
-                    writer.WriteString("BlackCat Converted Item #" + objCounter++);
+                  //  writer.WriteString("BlackCat Converted Item #" + objCounter++);
+                writer.WriteString(regions[i].regionName);
 
                 writer.WriteEndElement(); //</name>
                 writer.WriteStartElement("visibility"); //indicating the style
@@ -240,17 +240,13 @@ namespace BlackCat
                 if (regions[i].regionStyle != null)
                 {
                     writer.WriteStartElement("styleUrl"); //indicating the style
-                    writer.WriteString(this.regions[i].
-                                            regionStyle.StyleName); //show the polygon
+                    writer.WriteString(this.regions[i].regionStyle.StyleName); //show the polygon
                     writer.WriteEndElement(); //</styleUrl>
                 }
 
                 string kind = regions[i].regionType;
 
                 outputData(regions[i], kind, writer);
-
-
-
 
                 writer.WriteEndElement(); //</placemark>
                 writer.Flush();
@@ -382,7 +378,7 @@ namespace BlackCat
 
             writer.WriteStartElement("outerBoundaryIs"); //indicating the style
             writer.WriteStartElement("LinearRing"); //indicating the style
-            writer.WriteStartElement("coordinates");
+            writer.WriteStartElement("coordinates");            
             writer.WriteRaw(data.coordinates[0]);
             writer.WriteEndElement(); //</coordinates>
             writer.WriteEndElement(); //</LinearRing>

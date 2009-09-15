@@ -149,12 +149,16 @@ namespace BlackCat
             }
         }
 
+        //Reads a MapInfo "Region" - kml calls this a "Polygon"
         private void readMapInfoRegion(StreamReader mifReader, int polygonCount, int regionIndex)
         {
             log.Debug("Reading mapinfo region, index " + regionIndex + " polyCount " + polygonCount);
             //Create new region if necessary
             if (regions[regionIndex] == null)
                 regions[regionIndex] = new Region();
+
+            //define the KML type
+            regions[regionIndex].regionType = POLYGON_CODE;
 
             String line;
             int currentPoly = 0;
@@ -169,13 +173,26 @@ namespace BlackCat
                     throw new MapInfoFormatException("Unexpected format in Region - count of coordinates in a polygon was not an integer");
 
                 //Add all coords to region object
+                StringBuilder coordSet = new StringBuilder("");
                 for (int i = 0; i < coordCount; i++)
                 {
-                    regions[regionIndex].coordinates.Add(mifReader.ReadLine());
+                    string coords = convertToKMLCoords(mifReader.ReadLine());
+                    coordSet.Append("\r\n");
+                    coordSet.Append(coords);
                 }
+                regions[regionIndex].coordinates.Add(coordSet.ToString());
                 currentPoly++;
             }
                 
+        }
+
+        private string convertToKMLCoords(String mapInfoCoords)
+        {
+            //mapinfo format is "xCoord yCoord"
+            //kml format is "xCoord,yCoord,height"
+            string kmlCoords = mapInfoCoords.Replace(' ', ',');
+            kmlCoords += ",0";
+            return kmlCoords;
         }
 
         /*        private void ReadRegion(StreamReader mifReader)

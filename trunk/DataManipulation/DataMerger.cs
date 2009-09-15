@@ -89,7 +89,7 @@ namespace BlackCat
                 if (winnerParty.Equals("ALP"))
                 {
                     //colour is a hex notation(ABGR)
-                    style = new Style("ff000000ff", "Red");
+                    style = new Style("ff0000ff", "Red");
                 }
                 else if (winnerParty.Equals("LP") || winnerParty.Equals("LNP") || winnerParty.Equals("NP"))
                 {

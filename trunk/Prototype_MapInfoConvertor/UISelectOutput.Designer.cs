@@ -71,7 +71,7 @@
             // 
             // saveKMLFileDialog
             // 
-            this.saveKMLFileDialog.Filter = "\"KML file|*.kml\"";
+            this.saveKMLFileDialog.Filter = "KML file|*.kml";
             this.saveKMLFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveKMLFileDialog_FileOk);
             // 
             // UISelectOutput
