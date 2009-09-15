@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace BlackCat
 {
-    interface IKMLParserControl
+    public interface IKMLParserControl
     {
         // Constructor is protected. It cannot be called from outside the class. Use Instance instead.
 

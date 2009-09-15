@@ -12,40 +12,44 @@ namespace BlackCat
 {
     public partial class UIMain : Form
     {
+        private BlackCatParserUI firstForm;
+
         public UIMain()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        public void Restart()
         {
-            
-            UISelectFile sf = new UISelectFile();
-            sf.Visible = true;
-            sf.Show();
+            firstForm = null;
+            this.Show();
+            //TODO: controller clean
+        }
+
+        private void newKml_Click(object sender, EventArgs e)
+        {
+            firstForm = new UISelectFileMapInfo(null);
+            firstForm.MainForm = this;
+            firstForm.Show();
             this.Hide();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void addInfo_Click(object sender, EventArgs e)
         {
-            //this.Visible = false;
-            UISelectFileB addInfo = new UISelectFileB();
-            addInfo.Show();
+            firstForm = new UISelectFileKML(null);
+            firstForm.MainForm = this;
+            firstForm.Show();
             this.Hide();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            
-        }
-
-        private System.Collections.Hashtable myTable;
-
-        private void button3_Click(object sender, EventArgs e)
+        private void exit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-      
+        private void UIMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
+        }      
     }
 }
