@@ -32,6 +32,16 @@
             this.lblConverting = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
+            // lblConvertNow
+            // 
+            this.lblConvertNow.BackColor = System.Drawing.Color.MintCream;
+            this.lblConvertNow.ForeColor = System.Drawing.Color.Black;
+            // 
+            // lblAddAdditionalInput
+            // 
+            this.lblAddAdditionalInput.BackColor = System.Drawing.Color.Teal;
+            this.lblAddAdditionalInput.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            // 
             // btnCancel
             // 
             this.btnCancel.Text = "&Finish";

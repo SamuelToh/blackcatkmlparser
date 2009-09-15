@@ -16,6 +16,8 @@ namespace BlackCat
         public bool BuildGeoModel(string kmlFileURL, ProgressBar bar)
         {
             log.Debug("Start of BuildGeoModel");
+            this.dataFields.Clear();
+            dataFields.Add("name"); //Standard data field for kml
             bool endOfFile = false;
 
             this.totalSize = getFileSize(kmlFileURL);

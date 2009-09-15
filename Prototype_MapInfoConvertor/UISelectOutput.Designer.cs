@@ -34,6 +34,16 @@
             this.saveKMLFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
+            // lblDestinationFolder
+            // 
+            this.lblDestinationFolder.BackColor = System.Drawing.Color.MintCream;
+            this.lblDestinationFolder.ForeColor = System.Drawing.Color.Black;
+            // 
+            // lblAddAdditionalInput
+            // 
+            this.lblAddAdditionalInput.BackColor = System.Drawing.Color.Teal;
+            this.lblAddAdditionalInput.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            // 
             // btnNext
             // 
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);

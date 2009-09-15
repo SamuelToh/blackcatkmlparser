@@ -35,6 +35,11 @@
             this.label6 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
+            // lblAddAdditionalInput
+            // 
+            this.lblAddAdditionalInput.BackColor = System.Drawing.Color.MintCream;
+            this.lblAddAdditionalInput.ForeColor = System.Drawing.Color.Black;
+            // 
             // btnNext
             // 
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);

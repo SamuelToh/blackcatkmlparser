@@ -73,7 +73,7 @@
             // 
             // openKMLFileDialog
             // 
-            this.openKMLFileDialog.Filter = "\"KML files|*.kml\"";
+            this.openKMLFileDialog.Filter = "KML files|*.kml";
             this.openKMLFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.openKMLFileDialog_FileOk);
             // 
             // lblLoading

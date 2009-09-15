@@ -162,7 +162,6 @@ namespace BlackCat
 
             String line;
             int currentPoly = 0;
-            StringBuilder coordSet = new StringBuilder("");
             while (currentPoly < polygonCount)
             {
                 line = mifReader.ReadLine();
@@ -174,15 +173,16 @@ namespace BlackCat
                     throw new MapInfoFormatException("Unexpected format in Region - count of coordinates in a polygon was not an integer");
 
                 //Add all coords to region object
+                StringBuilder coordSet = new StringBuilder("");
                 for (int i = 0; i < coordCount; i++)
                 {
                     string coords = convertToKMLCoords(mifReader.ReadLine());
                     coordSet.Append("\r\n");
                     coordSet.Append(coords);
-                }                
+                }
+                regions[regionIndex].coordinates.Add(coordSet.ToString());
                 currentPoly++;
-            }
-            regions[regionIndex].coordinates.Add(coordSet.ToString());   
+            }   
         }
 
         private string convertToKMLCoords(String mapInfoCoords)
