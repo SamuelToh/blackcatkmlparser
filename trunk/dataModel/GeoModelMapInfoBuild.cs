@@ -201,6 +201,7 @@ namespace BlackCat
                     coordSet.Append("\r\n");
                     coordSet.Append(coords);
                 }
+                //regions[regionIndex].regionName = "BlackCat Polygon Obj #" + objCounter++;
                 regions[regionIndex].coordinates.Add(coordSet.ToString());
                 currentPoly++;
             }   
@@ -325,6 +326,7 @@ namespace BlackCat
 
             //see point 3rd variable?
             //16 september
+            regions[regCount].regionName = "BlackCat PolyLine Obj #" + objCounter++;
             regions[regCount].coordinates.Add(coord);
             //reg.coordinates.Add(coord);
 
@@ -359,7 +361,7 @@ namespace BlackCat
                             coord.Length - 1); //remove \n and extra .
             // + "\n"
             // + RAW_INDENTATION; 
-
+            regions[lineCount].regionName = "BlackCat Line Obj #" + objCounter++;
             regions[lineCount].coordinates.Add(coord);
 
             //reg.coordinates.Add(coord);
@@ -403,6 +405,7 @@ namespace BlackCat
             //reg.coordinates.Add(coord);
 
             //16 september
+            regions[ptCount].regionName = "BlackCat Point Obj #" + objCounter++;
             regions[ptCount].coordinates.Add(coord);
             //this.regions[ptCount].Add
               //      (reg);

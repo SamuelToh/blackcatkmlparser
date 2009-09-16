@@ -46,13 +46,18 @@
             // 
             this.btnCancel.Text = "&Finish";
             // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
             // btnNext
             // 
             this.btnNext.Enabled = false;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // lblStepDescriptor
             // 
-            this.lblStepDescriptor.Size = new System.Drawing.Size(235, 15);
+            this.lblStepDescriptor.Size = new System.Drawing.Size(231, 13);
             this.lblStepDescriptor.Text = "Step #4 - Generating your new KML file";
             // 
             // progressGenerating
@@ -79,6 +84,7 @@
             this.Controls.Add(this.progressGenerating);
             this.Controls.Add(this.lblConverting);
             this.Name = "UIConvertKML";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.UIConvertKML_Load);
             this.Controls.SetChildIndex(this.btnNext, 0);
             this.Controls.SetChildIndex(this.btnPrevious, 0);
