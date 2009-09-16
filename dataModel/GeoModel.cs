@@ -223,6 +223,42 @@ namespace BlackCat
 
             writer.WriteStartElement("Folder");
 
+            #region "KML Folder Items"
+            writer.WriteStartElement("name");
+            writer.WriteString("BlackCat KML Parser Object(s) Folder");
+            writer.WriteEndElement();
+            writer.WriteStartElement("description");
+            writer.WriteString("The parsing was done on : " + DateTime.Now.ToString() +
+                                    " using BlackCat KML Parser Version 1.0");
+            writer.WriteEndElement();
+
+            /*
+            writer.WriteStartElement("LookAt");
+            
+            writer.WriteStartElement("longitude");
+            writer.WriteString("-122.0839597145766");
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("latitude");
+            writer.WriteString("37.42222904525232");
+            writer.WriteEndElement();
+            writer.WriteStartElement("altitude");
+            writer.WriteString("0");
+            writer.WriteEndElement();
+            writer.WriteStartElement("heading");
+            writer.WriteString("-148.4122922628044");
+            writer.WriteEndElement();
+            writer.WriteStartElement("tilt");
+            writer.WriteString("40.5575073395506");
+            writer.WriteEndElement();
+            writer.WriteStartElement("range");
+            writer.WriteString("500.6566641072245");
+            writer.WriteEndElement();
+            writer.WriteEndElement(); //</lookat>
+             */
+            #endregion
+           
+
             for (int i = 0; i < this.regions.Count; i++)
             {
                 writer.WriteStartElement("Placemark");

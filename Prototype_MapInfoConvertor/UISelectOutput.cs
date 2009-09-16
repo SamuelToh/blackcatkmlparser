@@ -15,6 +15,7 @@ namespace BlackCat
             this.previous = previous;
             this.next = new UIConvertKML(this);
             InitializeComponent();
+            //txtOutputPath.Text = @"C:\Users\Sabers Father\Desktop\Output\test2.kml"; //Testing
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -60,6 +61,11 @@ namespace BlackCat
         private void btnOutputBrowse_Click(object sender, EventArgs e)
         {
             saveKMLFileDialog.ShowDialog();
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

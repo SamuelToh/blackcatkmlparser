@@ -41,13 +41,17 @@
             // 
             this.lblAddAdditionalInput.BackColor = System.Drawing.Color.MintCream;
             // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
             // btnNext
             // 
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // lblStepDescriptor
             // 
-            this.lblStepDescriptor.Size = new System.Drawing.Size(191, 15);
+            this.lblStepDescriptor.Size = new System.Drawing.Size(188, 13);
             this.lblStepDescriptor.Text = "Step #2 - Select your Excel file.";
             // 
             // label9
@@ -118,6 +122,7 @@
             this.Controls.Add(this.txtExcelFile);
             this.Controls.Add(this.label7);
             this.Name = "UISelectAdditionalInfoMapInfo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Controls.SetChildIndex(this.btnNext, 0);
             this.Controls.SetChildIndex(this.btnPrevious, 0);
             this.Controls.SetChildIndex(this.btnCancel, 0);

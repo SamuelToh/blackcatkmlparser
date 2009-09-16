@@ -48,7 +48,7 @@
             // 
             // lblStepDescriptor
             // 
-            this.lblStepDescriptor.Size = new System.Drawing.Size(191, 15);
+            this.lblStepDescriptor.Size = new System.Drawing.Size(187, 13);
             this.lblStepDescriptor.Text = "Step #2 - Select your Excel File";
             // 
             // btnBrowse
@@ -120,6 +120,8 @@
             this.Controls.Add(this.txtExcelFile);
             this.Controls.Add(this.label7);
             this.Name = "UISelectAdditionalInfoKML";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Load += new System.EventHandler(this.UISelectAdditionalInfoKML_Load);
             this.Controls.SetChildIndex(this.btnNext, 0);
             this.Controls.SetChildIndex(this.btnPrevious, 0);
             this.Controls.SetChildIndex(this.btnCancel, 0);

@@ -42,7 +42,7 @@
             // 
             // lblStepDescriptor
             // 
-            this.lblStepDescriptor.Size = new System.Drawing.Size(150, 15);
+            this.lblStepDescriptor.Size = new System.Drawing.Size(150, 13);
             this.lblStepDescriptor.Text = "Step #1 - Select KML file";
             // 
             // btnKMLBrowse
@@ -104,6 +104,7 @@
             this.Controls.Add(this.txtKmlFilePath);
             this.Controls.Add(this.label8);
             this.Name = "UISelectFileKML";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Controls.SetChildIndex(this.btnNext, 0);
             this.Controls.SetChildIndex(this.btnPrevious, 0);
             this.Controls.SetChildIndex(this.btnCancel, 0);

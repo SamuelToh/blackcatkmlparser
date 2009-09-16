@@ -52,5 +52,10 @@ namespace BlackCat
         {
             openExcelFileDialog.ShowDialog();
         }
+
+        private void UISelectAdditionalInfoKML_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

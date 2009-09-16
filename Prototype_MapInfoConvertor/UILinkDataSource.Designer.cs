@@ -46,7 +46,7 @@
             // 
             // lblStepDescriptor
             // 
-            this.lblStepDescriptor.Size = new System.Drawing.Size(143, 15);
+            this.lblStepDescriptor.Size = new System.Drawing.Size(143, 13);
             this.lblStepDescriptor.Text = "Step #2b - Data Linking";
             // 
             // cbbExcelField
@@ -101,6 +101,7 @@
             this.Controls.Add(this.cbbGeographicalField);
             this.Controls.Add(this.label6);
             this.Name = "UILinkDataSource";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Load += new System.EventHandler(this.UILinkDataSource_Load);
             this.Controls.SetChildIndex(this.btnNext, 0);
             this.Controls.SetChildIndex(this.btnPrevious, 0);

@@ -44,13 +44,17 @@
             this.lblAddAdditionalInput.BackColor = System.Drawing.Color.Teal;
             this.lblAddAdditionalInput.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
+            // 
             // btnNext
             // 
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // lblStepDescriptor
             // 
-            this.lblStepDescriptor.Size = new System.Drawing.Size(206, 15);
+            this.lblStepDescriptor.Size = new System.Drawing.Size(202, 13);
             this.lblStepDescriptor.Text = "Step #3 Choose your output folder";
             // 
             // btnOutputBrowse
@@ -92,6 +96,7 @@
             this.Controls.Add(this.txtOutputPath);
             this.Controls.Add(this.label7);
             this.Name = "UISelectOutput";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Controls.SetChildIndex(this.btnNext, 0);
             this.Controls.SetChildIndex(this.btnPrevious, 0);
             this.Controls.SetChildIndex(this.btnCancel, 0);

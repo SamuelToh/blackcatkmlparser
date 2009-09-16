@@ -68,7 +68,7 @@
             // 
             // lblStepDescriptor
             // 
-            this.lblStepDescriptor.Size = new System.Drawing.Size(256, 15);
+            this.lblStepDescriptor.Size = new System.Drawing.Size(254, 13);
             this.lblStepDescriptor.Text = "Step #1 - Select MapInfo geographical files";
             // 
             // btnMifBrowse
@@ -163,6 +163,7 @@
             this.Controls.Add(this.txtMidFilePath);
             this.Controls.Add(this.label8);
             this.Name = "UISelectFileMapInfo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Controls.SetChildIndex(this.btnNext, 0);
             this.Controls.SetChildIndex(this.btnPrevious, 0);
             this.Controls.SetChildIndex(this.btnCancel, 0);

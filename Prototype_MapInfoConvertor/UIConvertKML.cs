@@ -31,6 +31,16 @@ namespace BlackCat
             }
         }
 
+        private void btnNext_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+
+        }
+
         /*
         private void UIConvertKML_Load(object sender, EventArgs e)
         {
