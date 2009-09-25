@@ -36,7 +36,7 @@ namespace TestDataModel
         {
             GeoModel geoModel = new GeoModel();
             String testKML = @"..\..\Data\testKML1.kml";
-            geoModel.BuildGeoModel(testKML, new ProgressBar());
+            geoModel.BuildGeoModel(new KMLReader(testKML), new ProgressBar());
 
             string tempKml = @"..\..\Data\temp.kml";
             Assert.IsTrue(geoModel.OutputKML(tempKml, new ProgressBar()));
@@ -50,7 +50,7 @@ namespace TestDataModel
             GeoModel geoModel = new GeoModel();
             String testMid = @"..\..\Data\testMap1.mid";
             String testMif = @"..\..\Data\testMap1.mif";
-            geoModel.BuildGeoModel(testMid, testMif, new ProgressBar());
+            geoModel.BuildGeoModel(new MapInfoReader(testMid, testMif), new ProgressBar());
 
             string tempKml = @"..\..\Data\temp.kml";
             bool result = geoModel.OutputKML(tempKml, new ProgressBar());
@@ -65,7 +65,7 @@ namespace TestDataModel
             GeoModel geoModel = new GeoModel();
             String testMid = @"..\..\Data\testMap1.mid";
             String testMif = @"..\..\Data\testMap1.mif";
-            geoModel.BuildGeoModel(testMid, testMif, new ProgressBar());
+            geoModel.BuildGeoModel(new MapInfoReader(testMid, testMif), new ProgressBar());
 
             string tempKml = @"..\..\Data\temp.kml";
             bool result = geoModel.OutputKML(tempKml, new ProgressBar());
@@ -104,7 +104,7 @@ namespace TestDataModel
             String midFilePath = @"..\..\Data\testMap1.mid";
             String mifFilePath = @"..\..\Data\testMap1.mif";
             GeoModel model = new GeoModel();
-            model.BuildGeoModel(midFilePath, mifFilePath, new ProgressBar());
+            model.BuildGeoModel(new MapInfoReader(midFilePath, mifFilePath), new ProgressBar());
 
             //and the styles
             Style testStyle1 = new Style("color1", "name1");
@@ -129,7 +129,7 @@ namespace TestDataModel
             //Create the model
             String testKML = @"..\..\Data\testKML1.kml";
             GeoModel model = new GeoModel();
-            model.BuildGeoModel(testKML, new ProgressBar());
+            model.BuildGeoModel(new KMLReader(testKML), new ProgressBar());
 
             //and the styles
             Style testStyle1 = new Style("color1", "name1");

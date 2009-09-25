@@ -68,16 +68,33 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlackCatParserUI.cs">
+    <Compile Include="Controller\IKMLParserControl.cs" />
+    <Compile Include="Controller\KMLParserControl.cs" />
+    <Compile Include="DataManipulator\DataMerger.cs" />
+    <Compile Include="DataManipulator\IDataMerger.cs" />
+    <Compile Include="DataModel\GeoModel.cs" />
+    <Compile Include="DataModel\IGeoModel.cs" />
+    <Compile Include="DataModel\ISocialModel.cs" />
+    <Compile Include="DataModel\MapInfoFormatException.cs" />
+    <Compile Include="DataModel\MapInfoMismatchException.cs" />
+    <Compile Include="DataModel\Region.cs" />
+    <Compile Include="DataModel\SocialModel.cs" />
+    <Compile Include="DataModel\Style.cs" />
+    <Compile Include="Gui\BlackCatParserUI.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BlackCatParserUI.Designer.cs">
+    <Compile Include="Gui\BlackCatParserUI.Designer.cs">
       <DependentUpon>BlackCatParserUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Input\IGeoReader.cs" />
+    <Compile Include="Input\IResourceReader.cs" />
+    <Compile Include="Input\KMLReader.cs" />
+    <Compile Include="Input\MapInfoReader.cs" />
+    <Compile Include="Input\ResourceReader.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="BlackCatParserUI.resx">
+    <EmbeddedResource Include="Gui\BlackCatParserUI.resx">
       <DependentUpon>BlackCatParserUI.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -86,35 +103,35 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIConvertKML.resx">
+    <EmbeddedResource Include="Gui\UIConvertKML.resx">
       <DependentUpon>UIConvertKML.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UILinkDataSource.resx">
+    <EmbeddedResource Include="Gui\UILinkDataSource.resx">
       <DependentUpon>UILinkDataSource.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UIMain.resx">
+    <EmbeddedResource Include="Gui\UIMain.resx">
       <DependentUpon>UIMain.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UISelectAdditionalInfoKML.resx">
+    <EmbeddedResource Include="Gui\UISelectAdditionalInfoKML.resx">
       <DependentUpon>UISelectAdditionalInfoKML.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UISelectAdditionalInfoMapInfo.resx">
+    <EmbeddedResource Include="Gui\UISelectAdditionalInfoMapInfo.resx">
       <DependentUpon>UISelectAdditionalInfoMapInfo.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UISelectFileKML.resx">
+    <EmbeddedResource Include="Gui\UISelectFileKML.resx">
       <DependentUpon>UISelectFileKML.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UISelectFileMapInfo.resx">
+    <EmbeddedResource Include="Gui\UISelectFileMapInfo.resx">
       <DependentUpon>UISelectFileMapInfo.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="UISelectOutput.resx">
+    <EmbeddedResource Include="Gui\UISelectOutput.resx">
       <DependentUpon>UISelectOutput.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -132,54 +149,56 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="UIConvertKML.cs">
+    <Compile Include="Gui\UIConvertKML.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIConvertKML.Designer.cs">
+    <Compile Include="Gui\UIConvertKML.Designer.cs">
       <DependentUpon>UIConvertKML.cs</DependentUpon>
     </Compile>
-    <Compile Include="UILinkDataSource.cs">
+    <Compile Include="Gui\UILinkDataSource.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UILinkDataSource.Designer.cs">
+    <Compile Include="Gui\UILinkDataSource.Designer.cs">
       <DependentUpon>UILinkDataSource.cs</DependentUpon>
     </Compile>
-    <Compile Include="UIMain.cs">
+    <Compile Include="Gui\UIMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UIMain.designer.cs">
+    <Compile Include="Gui\UIMain.designer.cs">
       <DependentUpon>UIMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="UISelectAdditionalInfoKML.cs">
+    <Compile Include="Gui\UISelectAdditionalInfoKML.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UISelectAdditionalInfoKML.Designer.cs">
+    <Compile Include="Gui\UISelectAdditionalInfoKML.Designer.cs">
       <DependentUpon>UISelectAdditionalInfoKML.cs</DependentUpon>
     </Compile>
-    <Compile Include="UISelectAdditionalInfoMapInfo.cs">
+    <Compile Include="Gui\UISelectAdditionalInfoMapInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UISelectAdditionalInfoMapInfo.Designer.cs">
+    <Compile Include="Gui\UISelectAdditionalInfoMapInfo.Designer.cs">
       <DependentUpon>UISelectAdditionalInfoMapInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="UISelectFileKML.cs">
+    <Compile Include="Gui\UISelectFileKML.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UISelectFileKML.Designer.cs">
+    <Compile Include="Gui\UISelectFileKML.Designer.cs">
       <DependentUpon>UISelectFileKML.cs</DependentUpon>
     </Compile>
-    <Compile Include="UISelectFileMapInfo.cs">
+    <Compile Include="Gui\UISelectFileMapInfo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UISelectFileMapInfo.Designer.cs">
+    <Compile Include="Gui\UISelectFileMapInfo.Designer.cs">
       <DependentUpon>UISelectFileMapInfo.cs</DependentUpon>
     </Compile>
-    <Compile Include="UISelectOutput.cs">
+    <Compile Include="Gui\UISelectOutput.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UISelectOutput.Designer.cs">
+    <Compile Include="Gui\UISelectOutput.Designer.cs">
       <DependentUpon>UISelectOutput.cs</DependentUpon>
     </Compile>
+    <Compile Include="Validator\IValidator.cs" />
+    <Compile Include="Validator\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
@@ -208,12 +227,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LogConfig.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ParserEngine\Controller.csproj">
-      <Project>{36C49DC0-C310-4635-B308-C2BABCD6AF83}</Project>
-      <Name>Controller</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

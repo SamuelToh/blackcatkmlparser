@@ -18,7 +18,7 @@ namespace BlackCat
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            String socioColumn = cbbExcelField.Text;
+            /*String socioColumn = cbbExcelField.Text;
             String geoColumn = cbbGeographicalField.Text;
             if (socioColumn != null && geoColumn != null && socioColumn.Length > 0 && geoColumn.Length > 0)
             {
@@ -29,7 +29,8 @@ namespace BlackCat
                     MessageBox.Show(Messages.FIELD_LINK_ERROR);
             }
             else
-                MessageBox.Show(Messages.MISSING_LINK_FIELD);
+                MessageBox.Show(Messages.MISSING_LINK_FIELD);*/
+            showNext();
         }
 
         private void UILinkDataSource_Load(object sender, EventArgs e)

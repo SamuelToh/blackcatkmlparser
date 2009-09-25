@@ -2,20 +2,37 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.IO;
 using System.Windows.Forms;
-using System.Text.RegularExpressions;
+using System.IO;
 using log4net;
-using log4net.Config;
+using System.Text.RegularExpressions;
 
 namespace BlackCat
 {
-    public partial class GeoModel
+    public class MapInfoReader : IGeoReader
     {
-        public bool BuildGeoModel(string midURL, string mifURL, ProgressBar bar)
-        {
-            regions = new List<Region>();
+        private ILog log = LogManager.GetLogger(typeof(GeoModel));
 
+        private String midURL;
+        private String mifURL;
+        private ProgressBar bar;
+        private List<Region> regions;
+        private int objCounter; //TODO: identical to region.count?
+        private List<String> dataFields; //TODO: data should be held only in region
+
+        public MapInfoReader(String midURL, String mifURL)
+        {
+            this.midURL = midURL;
+            this.mifURL = mifURL;
+        }
+
+        public List<Region> ReadRegions(ProgressBar bar)
+        {
+            this.regions = new List<Region>();
+            this.dataFields = new List<String>();
+            this.objCounter = 0;
+            this.bar = bar;
+        
             try
             {
                 StreamReader mifReader = new StreamReader(mifURL);
@@ -101,7 +118,7 @@ namespace BlackCat
                     //increment bar 
                     bar.Value = (int)(regionCount / regions.Count * 100);
                 }
-                return true;
+                //TODO: check return true;
             }
             catch (Exception e)
             {
@@ -109,7 +126,7 @@ namespace BlackCat
                 log.Error("Exception occurred while building GeoModel from MapInfo files");
                 log.Error(e.Message);
             }
-            return false;
+            return regions;
         }
 
         //Reads info from a mif file until it reaches a line beginning with "data" (case insensitive)
@@ -179,7 +196,7 @@ namespace BlackCat
                 regions[regionIndex] = new Region();
 
             //define the KML type
-            regions[regionIndex].regionType = POLYGON_CODE;
+            regions[regionIndex].regionType = Region.POLYGON_CODE;
 
             String line;
             int currentPoly = 0;
@@ -267,7 +284,7 @@ namespace BlackCat
         {
             string coord = "";
             string temp = "";
-            Region reg = new Region(POLYGON_CODE);
+            Region reg = new Region(Region.POLYGON_CODE);
 
             Regex brushPattern = new Regex("Brush");
             Regex penPattern = new Regex("Pen");
@@ -281,7 +298,7 @@ namespace BlackCat
                 {
                     temp = mifReader.ReadLine().
                                  Replace(' ', ',') + ",0 \n"
-                                 + RAW_INDENTATION;
+                                 /*TODO:raw+ RAW_INDENTATION*/;
 
                     //incrementRead();
 
@@ -301,15 +318,15 @@ namespace BlackCat
 
         private void ReadPLINE(StreamReader mifReader, int plineCount, int regCount)
         {
-            string coord = "\n" + RAW_INDENTATION;
+            string coord = "\n" /*TODO:raw + RAW_INDENTATION*/;
             mifReader.ReadLine();
 
             //17 sep
             //Create new region if necessary
             if (regions[regCount] == null)
-                regions[regCount] = new Region(PLINE_CODE);
+                regions[regCount] = new Region(Region.PLINE_CODE);
             else
-                regions[regCount].regionType = PLINE_CODE;
+                regions[regCount].regionType = Region.PLINE_CODE;
 
             //Region reg = new Region(PLINE_CODE);
 
@@ -320,7 +337,7 @@ namespace BlackCat
                 if (i != plineCount - 1)
                     coord += mifReader.ReadLine().
                             Replace(' ', ',') + " \n"
-                            + RAW_INDENTATION;
+                            /*TODO:raw + RAW_INDENTATION*/;
                 //else last item we ignore the pen object   
             }
 
@@ -336,14 +353,14 @@ namespace BlackCat
 
         private void ReadLine(string[] lineData, int lineCount)
         {
-            string coord = "\n" + RAW_INDENTATION;
+            string coord = "\n" /*TODO:raw + RAW_INDENTATION*/;
 
             //17 sep
             //Create new region if necessary
             if (regions[lineCount] == null)
-                regions[lineCount] = new Region(LINE_CODE);
+                regions[lineCount] = new Region(Region.LINE_CODE);
             else
-                regions[lineCount].regionType = LINE_CODE;
+                regions[lineCount].regionType = Region.LINE_CODE;
 
 
             for (int i = 1; i < lineData.Length; i++)
@@ -352,7 +369,7 @@ namespace BlackCat
 
                 if (i % 2 == 0)
                     coord += lineData[i]
-                                + "\n" + RAW_INDENTATION;
+                                + "\n" /*TODO:raw + RAW_INDENTATION*/;
                 else
                     coord += lineData[i] + ",";
 
@@ -380,9 +397,9 @@ namespace BlackCat
 
             //Create new region if necessary
             if (regions[ptCount] == null)
-                regions[ptCount] = new Region(POINT_CODE);
+                regions[ptCount] = new Region(Region.POINT_CODE);
             else
-                regions[ptCount].regionType = POINT_CODE;
+                regions[ptCount].regionType = Region.POINT_CODE;
             //define the KML type
             //regions[regionIndex].regionType = POLYGON_CODE;
 
@@ -392,7 +409,7 @@ namespace BlackCat
             for (int i = 1; i < lineData.Length; i++)
                 if (i % 2 == 0)
                     coord += lineData[i]
-                                + "\n" + RAW_INDENTATION;
+                                + "\n" /*TODO:raw + RAW_INDENTATION*/;
                 else
                     coord += lineData[i] + ",";
 
@@ -416,6 +433,6 @@ namespace BlackCat
         {
             return new StreamReader(fileUrl);
         }
-
+            
     }
 }
