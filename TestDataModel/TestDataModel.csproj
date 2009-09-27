@@ -75,7 +75,7 @@
     <Content Include="Data\testMap1.mid" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Prototype_MapInfoConvertor\BlackCatKMLParser.csproj">
+    <ProjectReference Include="..\BlackCatKMLParser\BlackCatKMLParser.csproj">
       <Project>{7E97C915-0A38-4D05-BE3C-0C3CAD73FF8E}</Project>
       <Name>BlackCatKMLParser</Name>
     </ProjectReference>
