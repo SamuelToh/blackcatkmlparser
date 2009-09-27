@@ -27,7 +27,7 @@ namespace TestDataModel
         public void setUp()
         {
             model = new GeoModel();
-            model.BuildGeoModel(midFilePath, mifFilePath, new ProgressBar());
+            model.BuildGeoModel(new MapInfoReader(midFilePath, mifFilePath), new ProgressBar());
         }
         /// <summary>
         /// Populates the model from the supplied mid and mif files. The progress bar is updated throughout.
@@ -79,7 +79,7 @@ namespace TestDataModel
             ProgressBar bar = new ProgressBar();
 
             Assert.AreEqual(0, bar.Value);
-            progressModel.BuildGeoModel(midFilePath, mifFilePath, bar);
+            progressModel.BuildGeoModel(new MapInfoReader(midFilePath, mifFilePath), bar);
             Assert.AreEqual(100, bar.Value);
         }
 
@@ -91,7 +91,7 @@ namespace TestDataModel
             String testMid = @"..\..\Data\QLD_Federal_Electoral_Boundaries.MID";
             String testMif = @"..\..\Data\QLD_Federal_Electoral_Boundaries.mif";
 
-            bool result = model.BuildGeoModel(testMid, testMif, new ProgressBar());
+            bool result = model.BuildGeoModel(new MapInfoReader(testMid, testMif), new ProgressBar());
             Assert.IsTrue(result);
         }
     }

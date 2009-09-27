@@ -14,7 +14,7 @@ namespace BlackCat
         {
             InitializeComponent();
             this.previous = previous;
-            this.next = new UISelectAdditionalInfoMapInfo(this);
+            //TODO: this.next = new UISelectAdditionalInfoMapInfo(this);
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -29,7 +29,7 @@ namespace BlackCat
             }
             else
             {
-                int response = controller.loadMapInfo(txtMidFilePath.Text, txtMifFilePath.Text, progressLoading);
+                int response = controller.LoadMapInfo(txtMidFilePath.Text, txtMifFilePath.Text, progressLoading);
                 if (response == 0)
                     showNext();
                 else

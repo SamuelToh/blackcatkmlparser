@@ -19,7 +19,7 @@ namespace BlackCat
 
         private void UIConvertKML_Load(object sender, EventArgs e)
         {
-            int response = controller.generateKMLFile(outputFilePath, progressGenerating);
+            int response = controller.GenerateKMLFile(outputFilePath, progressGenerating);
             if (response == 0)
             {
                 lblConverting.Text = "Complete";

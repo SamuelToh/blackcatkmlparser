@@ -13,7 +13,7 @@ namespace BlackCat
         public UISelectFileKML(BlackCatParserUI previous)
         {
             this.previous = previous;
-            this.next = new UISelectAdditionalInfoKML(this);
+            //TODO: this.next = new UISelectAdditionalInfoKML(this);
             InitializeComponent();
         }
 
@@ -26,7 +26,7 @@ namespace BlackCat
             else
             {
                 setProgressVisible(true);
-                int response = controller.loadKML(txtKmlFilePath.Text, progressLoading);
+                int response = controller.LoadKML(txtKmlFilePath.Text, progressLoading);
                 if (response == 0)
                 {
                     showNext();

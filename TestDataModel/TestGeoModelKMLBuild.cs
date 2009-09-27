@@ -27,7 +27,7 @@ namespace TestDataModel
         {
             geoModel = new GeoModel();
             String testKML = @"..\..\Data\testKML1.kml";
-            geoModel.BuildGeoModel(testKML, new ProgressBar());
+            geoModel.BuildGeoModel(new KMLReader(testKML), new ProgressBar());
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace TestDataModel
             ProgressBar bar = new ProgressBar();
 
             Assert.AreEqual(0, bar.Value);
-            model.BuildGeoModel(testKML, bar);
+            model.BuildGeoModel(new KMLReader(testKML), bar);
             Assert.AreEqual(100, bar.Value);
         }
     }

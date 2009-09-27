@@ -53,9 +53,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Validator\Validator.csproj">
-      <Project>{FA9D39AC-D1AE-4162-8512-B865729636FF}</Project>
-      <Name>Validator</Name>
+    <ProjectReference Include="..\Prototype_MapInfoConvertor\MapInfoConvertor.csproj">
+      <Project>{7E97C915-0A38-4D05-BE3C-0C3CAD73FF8E}</Project>
+      <Name>MapInfoConvertor</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

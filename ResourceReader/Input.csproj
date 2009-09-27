@@ -8,7 +8,7 @@
     <ProjectGuid>{4847A6CD-76EA-4CBD-8FC4-FB8471B697AC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Input</RootNamespace>
+    <RootNamespace>BlackCat</RootNamespace>
     <AssemblyName>Input</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -50,7 +50,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IGeoReader.cs" />
     <Compile Include="IResourceReader.cs" />
+    <Compile Include="MapInfoReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceReader.cs" />
   </ItemGroup>
