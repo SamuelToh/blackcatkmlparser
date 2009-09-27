@@ -84,8 +84,8 @@
     <Compile Include="Gui\UISelectSociologicalData.Designer.cs">
       <DependentUpon>UISelectSociologicalData.cs</DependentUpon>
     </Compile>
-    <Compile Include="Input\MapInfoFormatException.cs" />
-    <Compile Include="Input\MapInfoMismatchException.cs" />
+    <Compile Include="Input\CustomExceptions\MapInfoFormatException.cs" />
+    <Compile Include="Input\CustomExceptions\MapInfoMismatchException.cs" />
     <Compile Include="DataModel\Region.cs" />
     <Compile Include="DataModel\Style.cs" />
     <Compile Include="Gui\BlackCatParserUI.cs">
@@ -99,10 +99,11 @@
     <Compile Include="Input\KMLReader.cs" />
     <Compile Include="Input\MapInfoReader.cs" />
     <Compile Include="Gui\Messages.cs" />
-    <Compile Include="Logic\FederalElectorateData.cs" />
+    <Compile Include="Input\SocialReader.cs" />
+    <Compile Include="Input\FederalElectorateData.cs" />
     <Compile Include="Logic\ISocialLogic.cs" />
     <Compile Include="Logic\SocialLogic.cs" />
-    <Compile Include="Logic\StateElectorateData.cs" />
+    <Compile Include="Input\StateElectorateData.cs" />
     <Compile Include="Output\IKMLWriter.cs" />
     <Compile Include="Output\KMLWriter.cs" />
     <Compile Include="Program.cs" />
