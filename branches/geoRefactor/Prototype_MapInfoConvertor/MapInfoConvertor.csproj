@@ -70,15 +70,23 @@
   <ItemGroup>
     <Compile Include="Controller\IKMLParserControl.cs" />
     <Compile Include="Controller\KMLParserControl.cs" />
-    <Compile Include="DataManipulator\DataMerger.cs" />
-    <Compile Include="DataManipulator\IDataMerger.cs" />
     <Compile Include="DataModel\GeoModel.cs" />
     <Compile Include="DataModel\IGeoModel.cs" />
-    <Compile Include="DataModel\ISocialModel.cs" />
-    <Compile Include="DataModel\MapInfoFormatException.cs" />
-    <Compile Include="DataModel\MapInfoMismatchException.cs" />
+    <Compile Include="Gui\UISelectMapInfoData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\UISelectMapInfoData.Designer.cs">
+      <DependentUpon>UISelectMapInfoData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Gui\UISelectSociologicalData.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Gui\UISelectSociologicalData.Designer.cs">
+      <DependentUpon>UISelectSociologicalData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Input\MapInfoFormatException.cs" />
+    <Compile Include="Input\MapInfoMismatchException.cs" />
     <Compile Include="DataModel\Region.cs" />
-    <Compile Include="DataModel\SocialModel.cs" />
     <Compile Include="DataModel\Style.cs" />
     <Compile Include="Gui\BlackCatParserUI.cs">
       <SubType>Form</SubType>
@@ -87,11 +95,14 @@
       <DependentUpon>BlackCatParserUI.cs</DependentUpon>
     </Compile>
     <Compile Include="Input\IGeoReader.cs" />
-    <Compile Include="Input\IResourceReader.cs" />
+    <Compile Include="Input\ISocialReader.cs" />
     <Compile Include="Input\KMLReader.cs" />
     <Compile Include="Input\MapInfoReader.cs" />
-    <Compile Include="Input\ResourceReader.cs" />
-    <Compile Include="Messages.cs" />
+    <Compile Include="Gui\Messages.cs" />
+    <Compile Include="Logic\FederalElectorateData.cs" />
+    <Compile Include="Logic\ISocialLogic.cs" />
+    <Compile Include="Logic\SocialLogic.cs" />
+    <Compile Include="Logic\StateElectorateData.cs" />
     <Compile Include="Output\IKMLWriter.cs" />
     <Compile Include="Output\KMLWriter.cs" />
     <Compile Include="Program.cs" />
@@ -109,20 +120,8 @@
       <DependentUpon>UIConvertKML.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Gui\UILinkDataSource.resx">
-      <DependentUpon>UILinkDataSource.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Gui\UIMain.resx">
       <DependentUpon>UIMain.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Gui\UISelectAdditionalInfoKML.resx">
-      <DependentUpon>UISelectAdditionalInfoKML.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Gui\UISelectAdditionalInfoMapInfo.resx">
-      <DependentUpon>UISelectAdditionalInfoMapInfo.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Gui\UISelectFileKML.resx">
@@ -157,29 +156,11 @@
     <Compile Include="Gui\UIConvertKML.Designer.cs">
       <DependentUpon>UIConvertKML.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gui\UILinkDataSource.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Gui\UILinkDataSource.Designer.cs">
-      <DependentUpon>UILinkDataSource.cs</DependentUpon>
-    </Compile>
     <Compile Include="Gui\UIMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Gui\UIMain.designer.cs">
       <DependentUpon>UIMain.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\UISelectAdditionalInfoKML.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Gui\UISelectAdditionalInfoKML.Designer.cs">
-      <DependentUpon>UISelectAdditionalInfoKML.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Gui\UISelectAdditionalInfoMapInfo.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Gui\UISelectAdditionalInfoMapInfo.Designer.cs">
-      <DependentUpon>UISelectAdditionalInfoMapInfo.cs</DependentUpon>
     </Compile>
     <Compile Include="Gui\UISelectFileKML.cs">
       <SubType>Form</SubType>
@@ -199,8 +180,7 @@
     <Compile Include="Gui\UISelectOutput.Designer.cs">
       <DependentUpon>UISelectOutput.cs</DependentUpon>
     </Compile>
-    <Compile Include="Validator\IValidator.cs" />
-    <Compile Include="Validator\Validator.cs" />
+    <Compile Include="Gui\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

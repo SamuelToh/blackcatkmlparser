@@ -26,7 +26,8 @@ namespace BlackCat
             {
                 String path = txtOutputPath.Text;
                 path = path.Substring(0, path.LastIndexOf('\\'));
-                int response = controller.validateFolder(path);
+                //int response = controller.validateFolder(path);
+                int response = 0; //TODO: actually check the validity
                 if (response == 0)
                 {
                     outputFilePath = txtOutputPath.Text;

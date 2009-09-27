@@ -16,7 +16,7 @@ namespace BlackCat
 
     //This class contains a list of methods to verify file/folder 
     //and native file format.
-    public class Validator : IValidator
+    public class Validator
     {
         const int MINIMUM_AMT_OF_DISKSPACE = 1000;
 
