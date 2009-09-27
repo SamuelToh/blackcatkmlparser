@@ -60,12 +60,6 @@
     <Compile Include="TestUISelectFileB.cs" />
     <Compile Include="TestUISelectOutput.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Prototype_MapInfoConvertor\BlackCatKMLParser.csproj">
-      <Project>{7E97C915-0A38-4D05-BE3C-0C3CAD73FF8E}</Project>
-      <Name>BlackCatKMLParser</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
