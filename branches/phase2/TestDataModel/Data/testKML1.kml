@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.0">
+<Document>
+<!-- Begin Style Definitions -->
+<Style id="myDefaultStyles ">
+<IconStyle id="footballerIcon ">
+<color>ffbbbbbb</color>
+<scale>1.0</scale>
+<Icon>
+<href>root://icons/palette-2.png</href>
+<x>32</x>
+<y>32</y>
+<w>32</w>
+<h>32</h>
+</Icon>
+</IconStyle>
+<LabelStyle id="defaultLabelStyle">
+<color>7fffaaff</color>
+<scale>1.5</scale>
+</LabelStyle>
+<LineStyle id="defaultLineStyle">
+<color>ffbbbbff</color>
+<width>15</width>
+</LineStyle>
+<PolyStyle id="defaultPolyStyle">
+<color>ff7fbbbb</color>
+<colorMode>normal</colorMode>
+</PolyStyle>
+</Style>
+<!-- End Style Definitions -->
+<Folder>
+<Placemark>
+<styleUrl>#myDefaultStyles</styleUrl>
+<name>Polygon Test</name>
+<description>A test file</description>
+<LookAt>
+<longitude>153.0033333</longitude>
+<latitude>-27.443610</latitude>
+<altitude>0</altitude>
+<range>364.0</range>
+<tilt>-3.407007745077314e-011</tilt>
+<heading>0</heading>
+</LookAt>
+<Polygon id="myPolygon">
+<extrude>0</extrude>
+<tessellate>1</tessellate>
+<altitudeMode>relativeToGround</altitudeMode>
+<outerBoundaryIs>
+<LinearRing id="myOuterLinearRing">
+<coordinates>
+153.0033333,-27.442777,0
+153.0033333,-27.444444,0
+153.005,-27.444444,0
+153.005,-27.442777,0
+153.0033333,-27.442777,0
+</coordinates>
+</LinearRing>
+</outerBoundaryIs>
+<innerBoundaryIs>
+<LinearRing id="myInnerLinearRing">
+<coordinates>
+153.0036111,-27.443610,0
+153.0036111,-27.444166,0
+153.0041666,-27.444166,0
+153.0041666,-27.443610,0
+153.0036111,-27.443610,0
+</coordinates>
+</LinearRing>
+</innerBoundaryIs>
+</Polygon>
+</Placemark>
+<Placemark>
+<description>Attached</description>
+<name>Simple placemark</name>
+<styleUrl>#myDefaultStyles</styleUrl>
+<Point>
+<extrude>0</extrude>
+<tessellate>0</tessellate>
+<altitudeMode>clampedToGround</altitudeMode>
+<coordinates>
+153.0029465223778,-27.44338980361695,0
+</coordinates>
+</Point>
+</Placemark>
+<Placemark>
+<LineString id="aLine">
+<extrude>1</extrude>
+<tessellate>1</tessellate>
+<altitudeMode>clampToGround</altitudeMode>
+<coordinates>
+153.00300, -27.443819,0
+153.00300,-27.444810,0
+</coordinates>
+</LineString>
+</Placemark>
+</Folder>
+</Document>
+</kml>
