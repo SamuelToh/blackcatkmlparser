@@ -71,9 +71,9 @@
     <Content Include="Data\QLD_Federal_Electoral_Boundaries.MID" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Prototype_MapInfoConvertor\MapInfoConvertor.csproj">
+    <ProjectReference Include="..\Prototype_MapInfoConvertor\BlackCatKMLParser.csproj">
       <Project>{7E97C915-0A38-4D05-BE3C-0C3CAD73FF8E}</Project>
-      <Name>MapInfoConvertor</Name>
+      <Name>BlackCatKMLParser</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
