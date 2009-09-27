@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapInfoConvertor", "Prototype_MapInfoConvertor\MapInfoConvertor.csproj", "{7E97C915-0A38-4D05-BE3C-0C3CAD73FF8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackCatKMLParser", "Prototype_MapInfoConvertor\BlackCatKMLParser.csproj", "{7E97C915-0A38-4D05-BE3C-0C3CAD73FF8E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataModel", "TestDataModel\TestDataModel.csproj", "{170A5507-2592-4A20-BA70-EF83F56338D1}"
 EndProject
