@@ -84,7 +84,7 @@ namespace BlackCat
              // If we reach here, all has gone well so far. Now we write the model to file.         
 
              KMLWriter writer = new KMLWriter();
-             if (writer.WriteToFile(outputFileURL, geoModel, progressBar))
+             if (writer.WriteToFile(geoModel, new List<String>(), outputFileURL, progressBar))
                  return 0;
              /*if (geoModel.OutputKML(outputFileURL, progressBar))
                  return 0;

@@ -8,6 +8,6 @@ namespace BlackCat
 {
     interface IKMLWriter
     {
-        bool WriteToFile(String outputPath, IGeoModel model, ProgressBar progressBar);
+        bool WriteToFile(IGeoModel model, List<String> dataFieldsToDisplay, String outputPath, ProgressBar progressBar);
     }
 }

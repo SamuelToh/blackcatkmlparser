@@ -13,7 +13,7 @@ namespace BlackCat
         private const string KML_NAMESPACE_ADDR = "http://www.opengis.net/kml/2.2";
         private IGeoModel geoModel;
 
-        public bool WriteToFile(String outputPath, IGeoModel model, ProgressBar progressBar)
+        public bool WriteToFile(IGeoModel model, List<String> dataFieldsToDisplay, String outputPath, ProgressBar progressBar)
         {
             this.geoModel = model; 
 

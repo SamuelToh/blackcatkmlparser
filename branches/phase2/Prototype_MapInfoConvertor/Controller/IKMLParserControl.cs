@@ -18,6 +18,8 @@ namespace BlackCat
        
         string[] GetMapInfoDataFields();
 
+        bool CanAddSociologicalData();
+
 
         // Loads the KML file fileURL into the system, arranging the updating of a progress bar as the 
         // operation proceeds. Returns an integer denoting the result of the operation as follows:
