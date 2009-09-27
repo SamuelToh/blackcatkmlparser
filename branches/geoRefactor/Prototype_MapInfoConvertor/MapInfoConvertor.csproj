@@ -92,6 +92,8 @@
     <Compile Include="Input\MapInfoReader.cs" />
     <Compile Include="Input\ResourceReader.cs" />
     <Compile Include="Messages.cs" />
+    <Compile Include="Output\IKMLWriter.cs" />
+    <Compile Include="Output\KMLWriter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Gui\BlackCatParserUI.resx">

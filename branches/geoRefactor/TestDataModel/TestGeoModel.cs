@@ -31,14 +31,14 @@ namespace TestDataModel
         /// <param name="outputFileURL">The path to write the file to.</param>
         /// <param name="progressBar">This will be updated during the process.</param>
         //void outputKML(String outputFileURL, ProgressBar progressBar);
-        [Test]
+        /*[Test]
         public void testOutputReturnsTrueCreatesFileKML()
         {
             GeoModel geoModel = new GeoModel();
             String testKML = @"..\..\Data\testKML1.kml";
             geoModel.BuildGeoModel(new KMLReader(testKML), new ProgressBar());
 
-            string tempKml = @"..\..\Data\temp.kml";
+            string tempKml = @"..\..\Data\temp.kml"
             Assert.IsTrue(geoModel.OutputKML(tempKml, new ProgressBar()));
             Assert.IsTrue( File.Exists(tempKml));
             File.Delete(tempKml);
@@ -89,7 +89,7 @@ namespace TestDataModel
 
             Assert.AreEqual("152,-27,0", coord1);
             Assert.AreEqual("153,-29,0</coordinates>", coord2);
-        }
+        }*/
 
         /// <summary>
         /// Set the style of a region, if it exists in the model.

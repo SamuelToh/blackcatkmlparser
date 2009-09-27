@@ -114,10 +114,14 @@ namespace BlackCat
                  }
              }
 
-             // If we reach here, all has gone well so far. Now we write the model to file.            
-             if (geoModel.OutputKML(outputFileURL, progressBar))
+             // If we reach here, all has gone well so far. Now we write the model to file.         
+
+             KMLWriter writer = new KMLWriter();
+             if (writer.WriteToFile(outputFileURL, geoModel, progressBar))
                  return 0;
-             log.Debug("Output failed");
+             /*if (geoModel.OutputKML(outputFileURL, progressBar))
+                 return 0;
+             log.Debug("Output failed");*/
              return 1;
          }
 

@@ -9,25 +9,8 @@ namespace BlackCat
 {
     public interface IGeoModel{
     
-        /// <summary>
-        /// Populates the model from the supplied mid and mif files. The progress bar is updated throughout.
-        /// Pre: The mid and mif files are valid and the mif columns match the mid data set.
-        /// Post: The model is populated.
-        /// </summary>
-        /// <param name="midFileURL">The url of the mid file. Must not be null.</param>
-        /// <param name="mifFileURL">The url of the mif file. Must not be null.</param>
-        /// <param name="progressBar">This will be updated during the process.</param>
-        // bool BuildGeoModel(String midFileURL, String mifFileURL, ProgressBar progressBar);
-        bool BuildGeoModel(IGeoReader reader, ProgressBar progressBar);
 
-        /// <summary>
-        /// Populates the model from the supplied kml file. The progress bar is updated throughout.
-        /// Pre: The kml file is valid.
-        /// Post: The model is populated.
-        /// </summary>
-        /// <param name="kmlFileURL">The url of the KML file. Must not be null</param>
-        /// <param name="progressBar">This will be updated during the process.</param>
-        //bool BuildGeoModel(String kmlFileURL, ProgressBar progressBar);
+        bool BuildGeoModel(IGeoReader reader, ProgressBar progressBar);
 
         /// <summary>
         /// Writes the model in KML format to the supplied output URL. The progress bar is updated throughout.
@@ -36,7 +19,8 @@ namespace BlackCat
         /// </summary>
         /// <param name="outputFileURL">The path to write the file to.</param>
         /// <param name="progressBar">This will be updated during the process.</param>
-        bool OutputKML(String outputFileURL, ProgressBar progressBar);
+        //bool OutputKML(String outputFileURL, ProgressBar progressBar);
+        Style[] GetStyles();
 
         /// <summary>
         /// Set the style of a region, if it exists in the model.
@@ -50,6 +34,8 @@ namespace BlackCat
         /// </summary>
         /// <returns>An array of region identifiers.</returns>
         String[] GetRegionIdentifiers();
+
+        Region[] GetRegions();
 
         /// <summary>
         /// Return the data column of mapinfo files
