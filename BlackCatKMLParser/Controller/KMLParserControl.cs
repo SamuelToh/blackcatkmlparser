@@ -92,6 +92,13 @@ namespace BlackCat
              return 1;
          }
 
+         public bool CanAddSociologicalData()
+         {
+             //TODO: implement
+             return true;
+         }
+
+
         // Returns a list of the data fields in the geographical data file(s) that could be used to perform  
         // data linking on.
 
@@ -102,7 +109,7 @@ namespace BlackCat
         {
             if (geoModel != null)
             {
-                List<String> fields = geoModel.DataFieldNames();
+                List<String> fields = geoModel.DataFieldNames;
                 if (fields != null)
                     return fields.ToArray();
             }

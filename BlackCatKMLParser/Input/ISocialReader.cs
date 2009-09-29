@@ -7,7 +7,7 @@ namespace BlackCat
 {
     public interface ISocialReader
     {
-        String[] getStateSeats(String federalSeat);
+        String[] GetStateSeats(String federalSeat);
         
         StateElectorateData GetStateResults(string stateSeat);
         

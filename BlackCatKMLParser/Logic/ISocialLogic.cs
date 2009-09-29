@@ -7,10 +7,10 @@ namespace BlackCat
 {
     public interface ISocialLogic
     {
-        void calculateSeatWinners(GeoModel model, Boolean isMainDisplay);
+        void CalculateSeatWinners(GeoModel model, Boolean isMainDisplay);
 
-        void calculateSeatSafety(GeoModel model, Boolean isMainDisplay);
+        void CalculateSeatSafety(GeoModel model, Boolean isMainDisplay);
         
-        Boolean canMatchSociologicalData(GeoModel model);
+        Boolean CanMatchSociologicalData(GeoModel model);
     }
 }

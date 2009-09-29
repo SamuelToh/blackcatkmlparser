@@ -31,9 +31,9 @@ namespace BlackCat
             return true;
         }
 
-        public Region[] GetRegions()
+        public Region[] Regions
         {
-            return this.regions.ToArray();
+            get {return this.regions.ToArray();}
         }
 
         public void SetRegionStyle
@@ -59,9 +59,9 @@ namespace BlackCat
             return null;
         }
 
-        public Style[] GetStyles()
+        public Style[] Styles
         {
-            return this.styles.ToArray();
+            get { return this.styles.ToArray(); }
         }
 
         private void chkModelStyle(Style style)
@@ -81,15 +81,17 @@ namespace BlackCat
             }
         }
 
-        public String[] GetRegionIdentifiers()
+        public String[] RegionIdentifiers
         {
-            string[] ident =
-                new string[regions.Count];
+            get
+            {
+                string[] ident = new string[regions.Count];
 
-            for (int i = 0; i < ident.Length; i++)
-                ident[i] = regions[i].regionName;
+                for (int i = 0; i < ident.Length; i++)
+                    ident[i] = regions[i].regionName;
 
-            return ident;
+                return ident;
+            }
         }
 
         //Added for testing purposes
@@ -104,9 +106,9 @@ namespace BlackCat
         /*
          *Added on 14 Sep 
          */
-        public List<String> DataFieldNames()
+        public List<String> DataFieldNames
         {
-            return dataFields;
+            get { return dataFields; }
         }
 
     }

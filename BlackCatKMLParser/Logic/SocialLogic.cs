@@ -7,15 +7,15 @@ namespace BlackCat
 {
     public class SocialLogic : ISocialLogic
     {
-        public void calculateSeatWinners(GeoModel model, Boolean isMainDisplay)
+        public void CalculateSeatWinners(GeoModel model, Boolean isMainDisplay)
         {
         }
 
-        public void calculateSeatSafety(GeoModel model, Boolean isMainDisplay)
+        public void CalculateSeatSafety(GeoModel model, Boolean isMainDisplay)
         {
         }
 
-        public Boolean canMatchSociologicalData(GeoModel model)
+        public Boolean CanMatchSociologicalData(GeoModel model)
         {
             return true;
         }

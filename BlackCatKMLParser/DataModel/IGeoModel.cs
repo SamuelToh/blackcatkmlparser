@@ -20,7 +20,7 @@ namespace BlackCat
         /// <param name="outputFileURL">The path to write the file to.</param>
         /// <param name="progressBar">This will be updated during the process.</param>
         //bool OutputKML(String outputFileURL, ProgressBar progressBar);
-        Style[] GetStyles();
+        Style[] Styles { get; }
 
         /// <summary>
         /// Set the style of a region, if it exists in the model.
@@ -33,15 +33,15 @@ namespace BlackCat
         /// Return the identifiers for all regions in the model.
         /// </summary>
         /// <returns>An array of region identifiers.</returns>
-        String[] GetRegionIdentifiers();
+        String[] RegionIdentifiers { get; }
 
-        Region[] GetRegions();
+        Region[] Regions { get; }
 
         /// <summary>
         /// Return the data column of mapinfo files
         /// </summary>
         /// <returns>A list of string containing the names of column.</returns>
-        List<String> DataFieldNames();
+        List<String> DataFieldNames {get;}
 
     }
 }

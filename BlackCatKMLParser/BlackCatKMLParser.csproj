@@ -68,10 +68,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlackcatKMLParserDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BlackcatKMLParserDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Controller\IKMLParserControl.cs" />
     <Compile Include="Controller\KMLParserControl.cs" />
     <Compile Include="DataModel\GeoModel.cs" />
     <Compile Include="DataModel\IGeoModel.cs" />
+    <Compile Include="DataModel\IRegion.cs" />
+    <Compile Include="DataModel\IStyle.cs" />
     <Compile Include="Gui\UISelectMapInfoData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -94,8 +101,10 @@
     <Compile Include="Gui\BlackCatParserUI.Designer.cs">
       <DependentUpon>BlackCatParserUI.cs</DependentUpon>
     </Compile>
+    <Compile Include="Input\IFederalElectorateData.cs" />
     <Compile Include="Input\IGeoReader.cs" />
     <Compile Include="Input\ISocialReader.cs" />
+    <Compile Include="Input\IStateElectorateData.cs" />
     <Compile Include="Input\KMLReader.cs" />
     <Compile Include="Input\MapInfoReader.cs" />
     <Compile Include="Gui\Messages.cs" />
@@ -206,9 +215,24 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="BlackCat.jpg" />
+    <None Include="BlackcatKMLParserDataSet.xsc">
+      <DependentUpon>BlackcatKMLParserDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="BlackcatKMLParserDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BlackcatKMLParserDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BlackcatKMLParserDataSet.xss">
+      <DependentUpon>BlackcatKMLParserDataSet.xsd</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BlackcatKMLParser.accdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="LogConfig.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
