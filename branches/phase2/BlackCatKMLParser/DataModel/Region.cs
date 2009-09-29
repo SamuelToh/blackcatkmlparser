@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BlackCat
 {
-    public class Region
+    public class Region : IRegion
     {
         public const string POLYGON_CODE = "POLYGON";
         public const string PLINE_CODE = "PLINE";

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BlackCat
 {
-    public class Style
+    public class Style : IStyle
     {
         private String colorCode;
         private String styleName;

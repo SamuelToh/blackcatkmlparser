@@ -7,19 +7,19 @@ namespace BlackCat
 {
     public class SocialReader : ISocialReader
     {
-        String[] getStateSeats(String federalSeat)
+        public String[] GetStateSeats(String federalSeat)
         {
             //TODO: implement
             return null;
         }
 
-        StateElectorateData GetStateResults(string stateSeat)
+        public StateElectorateData GetStateResults(string stateSeat)
         {
             //TODO: implement
             return null;
         }
 
-        FederalElectorateData GetFederalResults(string federalSeat)
+        public FederalElectorateData GetFederalResults(string federalSeat)
         {
             //TODO: implement
             return null;

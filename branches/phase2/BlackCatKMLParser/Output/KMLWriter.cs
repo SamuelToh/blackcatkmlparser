@@ -53,13 +53,13 @@ namespace BlackCat
 
         private void writeKMLStyles(XmlTextWriter writer)
         {
-            for (int i = 0; i < geoModel.GetStyles().Length; i++)
+            for (int i = 0; i < geoModel.Styles.Length; i++)
             {
                 writer.WriteStartElement("Style");
 
                 //<style id = ??>
                 writer.WriteAttributeString("id",
-                                geoModel.GetStyles()[i].StyleName);
+                                geoModel.Styles[i].StyleName);
 
                 writer.WriteStartElement("LineStyle");
                 writer.WriteStartElement("width");
@@ -70,7 +70,7 @@ namespace BlackCat
                 writer.WriteStartElement("PolyStyle");
 
                 writer.WriteStartElement("color");
-                writer.WriteString(geoModel.GetStyles()[i].ColorCode);
+                writer.WriteString(geoModel.Styles[i].ColorCode);
                 writer.WriteEndElement(); //</color>
 
                 writer.WriteEndElement(); //</polystyle>
@@ -123,7 +123,7 @@ namespace BlackCat
              */
             #endregion
            
-            Region[] regions = this.geoModel.GetRegions();
+            Region[] regions = this.geoModel.Regions;
             for (int i = 0; i < regions.Length; i++)
             {
                 writer.WriteStartElement("Placemark");
