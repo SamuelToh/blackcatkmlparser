@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace BlackCat
 {
-    interface IKMLWriter
+    public interface IKMLWriter
     {
         bool WriteToFile(IGeoModel model, List<String> dataFieldsToDisplay, String outputPath, ProgressBar progressBar);
     }

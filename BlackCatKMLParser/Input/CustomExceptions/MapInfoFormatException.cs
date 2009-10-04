@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BlackCat
 {
-    class MapInfoFormatException : Exception
+    public class MapInfoFormatException : Exception
     {
         public MapInfoFormatException(string message)
             : base(message) 

@@ -68,11 +68,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BlackcatKMLParserDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BlackcatKMLParserDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="Controller\IKMLParserControl.cs" />
     <Compile Include="Controller\KMLParserControl.cs" />
     <Compile Include="DataModel\GeoModel.cs" />
@@ -217,17 +212,6 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="BlackCat.jpg" />
-    <None Include="BlackcatKMLParserDataSet.xsc">
-      <DependentUpon>BlackcatKMLParserDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="BlackcatKMLParserDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>BlackcatKMLParserDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="BlackcatKMLParserDataSet.xss">
-      <DependentUpon>BlackcatKMLParserDataSet.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Content Include="BlackcatKMLParser.accdb">

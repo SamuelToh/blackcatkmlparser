@@ -1,7 +1,7 @@
 ﻿using System;
 namespace BlackCat
 {
-    interface IStyle
+    public interface IStyle
     {
         string ColorCode { get; set; }
         string StyleName { get; set; }
