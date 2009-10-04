@@ -1,7 +1,7 @@
 ﻿using System;
 namespace BlackCat
 {
-    interface IRegion
+    public interface IRegion
     {
         string regionName { get; set; }
         BlackCat.Style regionStyle { get; set; }

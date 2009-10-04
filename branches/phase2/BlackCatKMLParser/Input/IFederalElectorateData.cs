@@ -1,7 +1,7 @@
 ﻿using System;
 namespace BlackCat
 {
-    interface IFederalElectorateData
+    public interface IFederalElectorateData
     {
         double FirstPref_ALP { get; set; }
         double FirstPref_DEM { get; set; }
