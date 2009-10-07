@@ -7,70 +7,74 @@ namespace BlackCat
 {
     public class FederalElectorateData : IFederalElectorateData
     {
-        private String name;
-        private double firstPref_ALP;
-        private double firstPref_LP;
-        private double firstPref_NP;
-        private double firstPref_DEM;
-        private String firstPrefWinningParty;
-        private String twoPartyPrefWinningParty;
-        private int heldSince;
-        private int previouslyHeld;
-
-        public double FirstPref_ALP
+        public int? ALP_Votes
         {
-            get { return firstPref_ALP; }
-            set { firstPref_ALP = value; }
+            get { return null; }
+            set { ; }
         }
 
-        public double FirstPref_LP
+        public String FederalElectorateName
         {
-            get { return firstPref_LP; }
-            set { firstPref_LP = value; }
+            get { return null; }
+            set { ; }
         }
 
-        public double FirstPref_NP
+        public float? FirstPref_ALP_Percent
         {
-            get { return firstPref_NP; }
-            set { firstPref_NP = value; }
+            get { return null; }
+            set { ; }
         }
 
-        public double FirstPref_DEM
+        public float? FirstPref_DEM_Percent
         {
-            get { return firstPref_DEM; }
-            set { firstPref_DEM = value; }
+            get { return null; }
+            set { ; }
         }
 
-        public String FirstPrefWinningParty
+        public float? FirstPref_GRN_Percent
         {
-            get { return firstPrefWinningParty; }
-            set { firstPrefWinningParty = value; }
+            get { return null; }
+            set { ; }
         }
 
-        public String TwoPartyPrefWinningParty
+        public float? FirstPref_LP_Percent
         {
-            get { return twoPartyPrefWinningParty; }
-            set { twoPartyPrefWinningParty = value; }
+            get { return null; }
+            set { ; }
         }
 
-        public int HeldSince
+        public float? FirstPref_NP_Percent
         {
-            get { return heldSince; }
-            set { heldSince = value; }
+            get { return null; }
+            set { ; }
         }
 
-        public int PreviouslyHeld
+        public float? FirstPref_OTH_Percent
         {
-            get { return previouslyHeld; }
-            set { previouslyHeld = value; }
+            get { return null; }
+            set { ; }
         }
 
-        public String Name
+        public String FirstPref_SeatWinner
         {
-            get { return name; }
-            set { name = value; }
+            get { return null; }
+            set { ; }
         }
 
+        public int? HeldSince
+        {
+            get { return null; }
+            set { ; }
+        }
 
+        public int? LP_Votes
+        {
+            get { return null; }
+            set { ; }
+        }
+        
+        public void clearAll()
+        {
+        }
     }
 }

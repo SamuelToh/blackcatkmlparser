@@ -9,7 +9,7 @@ namespace BlackCat
         // Post: The value of aLP_Votes has been returned for getting or the value of 
         // aLP_Votes has been set to the input value for setting.
 
-        int ALP_Votes { get; set; }
+        int? ALP_Votes { get; set; }
 
         // Property to get and set the value of the federalElectorateName attribute
         // The getter returns the federalElectorateName, the setter returns nothing.
@@ -24,7 +24,7 @@ namespace BlackCat
         // Pre: True for getting, percent is not null for setting
         // Post: The value of firstPref_ALP_Percent has been returned for getting or the value // of firstPref_ALP_Percent has been set to the input value for setting.
 
-        float FirstPref_ALP_Percent { get; set; }
+        float? FirstPref_ALP_Percent { get; set; }
 
         // Property to get and set the value of the firstPref_DEM_Percent attribute
         // The getter returns the firstPref_DEM_Percent, the setter returns nothing.
@@ -32,14 +32,14 @@ namespace BlackCat
         // Post: The value of firstPref_DEM_Percent has been returned for getting or the 
         // value of firstPref_DEM_Percent has been set to the input value for setting.
 
-        float FirstPref_DEM_Percent { get; set; }
+        float? FirstPref_DEM_Percent { get; set; }
 
         // Property to get and set the value of the firstPref_GRN_Percent attribute
         // The getter returns the firstPref_GRN_Percent, the setter returns nothing.
         // Pre: True for getting, percent is not null for setting
         // Post: The value of firstPref_GRN_Percent has been returned for getting or the value // of  firstPref_GRN_Percent has been set to the input value for setting.
 
-        float FirstPref_GRN_Percent { get; set; }
+        float? FirstPref_GRN_Percent { get; set; }
 
         // Property to get and set the value of the firstPref_LP_Percent attribute
         // The getter returns the firstPref_LP_Percent, the setter returns nothing.
@@ -47,7 +47,7 @@ namespace BlackCat
         // Post: The value of firstPref_LP_Percent has been returned for getting or the value 
         // of firstPref_LP_Percent has been set to the input value for setting.
 
-        float FirstPref_LP_Percent { get; set; }
+        float? FirstPref_LP_Percent { get; set; }
 
         // Property to get and set the value of the firstPref_NP_Percent attribute
         // The getter returns the firstPref_NP_Percent, the setter returns nothing.
@@ -55,7 +55,7 @@ namespace BlackCat
         // Post: The value of firstPref_NP_Percent has been returned for getting or the value 
         // of firstPref_NP_Percent has been set to the input value for setting.
 
-        float FirstPref_NP_Percent { get; set; }
+        float? FirstPref_NP_Percent { get; set; }
 
         // Property to get (but not set) the value of the firstPref_OTH_Percent attribute.
         // Returns the firstPref_OTH_Percent
@@ -64,7 +64,7 @@ namespace BlackCat
         // Pre: True 
         // Post: The value of firstPref_OTH_Percent has been returned.
 
-        float FirstPref_OTH_Percent { get; }
+        float? FirstPref_OTH_Percent { get; }
 
         // Property to get and set the value of the firstPref_SeatWinner attribute
         // The getter returns the firstPref_SeatWinner party, the setter returns nothing.
@@ -80,7 +80,7 @@ namespace BlackCat
         // Post: The value of heldSince has been returned for getting or the value of 
         // heldSince has been set to the input value for setting.
 
-        int HeldSince { get; set; }
+        int? HeldSince { get; set; }
 
         // Property to get and set the value of the lP_Votes attribute
         // The getter returns the lP_Votes, the setter returns nothing.
@@ -88,7 +88,7 @@ namespace BlackCat
         // Post: The value of lP_Votes has been returned for getting or the value of 
         // lP_Votes has been set to the input value for setting.
 
-        int LP_Votes { get; set; }
+        int? LP_Votes { get; set; }
 
         // Resets all fields in the FederalElectorateData object to null values.
         // No return value.
