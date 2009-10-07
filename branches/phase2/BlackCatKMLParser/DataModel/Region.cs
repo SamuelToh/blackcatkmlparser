@@ -13,6 +13,7 @@ namespace BlackCat
         public const string POINT_CODE = "POINT";
 
         private List<string> coordinates = new List<string>();
+        private List<string> dataNames = new List<string>();
         private List<string> dataValues = new List<string>();
         private string regionName;
         private string regionType;
@@ -65,6 +66,12 @@ namespace BlackCat
         {
             get { return coordinates; }
             set { this.Coordinates = value; }
+        }
+
+        public String[] DataNames 
+        {
+            get { return this.dataNames; }
+            set { this.dataNames = value; }
         }
 
         public String GetDataValue(int index)

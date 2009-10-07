@@ -65,6 +65,9 @@ namespace BlackCat
                     readMidFile(midReader, delimiter, regionNameIndex);
                 //else
                     //TODO: examine log.Info("There was no column information in the mif file - not reading mid file");
+                //add data name info
+                    foreach (Region r in regions)
+                        r.DataNames = this.dataFieldNames;
 
                 // READ mif DATA information
                 int regionCount = 0;
