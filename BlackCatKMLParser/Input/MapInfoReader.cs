@@ -18,7 +18,8 @@ namespace BlackCat
         private ProgressBar bar;
         private List<Region> regions;
         private int objCounter; //TODO: identical to region.count?
-        private List<String> dataFields; //TODO: data should be held only in region
+        private List<String> dataFieldNames; //TODO: data should be held only in region
+        private Char delimiter = '\t';
 
         public MapInfoReader(String midURL, String mifURL)
         {
@@ -29,7 +30,7 @@ namespace BlackCat
         public List<Region> ReadRegions(ProgressBar bar)
         {
             this.regions = new List<Region>();
-            this.dataFields = new List<String>();
+            this.dataFieldNames = new List<String>();
             this.objCounter = 0;
             this.bar = bar;
         
@@ -40,30 +41,30 @@ namespace BlackCat
                 bar.Maximum = 100;
 
                 // READ mif header
-                Char delim;
-                int dataCount;
-                String[] headerData = readHeader(mifReader);
+                //int dataCount;
+                readHeader(mifReader);
 
-                bool delimSuccess = char.TryParse(headerData[0], out delim);
+                /*bool delimSuccess = char.TryParse(headerData[0], out delim);
                 bool dataCountSuccess = int.TryParse(headerData[1], out dataCount);
                 if (!delimSuccess)
                     throw new MapInfoFormatException("Mif file Delimiter information in unexpected format");
                 if (!dataCountSuccess)
                     throw new MapInfoFormatException("Mif file Column information in unexpected format");
+                */
 
                 //TODO: this is hard coded to be the second data item - in our test MapInfo files, this is Elect_div
                 int regionNameIndex = 0;
-                if (dataCount > 1)
-                {
+                //if (dataCount > 1)
+                //{
                     regionNameIndex = 1;
-                    dataFields.Add("Elect_div");
-                }
+                    //dataFields.Add("Elect_div");
+                //}
 
                 // READ mid file - if there is data
-                if (dataCount > 0)
-                    readMidFile(midReader, delim, regionNameIndex);
-                else
-                    log.Info("There was no column information in the mif file - not reading mid file");
+                //if (dataCount > 0)
+                    readMidFile(midReader, delimiter, regionNameIndex);
+                //else
+                    //TODO: examine log.Info("There was no column information in the mif file - not reading mid file");
 
                 // READ mif DATA information
                 int regionCount = 0;
@@ -133,31 +134,52 @@ namespace BlackCat
         //Returns : Char[] where:
         // index 0 - the delimiter defined in the header, or the default delimiter if not defined - '\t'
         // index 1 - the number of data items per region in the mid file 
-        private String[] readHeader(StreamReader mifReader)
+        //private String[] readHeader(StreamReader mifReader)
+        private void readHeader(StreamReader mifReader)
         {
             log.Debug("Reading mif header file");
-            String[] data = new String[2];
-            data[0] = "\t";
-            data[1] = "0";
+            String delimiter = "\t";
+
+            //String[] data = new String[2];
+           
+            //data[0] = "\t";
+            //data[1] = "0";
 
             String line = mifReader.ReadLine();
             while (!line.Trim().ToUpper().Equals("DATA"))
             {
                 if (line.Trim().ToUpper().StartsWith("DELIMITER"))
                 {
-                    data[0] = line.Substring(line.IndexOf('"') + 1, 1);
+                    //data[0] = line.Substring(line.IndexOf('"') + 1, 1);
+                    delimiter = line.Substring(line.IndexOf('"') + 1, 1);
                 }
                 else if (line.Trim().ToUpper().StartsWith("COLUMNS"))
                 {
                     String[] lineParts = line.Split(new Char[]{' '}, StringSplitOptions.RemoveEmptyEntries);
-                    if(lineParts.Length > 0)
-                        data[1] = lineParts[1];
+                    if (lineParts.Length > 0)
+                    {
+                        int dataCount;
+                        bool success = int.TryParse(lineParts[1], out dataCount);
+                        if (!success)
+                            throw new MapInfoFormatException("Mif file Column count information in unexpected format");
+
+                        //data[1] = lineParts[1];
+                        this.dataFieldNames = new List<string>(dataCount);
+                        line = mifReader.ReadLine();
+                        for (int i = 0; i < dataCount; i++)
+                        {
+                            if (line.Trim().ToUpper().Equals("DATA"))
+                                throw new MapInfoFormatException("Not enough column names found in .mif column section");
+                            lineParts = line.Split(new Char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                            dataFieldNames.Add(lineParts[0]);
+                        }
+                    }
                 }
                 line = mifReader.ReadLine();
             }
-            log.Debug("Returning delim : \"" + data[0] + "\"");
-            log.Debug("Returning column count : " + data[1]);
-            return data;
+            //log.Debug("Returning delim : \"" + data[0] + "\"");
+            //l/og.Debug("Returning column count : " + data[1]);
+            return;
         }
 
         //Reads the data from the stream, splitting each line using the delimiter supplied.
@@ -173,12 +195,17 @@ namespace BlackCat
                 Region reg = new Region();
                 if (regionNameIndex < lineParts.Length)
                 {
+                    //Region name
                     //Remove inverted commas if necessary - mapinfo adds these to string data
                     char[] commas = new char[]{'\"'}; 
                     string name = lineParts[regionNameIndex];
                     name = name.TrimStart(commas);
                     name = name.TrimEnd(commas);
                     reg.RegionName = name;
+
+                    //all data
+                    foreach (String d in lineParts)
+                        reg.AddDataValue(d);
                 }
                 else
                     throw new MapInfoMismatchException("Data in .mif header does not match data in .mid file");
