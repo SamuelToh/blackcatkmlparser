@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using log4net;
+using System.Security.AccessControl;
 
 namespace BlackCat
 {

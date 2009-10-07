@@ -22,14 +22,14 @@ namespace BlackCat
         public Region(string regionName, List<String> coordinates, string regionType)
         {
             this.regionName = regionName;
-            this.coordinates = coordinates;
+            this.Coordinates = coordinates;
             this.regionType = regionType;
         }
 
         public Region(string regionName, string coordinates)
         {
             this.regionName = regionName;
-            this.coordinates.Add(coordinates);
+            this.Coordinates.Add(coordinates);
         }
 
         public Region(string regionType)
@@ -64,19 +64,19 @@ namespace BlackCat
         public List<String> Coordinates 
         {
             get { return coordinates; }
-            set { this.coordinates = value; }
+            set { this.Coordinates = value; }
         }
 
         public String GetDataValue(int index)
         {
-            if(index < this.coordinates.Count)
-                return this.coordinates[index];
+            if(index < this.Coordinates.Count)
+                return this.Coordinates[index];
             return null;
         }
 
         public void AddDataValue(String data)
         {
-            this.coordinates.Add(data);
+            this.Coordinates.Add(data);
         }
     }
 }
