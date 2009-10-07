@@ -178,7 +178,7 @@ namespace BlackCat
                     string name = lineParts[regionNameIndex];
                     name = name.TrimStart(commas);
                     name = name.TrimEnd(commas);
-                    reg.regionName = name;
+                    reg.RegionName = name;
                 }
                 else
                     throw new MapInfoMismatchException("Data in .mif header does not match data in .mid file");
@@ -196,7 +196,7 @@ namespace BlackCat
                 regions[regionIndex] = new Region();
 
             //define the KML type
-            regions[regionIndex].regionType = Region.POLYGON_CODE;
+            regions[regionIndex].RegionType = Region.POLYGON_CODE;
 
             String line;
             int currentPoly = 0;
@@ -326,7 +326,7 @@ namespace BlackCat
             if (regions[regCount] == null)
                 regions[regCount] = new Region(Region.PLINE_CODE);
             else
-                regions[regCount].regionType = Region.PLINE_CODE;
+                regions[regCount].RegionType = Region.PLINE_CODE;
 
             //Region reg = new Region(PLINE_CODE);
 
@@ -343,7 +343,7 @@ namespace BlackCat
 
             //see point 3rd variable?
             //16 september
-            regions[regCount].regionName = "BlackCat PolyLine Obj #" + objCounter++;
+            regions[regCount].RegionName = "BlackCat PolyLine Obj #" + objCounter++;
             regions[regCount].coordinates.Add(coord);
             //reg.coordinates.Add(coord);
 
@@ -360,7 +360,7 @@ namespace BlackCat
             if (regions[lineCount] == null)
                 regions[lineCount] = new Region(Region.LINE_CODE);
             else
-                regions[lineCount].regionType = Region.LINE_CODE;
+                regions[lineCount].RegionType = Region.LINE_CODE;
 
 
             for (int i = 1; i < lineData.Length; i++)
@@ -378,7 +378,7 @@ namespace BlackCat
                             coord.Length - 1); //remove \n and extra .
             // + "\n"
             // + RAW_INDENTATION; 
-            regions[lineCount].regionName = "BlackCat Line Obj #" + objCounter++;
+            regions[lineCount].RegionName = "BlackCat Line Obj #" + objCounter++;
             regions[lineCount].coordinates.Add(coord);
 
             //reg.coordinates.Add(coord);
@@ -399,7 +399,7 @@ namespace BlackCat
             if (regions[ptCount] == null)
                 regions[ptCount] = new Region(Region.POINT_CODE);
             else
-                regions[ptCount].regionType = Region.POINT_CODE;
+                regions[ptCount].RegionType = Region.POINT_CODE;
             //define the KML type
             //regions[regionIndex].regionType = POLYGON_CODE;
 
@@ -422,7 +422,7 @@ namespace BlackCat
             //reg.coordinates.Add(coord);
 
             //16 september
-            regions[ptCount].regionName = "BlackCat Point Obj #" + objCounter++;
+            regions[ptCount].RegionName = "BlackCat Point Obj #" + objCounter++;
             regions[ptCount].coordinates.Add(coord);
             //this.regions[ptCount].Add
               //      (reg);

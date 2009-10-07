@@ -131,21 +131,21 @@ namespace BlackCat
                 //if (regions[i].regionName != "")
 
                   //  writer.WriteString("BlackCat Converted Item #" + objCounter++);
-                writer.WriteString(regions[i].regionName);
+                writer.WriteString(regions[i].RegionName);
 
                 writer.WriteEndElement(); //</name>
                 writer.WriteStartElement("visibility"); //indicating the style
                 writer.WriteString("0"); //show the polygon
                 writer.WriteEndElement(); //</visibility>
 
-                if (regions[i].regionStyle != null)
+                if (regions[i].RegionStyle != null)
                 {
                     writer.WriteStartElement("styleUrl"); //indicating the style
-                    writer.WriteString(regions[i].regionStyle.StyleName); //show the polygon
+                    writer.WriteString(regions[i].RegionStyle.StyleName); //show the polygon
                     writer.WriteEndElement(); //</styleUrl>
                 }
 
-                string kind = regions[i].regionType;
+                string kind = regions[i].RegionType;
 
                 outputData(regions[i], kind, writer);
 

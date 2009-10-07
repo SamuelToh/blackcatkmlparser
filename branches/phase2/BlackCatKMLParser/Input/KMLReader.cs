@@ -97,23 +97,23 @@ namespace BlackCat
             {
                 //Search for <name> [Item name] </name>
                 if (reader.Name.ToLower() == "name")
-                    r.regionName = reader.ReadString();
+                    r.RegionName = reader.ReadString();
 
 
                 //Search for <polygon> 
                 else if (reader.Name.ToLower() == "polygon")
                 {
-                    r.regionType = Region.POLYGON_CODE;
+                    r.RegionType = Region.POLYGON_CODE;
                     r.coordinates = extractCoord(reader);
                 }
                 else if (reader.Name.ToLower() == "linestring") //or pline
                 {
-                    r.regionType = Region.LINE_CODE;
+                    r.RegionType = Region.LINE_CODE;
                     r.coordinates = extractCoord(reader);
                 }
                 else if (reader.Name.ToLower() == "point")
                 {
-                    r.regionType = Region.POINT_CODE;
+                    r.RegionType = Region.POINT_CODE;
                     r.coordinates = extractCoord(reader);
                 }
 
@@ -121,7 +121,7 @@ namespace BlackCat
                 reader.Skip();
                 //incrementRead();                 
             }
-            log.Debug("Region created - adding to model with name " + r.regionName);
+            log.Debug("Region created - adding to model with name " + r.RegionName);
             this.regions.Add(r);
         }
 
