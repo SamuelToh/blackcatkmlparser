@@ -42,9 +42,9 @@ namespace BlackCat
 
             foreach (Region r in regions)
 
-                if (r.regionName == regionIdentifier)
+                if (r.RegionName == regionIdentifier)
                 {
-                    r.regionStyle = style;
+                    r.RegionStyle = style;
                     break;
                 }
 
@@ -54,8 +54,8 @@ namespace BlackCat
         public Style GetRegionStyle(String regionIdentifier)
         {
             foreach (Region r in regions)
-                if (r.regionName == regionIdentifier)
-                    return r.regionStyle;
+                if (r.RegionName == regionIdentifier)
+                    return r.RegionStyle;
             return null;
         }
 
@@ -88,7 +88,7 @@ namespace BlackCat
                 string[] ident = new string[regions.Count];
 
                 for (int i = 0; i < ident.Length; i++)
-                    ident[i] = regions[i].regionName;
+                    ident[i] = regions[i].RegionName;
 
                 return ident;
             }
@@ -98,7 +98,7 @@ namespace BlackCat
         public String[] GetRegionCoordinates(String regionIdentifier)
         {
             for (int i = 0; i < regions.Count; i++)
-                if (regions[i].regionName == regionIdentifier)
+                if (regions[i].RegionName == regionIdentifier)
                     return regions[i].coordinates.ToArray();
             return null;
         }

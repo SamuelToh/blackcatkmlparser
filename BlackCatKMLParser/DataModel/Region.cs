@@ -12,25 +12,21 @@ namespace BlackCat
         public const string LINE_CODE = "LINE";
         public const string POINT_CODE = "POINT";
 
-        public List<string> coordinates
-                                = new List<string>();
-        private string
-                        m_regName,
-                        m_regType;
-
-        private Style m_regStyle;
+        private List<string> coordinates = new List<string>();
+        private List<string> dataValues = new List<string>();
+        private string regionName;
+        private string regionType;
+        private Style regionStyle;
 
         //Constructor
-        public Region(string regionName,
-                string coordinates,
-                string regType)
+        public Region(string regionName, List<String> coordinates, string regionType)
         {
             this.regionName = regionName;
-            this.coordinates.Add(coordinates);
+            this.coordinates = coordinates;
             this.regionType = regionType;
         }
-        public Region(string regionName,
-                string coordinates)
+
+        public Region(string regionName, string coordinates)
         {
             this.regionName = regionName;
             this.coordinates.Add(coordinates);
@@ -38,30 +34,49 @@ namespace BlackCat
 
         public Region(string regionType)
         {
-            this.regionType = regionType;
+            this.RegionType = regionType;
         }
 
-        public Region() { }
+        public Region() 
+        { 
+        }
 
         //Properties 
-        public string regionName
+        public string RegionName
         {
-            get { return m_regName; }
-            set { m_regName = value; }
+            get { return regionName; }
+            set { regionName = value; }
         }
 
 
-        public Style regionStyle
+        public Style RegionStyle
         {
-            get { return m_regStyle; }
-            set { m_regStyle = value; }
+            get { return regionStyle; }
+            set { regionStyle = value; }
         }
 
-        public string regionType
+        public string RegionType
         {
-            get { return m_regType; }
-            set { m_regType = value; }
-        }     
+            get { return regionType; }
+            set { regionType = value; }
+        }
 
+        public List<String> Coordinates 
+        {
+            get { return coordinates; }
+            set { this.coordinates = value; }
+        }
+
+        public String GetDataValue(int index)
+        {
+            if(index < this.coordinates.Count)
+                return this.coordinates[index];
+            return null;
+        }
+
+        void AddDataValue(String data)
+        {
+            this.coordinates.Add(data);
+        }
     }
 }
