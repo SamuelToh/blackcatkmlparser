@@ -33,6 +33,13 @@ namespace BlackCat
         // coordinates has been set to the input value for setting.
         List<String> Coordinates { get; set; }
 
+        // Property to get and set the value of the dataNames attribute
+        // The getter returns the dataNames attribute, the setter returns nothing
+        // Pre: True for getting, dataNames is not null for setting
+        // Post: the value of dataNames has been returned for getting or 
+        // the value of dataNames has been set to the input value for setting.
+        String[] DataNames { get; set; }
+
         //Method to get the data value at a particular index
         //Return value is the String data at that index 
         //or null if the index is out of bounds.
