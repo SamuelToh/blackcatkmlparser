@@ -207,7 +207,7 @@ namespace BlackCat
             writer.WriteEndElement(); //</altitudeMode>
 
             writer.WriteStartElement("coordinates");
-            writer.WriteRaw(data.coordinates[0]);
+            writer.WriteRaw(data.Coordinates[0]);
             writer.WriteEndElement(); //</coordinates>
 
 
@@ -234,7 +234,7 @@ namespace BlackCat
 
             writer.WriteStartElement("coordinates");
             writer.WriteString
-                    (data.coordinates[0]);
+                    (data.Coordinates[0]);
             writer.WriteEndElement(); //</coordinates>
 
             writer.WriteEndElement(); //</point>
@@ -255,7 +255,7 @@ namespace BlackCat
 
             writer.WriteStartElement("coordinates");
             writer.WriteString
-                    (data.coordinates[0]);
+                    (data.Coordinates[0]);
             writer.WriteEndElement(); //</coordinates>
 
             writer.WriteEndElement(); //</point>
@@ -280,18 +280,18 @@ namespace BlackCat
             writer.WriteStartElement("outerBoundaryIs"); //indicating the style
             writer.WriteStartElement("LinearRing"); //indicating the style
             writer.WriteStartElement("coordinates");            
-            writer.WriteRaw(data.coordinates[0]);
+            writer.WriteRaw(data.Coordinates[0]);
             writer.WriteEndElement(); //</coordinates>
             writer.WriteEndElement(); //</LinearRing>
             writer.WriteEndElement(); //</outerBoundaryIs>
 
             //rest as optional outer boundaries
-            for (int i = 1; i < data.coordinates.Count; i++) //exclude first index
+            for (int i = 1; i < data.Coordinates.Count; i++) //exclude first index
             {
                 writer.WriteStartElement("innerBoundaryIs"); //indicating the style
                 writer.WriteStartElement("LinearRing"); //indicating the style
                 writer.WriteStartElement("coordinates");
-                writer.WriteRaw(data.coordinates[i]);
+                writer.WriteRaw(data.Coordinates[i]);
                 writer.WriteEndElement(); //</coordinates>
                 writer.WriteEndElement(); //</LinearRing>
                 writer.WriteEndElement(); //</innerBoundaryIs>

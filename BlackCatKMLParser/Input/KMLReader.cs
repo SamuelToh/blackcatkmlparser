@@ -104,17 +104,17 @@ namespace BlackCat
                 else if (reader.Name.ToLower() == "polygon")
                 {
                     r.RegionType = Region.POLYGON_CODE;
-                    r.coordinates = extractCoord(reader);
+                    r.Coordinates = extractCoord(reader);
                 }
                 else if (reader.Name.ToLower() == "linestring") //or pline
                 {
                     r.RegionType = Region.LINE_CODE;
-                    r.coordinates = extractCoord(reader);
+                    r.Coordinates = extractCoord(reader);
                 }
                 else if (reader.Name.ToLower() == "point")
                 {
                     r.RegionType = Region.POINT_CODE;
-                    r.coordinates = extractCoord(reader);
+                    r.Coordinates = extractCoord(reader);
                 }
 
                 //break;

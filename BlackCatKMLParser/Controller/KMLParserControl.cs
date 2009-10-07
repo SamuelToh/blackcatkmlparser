@@ -239,9 +239,9 @@ namespace BlackCat
 
         public int validateFolder(string folderURL)
         {
-            Validator myValidator = new Validator();
+            //Validator myValidator = new Validator();
             int errorType = 0;
-            bool passedTest;
+            bool passedTest = true;
 
             // Get the drive letter, which is assumed to be one character long and the first
             // character in the path string, which is the full path string, not just the file name.
@@ -250,7 +250,7 @@ namespace BlackCat
 
             // Test 1: Check that the folder exists. If not, return a value of 1.
 
-            passedTest = myValidator.folderExists(folderURL);
+            //passedTest = myValidator.folderExists(folderURL);
 
             if (!passedTest)
             {
@@ -260,7 +260,7 @@ namespace BlackCat
             
             // Test 2: Check that the folder is writable. If not, return a value of 2.
 
-            passedTest = myValidator.folderIsWritable(folderURL);
+            //passedTest = myValidator.folderIsWritable(folderURL);
 
             if (!passedTest)
             {
@@ -270,7 +270,7 @@ namespace BlackCat
 
             // Test 3: Check that there is enough room in the folder to write a KML file. If not, return a value of 3.
 
-            passedTest = myValidator.hasSufficientDiskSpace(driveName);
+            //passedTest = myValidator.hasSufficientDiskSpace(driveName);
 
             if (!passedTest)
             {
@@ -281,7 +281,7 @@ namespace BlackCat
             // Test 4: Check that the file path is short enough to be given to a writer without generating
             // a PathTooLong exception.
 
-            passedTest = myValidator.urlLengthIsValid(folderURL);
+            //passedTest = myValidator.urlLengthIsValid(folderURL);
 
             if (!passedTest)
             {
@@ -345,9 +345,9 @@ namespace BlackCat
 
         private int validateFile(String fileURL)
         {
-            Validator myValidator = new Validator();
+            //Validator myValidator = new Validator();
             int errorType = 0;
-            bool passedTest;
+            bool passedTest = true ;
 
             // Pull off all the characters that come after the dot, these will be treated as the 
             // file extension, assumes nothing about the length of the file extension, only
@@ -357,7 +357,7 @@ namespace BlackCat
 
             // Test 1: Check that folder exists. If not, return a value of 1.
 
-            passedTest = myValidator.fileExists(fileURL);
+            //passedTest = myValidator.fileExists(fileURL);
 
             if (!passedTest)
             {
@@ -367,7 +367,7 @@ namespace BlackCat
 
             // Test 2: Check that the folder is readable. If not, return a value of 2.
 
-            passedTest = myValidator.fileIsReadable(fileURL);
+            //passedTest = myValidator.fileIsReadable(fileURL);
 
             if (!passedTest)
             {
@@ -380,18 +380,18 @@ namespace BlackCat
             switch (fileExtension.ToLower())
             {
                 case ".mid":
-                    passedTest = myValidator.validateMidFormat(fileURL);
+                    //passedTest = myValidator.validateMidFormat(fileURL);
                     // What is this?
                     //passedTest = myValidator.validateMidFormat(fileURL, "tempString");
                     break;
 
                 case ".mif":
-                    passedTest = myValidator.validateMifFormat(fileURL);
+                    //passedTest = myValidator.validateMifFormat(fileURL);
                     //passedTest = myValidator.validateMifFormat(fileURL, "tempString");
                     break;
 
                 case ".kml":
-                    passedTest = myValidator.validateKMLFormat(fileURL);
+                    //passedTest = myValidator.validateKMLFormat(fileURL);
                     break;
 
                 case ".xls":
@@ -400,7 +400,7 @@ namespace BlackCat
                     break;
 
                 default: 
-                    passedTest = false;
+                    //passedTest = false;
                     break;
             }
 
