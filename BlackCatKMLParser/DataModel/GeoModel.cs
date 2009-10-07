@@ -11,7 +11,7 @@ using log4net.Config;
 
 namespace BlackCat
 {
-    public partial class GeoModel : IGeoModel
+    public class GeoModel : IGeoModel
     {
 
         ILog log = LogManager.GetLogger(typeof(GeoModel));
@@ -99,7 +99,7 @@ namespace BlackCat
         {
             for (int i = 0; i < regions.Count; i++)
                 if (regions[i].RegionName == regionIdentifier)
-                    return regions[i].coordinates.ToArray();
+                    return regions[i].Coordinates.ToArray();
             return null;
         }
         
@@ -109,6 +109,7 @@ namespace BlackCat
         public List<String> DataFieldNames
         {
             get { return dataFields; }
+            set { dataFields = value; }
         }
 
     }

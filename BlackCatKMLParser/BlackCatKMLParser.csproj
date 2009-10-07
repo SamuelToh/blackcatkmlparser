@@ -108,7 +108,7 @@
     <Compile Include="Logic\ISocialLogic.cs" />
     <Compile Include="Logic\SocialLogic.cs" />
     <Compile Include="Input\StateElectorateData.cs" />
-    <Compile Include="Output\IKMLWriter.cs" />
+    <Compile Include="Output\IGeoWriter.cs" />
     <Compile Include="Output\KMLWriter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -185,7 +185,6 @@
     <Compile Include="Gui\UISelectOutput.Designer.cs">
       <DependentUpon>UISelectOutput.cs</DependentUpon>
     </Compile>
-    <Compile Include="Gui\Validator.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">

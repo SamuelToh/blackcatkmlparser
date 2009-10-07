@@ -23,11 +23,24 @@ namespace BlackCat
 
          private KMLParserControl()
          {
-             //IGeoModel geoModel = new GeoModel();
-             //ISocialModel excelModel = new SocialModel();
-             //IDataMerger merger = new DataMerger();
              log = LogManager.GetLogger(this.ToString());
          }
+
+
+         public List<String> MapInfoDataFieldsToDisplay 
+         {
+             get { return null;}
+             set { ; }
+         }
+
+
+         public String SociologicalDataChoice 
+         {
+             get { return null; }
+             set { ; }
+         }
+
+
 
          public void ClearFields()
          {

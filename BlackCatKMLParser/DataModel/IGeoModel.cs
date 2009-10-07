@@ -17,33 +17,30 @@ namespace BlackCat
 
         bool BuildGeoModel(IGeoReader reader, ProgressBar progressBar);
 
-        // Retrieves the list of additional data fields that are in the MapInfo file.
-        // Returns a string list containing the names of the additional data fields
-        // Pre: True
-        // Post: The string list of available additional MapInfo data has been returned.
+        // Property to get and set the value of the data fields defined for each region.
+        // The getter returns the dataFieldNames, the setter returns nothing.
+        // Pre: True for getting, dataFieldNames is not null for setting
+        // Post: The value of dataFieldNames has been returned for getting or the value of 
+        // dataFieldNames has been set to the input value for setting.
+        List<String> DataFieldNames { get; set; }
 
-        List<String> DataFieldNames();
-
-        // Gets the collection of region names that appear in the geographical data.
+        // Property to get an array of the identifiers of all Regions in the model
         // Returns an array containing the region identifiers (names).
-        // Pre: True
+        // Pre: True 
         // Post: The array of region names has been returned.
+        String[] RegionIdentifiers { get; }
 
-        String[] GetRegionIdentifiers();
-
-        // Gets the collection of region objects associated with the geographical data.
+        // Property to get the collection of region objects associated with the geographical data.
         // Returns an array containing the regions.
         // Pre: True
         // Post: The array of regions has been returned.
+        Region[] Regions { get; }
 
-        Region[] GetRegions();
-
-        // Gets the collection of styles that can be used to construct the display. 
+        // Property to get the collection of styles that can be used to construct the display. 
         // Returns an array containing these styles.
         // Pre: True. 
         // Post: The array of styles that can be used to display the data has been returned.
-
-        Style[] GetStyles();
+        Style[] Styles { get; }
 
         // Set the style attribute of the region regionIdentifier.
         // There is no return value, as this is a setter.

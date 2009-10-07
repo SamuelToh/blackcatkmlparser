@@ -74,7 +74,7 @@ namespace BlackCat
             return null;
         }
 
-        void AddDataValue(String data)
+        public void AddDataValue(String data)
         {
             this.coordinates.Add(data);
         }

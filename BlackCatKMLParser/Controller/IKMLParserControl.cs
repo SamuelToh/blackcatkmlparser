@@ -68,7 +68,7 @@ namespace BlackCat
         // Post: The value of sociologicalDataChoice has been returned for getting or 
         // the value of sociologicalDataChoice has been set to the input value for setting.
 
-        String SociologicalDataChoice {get; set;};
+        String SociologicalDataChoice {get; set;}
 
 
     }

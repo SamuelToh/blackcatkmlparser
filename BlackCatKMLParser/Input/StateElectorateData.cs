@@ -10,16 +10,20 @@ namespace BlackCat
         private String name;
         private String twoPartyPrefWinningParty;
 
-        public String Name
+        public String StateElectorateName
         {
             get { return name; }
             set { name = value; }
         }
 
-        public String TwoPartyPrefWinningParty
+        public String TPP_WinnerParty
         {
             get { return twoPartyPrefWinningParty; }
             set { twoPartyPrefWinningParty = value; }
+        }
+
+        public void clearAll()
+        {
         }
     }
 }

@@ -13,6 +13,12 @@ namespace BlackCat
             return null;
         }
 
+        public List<String> GetFederalElectorateNames()
+        {
+            //TODO: implement
+            return null;
+        }
+
         public StateElectorateData GetStateResults(string stateSeat)
         {
             //TODO: implement
