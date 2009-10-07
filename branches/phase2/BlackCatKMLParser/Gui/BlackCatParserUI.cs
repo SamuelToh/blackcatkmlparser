@@ -70,10 +70,68 @@ namespace BlackCat
         {
             showPrevious();
         }
-        /*
-        public void generateKML(string outputFilePath, ProgressBar bar)
+
+        //Shared Validation methods
+        public bool folderIsWritable(String folderURL)
         {
-            int response = controller.generateKMLFile(outputFilePath, bar);
-        }*/
+            DirectoryInfo directory = new DirectoryInfo(folderURL);
+            try
+            {
+                DirectorySecurity dirsecurity = directory.GetAccessControl();
+            }
+            catch
+            {
+                return false;
+            }
+            string attributes = directory.Attributes.ToString();
+            string[] attributesList = attributes.Split(',', ' ');
+            foreach (string attribute in attributesList)
+            {
+                if (attribute == "ReadOnly")
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool folderExists(String folderURL)
+        {
+            if (Directory.Exists(folderURL) == false)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool fileIsReadable(String fileURL)
+        {
+            FileInfo fileInfo = new FileInfo(fileURL);
+            try
+            {
+                FileSecurity filesecurity = fileInfo.GetAccessControl();
+            }
+            catch
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool fileExists(String fileURL)
+        {
+            if (File.Exists(fileURL) == true)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

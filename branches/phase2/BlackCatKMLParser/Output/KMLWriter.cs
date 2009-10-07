@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace BlackCat
 {
-    public class KMLWriter : IKMLWriter
+    public class KMLWriter : IGeoWriter
     {
         const string RAW_INDENTATION = "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
         private const string KML_NAMESPACE_ADDR = "http://www.opengis.net/kml/2.2";
