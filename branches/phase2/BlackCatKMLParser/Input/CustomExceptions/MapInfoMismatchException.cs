@@ -5,6 +5,8 @@ using System.Text;
 
 namespace BlackCat
 {
+    //TODO: improve this comment :)
+    // Describes an error state that occurs when the .mif and .mid files have non-matching data
     public class MapInfoMismatchException : Exception
     {
         public MapInfoMismatchException(string message)
