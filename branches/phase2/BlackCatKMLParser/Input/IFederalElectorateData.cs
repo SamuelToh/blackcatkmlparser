@@ -96,7 +96,7 @@ namespace BlackCat
         // Post: All attributes of the FederalElectorateData object have been returned to null 
         // values.
 
-        void clearAll();
+        void ClearAll();
 
     }
 }
