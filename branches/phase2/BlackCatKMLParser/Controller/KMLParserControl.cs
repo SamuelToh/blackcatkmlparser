@@ -5,415 +5,251 @@ using System.Windows.Forms;
 using log4net;
 
 namespace BlackCat
-{    
+{
     public class KMLParserControl : IKMLParserControl
     {
-        private ILog log;
-
         // Required to implement this class as a Singleton.
         private static KMLParserControl instance;
 
         // Holds the MapInfo or KML data file(s) as a data model for future use.
-        private IGeoModel geoModel;
+        private GeoModel geoModel;
 
-        // Holds the Excel file as a data model for future use.
-        private ISocialLogic socialLogic;
+        // Holds a reference to the SocialLogic object.
+        private SocialLogic socialLogic;
+
+        // Holds the list of MapInfo data fields that the user wants to display.
+        private List<String> mapInfoDataFieldsToDisplay;
+
+        // Holds the sociological data display choice of the user. 
+        // Possible values are NONE, WINNING_PARTY or SEAT_SAFETY.
+        private SociologicalDataSelection sociologicalDataChoice;
 
         // No arguments private constructor.
 
-         private KMLParserControl()
-         {
-             log = LogManager.GetLogger(this.ToString());
-         }
-
-
-         public List<String> MapInfoDataFieldsToDisplay 
-         {
-             get { return null;}
-             set { ; }
-         }
-
-
-         public String SociologicalDataChoice 
-         {
-             get { return null; }
-             set { ; }
-         }
-
-
-
-         public void ClearFields()
-         {
-             log = LogManager.GetLogger(this.ToString());
-             geoModel = null;
-         }
+        private KMLParserControl()
+        {
+            geoModel = new GeoModel();
+            socialLogic = new SocialLogic();
+            mapInfoDataFieldsToDisplay = null;
+            sociologicalDataChoice = SociologicalDataSelection.NONE;
+        }
 
         // Special property needed to implement the Singleton design pattern. Either instantiates
         // the class if this has not occurred yet or returns a reference to the class if 
         // instantiation has occurred.
 
-         public static KMLParserControl Instance()
-         {
-             if (instance == null)
-             {
-                 instance = new KMLParserControl();
-             }
-             return instance;
-         }
-
-        // Creates the KML file using the files previously supplied by the user, writing it to the 
-        // location desired and arranging the updating of a progress bar as the operation proceeds. 
-        // Returns an integer denoting success (0) or failure (1).
-
-        // Pre: outputFileURL is not the empty string and progressBar is not null.
-        // Post: A new KML file is written to outputFolderURL, created from the input files.
-
-         public int GenerateKMLFile(String outputFileURL, ProgressBar progressBar)
-         {
-             // I am still a little uncertain about what to do with the progress bar here, as 
-             // there are two stages to generating the KML file - one link if required and two,
-             // write it out. I am not sure how long the linking will take and whether it needs
-             // to display a progress bar in its own right or whether we can get away with just 
-             // updating when the GeoModel is being written to file.
-
-             
-             //int errorCode = 0;
-              
-             // Link the data if required. The nested if attempts to link the data and set the error code
-             // in one operation.
-
-             //TODO:
-             /*
-             if (socioModel != null)
-             {
-                 if (!(linkGeographicalAndSocialData(geoLinkField, socioLinkField)))
-                 {
-                     // 1 indicates a problem, so exit immediately.
-                     log.Debug("Could not link files");
-                     return 1;
-                 }
-             }*/
-
-             // If we reach here, all has gone well so far. Now we write the model to file.         
-
-             KMLWriter writer = new KMLWriter();
-             if (writer.WriteToFile(geoModel, new List<String>(), outputFileURL, progressBar))
-                 return 0;
-             /*if (geoModel.OutputKML(outputFileURL, progressBar))
-                 return 0;
-             log.Debug("Output failed");*/
-             return 1;
-         }
-
-         public bool CanAddSociologicalData()
-         {
-             //TODO: implement
-             return true;
-         }
-
-
-        // Returns a list of the data fields in the geographical data file(s) that could be used to perform  
-        // data linking on.
-
-        // Pre: A geographical data set has been loaded into the system 
-        // Post: A list of the data fields present in the geographical data set has been returned.
-
-        public string[] GetMapInfoDataFields()
+        public static KMLParserControl Instance()
         {
-            if (geoModel != null)
-            {
-                List<String> fields = geoModel.DataFieldNames;
-                if (fields != null)
-                    return fields.ToArray();
-            }
-            return null;
+            if (instance == null)
+                instance = new KMLParserControl();
+
+            return instance;
         }
 
-        // Loads the KML file fileURL into the system as a GeoModel, displaying progress of the operation in 
-        // the progress bar progressBar. Returns an integer denoting the result of the operation 
-        // as follows:
+        // Checks to see if any sociological data can be added to the geographical data.
+        // Returns a boolean – true if sociological data can be added, false if it can’t.
+        // Pre: True
+        // Post: A boolean has been returned indicating if sociological data can be added to 
+        // this set of geographical data.
 
-        // value = 0 (No problems) 
-        // value = 1 (file doesn’t exist)
-        // value = 2 (file is not readable)
-        // value = 3 (file is in the wrong format).
+        public bool CanAddSociologicalData()
+        {
+            bool canAdd;
 
+            if (geoModel == null)
+                canAdd = false;
+            else
+                canAdd = socialLogic.CanMatchSociologicalData(geoModel);
+
+            return canAdd;
+        }
+
+        // Creates the KML file using the files previously supplied by the user, writing it to the 
+        // location desired and arranging the updating of a progress bar as the operation 
+        // proceeds. 
+        // Returns an integer denoting success (0) or failure (1).
+        // Pre: outputFileURL is not the empty string and progressBar is not null
+        // Post: A new KML file is written to outputFolderURL, created from the input files and
+        // containing the list of MapInfo data fields chosen by the user.
+
+        public int GenerateKMLFile(String outputFileURL, ProgressBar progressBar)
+        {
+            bool success;
+            int returnValue;
+
+            // First, add sociological data if it was requested. SociologicalDataChoice
+            // of NONE indicates we do not need to add any sociological data.
+
+            if (sociologicalDataChoice == SociologicalDataSelection.SEAT_SAFETY && geoModel != null)
+            {
+                // Add winning party information.
+
+                socialLogic.CalculateSeatSafety(geoModel, true);
+
+                // Add seat safety information.
+
+                socialLogic.CalculateSeatWinners(geoModel, false);
+            }
+            else if (sociologicalDataChoice == SociologicalDataSelection.WINNING_PARTY && geoModel != null)
+            {
+                // Add winning party information.
+
+                socialLogic.CalculateSeatSafety(geoModel, false);
+
+                // Add seat safety information.
+
+                socialLogic.CalculateSeatWinners(geoModel, true);
+            }
+
+            // Otherwise do nothing - if geoModel is null or user doesn't want any sociological data.
+
+            // Next, we create a KMLWriter to perform the writing.
+
+            KMLWriter writer = new KMLWriter();
+
+            // Then pass it the model, destination, MapInfo fields to include and a ProgressBar to update.
+
+            if (geoModel == null)
+                success = false;
+            else
+                success = writer.WriteToFile(geoModel, mapInfoDataFieldsToDisplay, outputFileURL, progressBar);
+
+            // Now work out the return value for the UI and return it.
+
+            if (success == true)
+                returnValue = 0;
+            else
+                returnValue = 1;
+
+            return returnValue;
+        }
+
+        // Extracts the data fields from the MapInfo file so that the user can select one or more 
+        // of them to display in Google Earth.
+        // Returns a list of strings containing the names of the data fields present in the 
+        // MapInfo file.
+        // Pre: True
+        // Post: A list of field names corresponding to those found in the MapInfo file is 
+        // returned.
+
+        public List<String> GetMapInfoDataFields()
+        {
+            if (geoModel == null)
+                return null;
+            else
+                return geoModel.DataFieldNames;
+        }
+
+        // Loads the KML file fileURL into the system, arranging the updating of a progress 
+        // bar as the operation proceeds. 
+        // Returns an integer denoting success (0) or failure (1).
         // Pre: fileURL is not the empty string and progressBar is not null.
-        // Post: fileURL has been loaded and an integer denoting success or otherwise has been returned.
+        // Post: fileURL has been loaded and an integer denoting success or otherwise has 
+        // been returned.
 
         public int LoadKML(String fileURL, ProgressBar progressBar)
         {
-            int errorValue = 0;
-            GeoModel kmlData;
+            bool success;
+            int returnValue;
+            KMLReader reader;
 
-            
-            // First test the validity of the .kml file and exit if any problems are discovered.
+            if (geoModel == null)
+                success = false;
+            else
+            {
+                // First up, obtain a KMLReader object to read in the data.
 
-            errorValue = validateFile(fileURL);
+                reader = new KMLReader(fileURL);
 
-            if (errorValue != 0)
-                return errorValue;
+                // Next, build the GeoModel using the reader just created.
 
-            // If we've made it this far, then the KML file is O.K. and we can create a 
-            // GeoModel from it.
+                success = geoModel.BuildGeoModel(reader, progressBar);
+            }
 
-            kmlData = new GeoModel();
-            if(kmlData.BuildGeoModel(new KMLReader(fileURL), progressBar) == false)
-                errorValue = 1;
-            
-            // If there were no problems, keep a reference to kmlData for later use.
-            
-            if(errorValue == 0)
-                geoModel = kmlData;
+            // Now work out the return value for the UI and return it.
 
-            // Now return the value 0 to denote success or 1 for failure.
-            return errorValue;
+            if (success == true)
+                returnValue = 0;
+            else
+                returnValue = 1;
+
+            return returnValue;
         }
 
-        // Loads the MapInfo files midFileURL and mifFileURL into the system, displaying 
-        // progress of the operation in the progress bar progressBar. Returns an integer 
-        // denoting the result of the operation as follows:
-
-        // value = 0 (No problems) 
-        // value = 1 (mid file doesn’t exist)
-        // value = 2 (mid file is not readable)
-        // value = 3 (mid file is in the wrong format)
-        // value = 4 (mif file doesn’t exist)
-        // value = 5 (mif file is not readable)
-        // value = 6 (mif file is in the wrong format).
-
+        // Loads the MapInfo files midFileURL and mifFileURL into the system, arranging 
+        // the updating of a progress bar as the operation proceeds. 
+        // Returns an integer denoting success (0) or failure (1).
         // Pre: midFileURL, mifFileURL are not empty strings and progressBar is not null.
-        // Post: midFileURL and mifFileURL have been loaded and an integer denoting success or otherwise 
-        // has been returned.
+        // Post: midFileURL and mifFileURL have been loaded and an integer denoting 
+        // success or otherwise has been returned.
 
         public int LoadMapInfo(String midFileURL, String mifFileURL, ProgressBar progressBar)
         {
-            int errorValue = 0;
-            
-            GeoModel mapInfoData;
-            // First test the validity of the .mid file and exit if any problems are discovered.
+            bool success;
+            int returnValue;
+            MapInfoReader reader;
 
-            //errorValue = validateFile(midFileURL);
-
-            if (errorValue != 0)
-                return errorValue;
-
-            // Now test the validity of the .mif file and exit if any problems are discovered.
-            // Note that only 1, 2 or 3 is returned if there is a problem, we need to add 3 to
-            // this value to indicate the problem is with the mif file not the mid file.
-
-            //errorValue = validateFile(mifFileURL);
-
-            if (errorValue != 0)
-                return errorValue + 3;
-
-            // If we've made it this far, then both the mid and mif files are O.K. and we can build
-            // a GeoModel from them.
-            
-            mapInfoData = new GeoModel();
-            if (mapInfoData.BuildGeoModel(new MapInfoReader(midFileURL, mifFileURL), progressBar) == false)
-                errorValue = 1;
-            
-            // If there were no problems, keep a reference to mapInfoData for later use.
-            
-            if(errorValue == 0)
-                geoModel = mapInfoData;
-
-            // Now return the value 0 to denote success or 1 for failure.
-            
-            return errorValue;
-        }
-
-        // Requests validation of a folder to ensure it exists, can be written to etc. Returns an 
-        // integer denoting the result of the verification as follows:
-
-        // value = 0 (Folder is OK) 
-        // value = 1 (folder doesn’t exist)
-        // value = 2 (folder is not writable for the current user)
-        // value = 3 (folder doesn’t have enough room)
-        // value = 4 (proposed path is too long for .NET to handle).
-
-        // Pre: folderURL is the full path and not the empty string.
-        // Post: The status of the folder has been verified and an integer denoting the folder’s status 
-        // has been returned.
-
-        public int validateFolder(string folderURL)
-        {
-            //Validator myValidator = new Validator();
-            int errorType = 0;
-            bool passedTest = true;
-
-            // Get the drive letter, which is assumed to be one character long and the first
-            // character in the path string, which is the full path string, not just the file name.
-
-            string driveName = folderURL.Substring(0, 1);
-
-            // Test 1: Check that the folder exists. If not, return a value of 1.
-
-            //passedTest = myValidator.folderExists(folderURL);
-
-            if (!passedTest)
-            {
-                errorType = 1;
-                return errorType;
-            }
-            
-            // Test 2: Check that the folder is writable. If not, return a value of 2.
-
-            //passedTest = myValidator.folderIsWritable(folderURL);
-
-            if (!passedTest)
-            {
-                errorType = 2;
-                return errorType;
-            }
-
-            // Test 3: Check that there is enough room in the folder to write a KML file. If not, return a value of 3.
-
-            //passedTest = myValidator.hasSufficientDiskSpace(driveName);
-
-            if (!passedTest)
-            {
-                errorType = 3;
-                return errorType;
-            }
-
-            // Test 4: Check that the file path is short enough to be given to a writer without generating
-            // a PathTooLong exception.
-
-            //passedTest = myValidator.urlLengthIsValid(folderURL);
-
-            if (!passedTest)
-            {
-                errorType = 4;
-                return errorType;
-            }
-
-            // No more tests to run, if you get this far, you have passed all the tests and errorType is
-            // still 0, so just return it.
-
-            return errorType;
-        }
-
-// Public methods added for testing purposes
-        public IGeoModel GeologicalModel
-        {
-            get{return geoModel;}
-            set { geoModel = value; }
-        }
-        public ISocialLogic SocialLogic
-        {
-            get { return socialLogic; }
-            set { socialLogic = value; }
-        }
-
-//#########################################################################################################
-
-        // Private helper methods for use with the publically available methods.
-
-        // Pre: None of geoField, socialField are the empty string. 
-        // Post: A boolean has been returned that indicates if it is possible to link the geographical
-        // and sociological data in the manner indicated by the user.
-
-        private bool linkGeographicalAndSocialData(String geoField, String socialField)
-        {
-            /*
-            DataMerger merger;
-            
-            // Link the data.
-
-            merger = new DataMerger();
-            */
-            int errorCode = 0;
-            //TODO: errorCode = merger.linkDataModels(geoModel, geoLinkField, socioModel, socialField);
-
-            // Finally, return the result.
-
-            if (errorCode == 0)
-                return true;
+            if (geoModel == null)
+                success = false;
             else
-                return false;
-             
+            {
+                // First up, obtain a KMLReader object to read in the data.
+
+                reader = new MapInfoReader(midFileURL, mifFileURL);
+
+                // Next, build the GeoModel using the reader just created.
+
+                success = geoModel.BuildGeoModel(reader, progressBar);
+            }
+
+            // Now work out the return value for the UI and return it.
+
+            if (success == true)
+                returnValue = 0;
+            else
+                returnValue = 1;
+
+            return returnValue;
         }
 
-        // Checks fileURL to ensure that it is a valid file, i.e. that it exists, is readable and in 
-        // the right format. Returns 0 if all is well, 1 if file does not exist, 2 if it is not readable
-        // or 3 if it is not in the right format.
+        // Property to get and set the value of the mapInfoDataFieldsToDisplay attribute
+        // The getter returns the list of fields chosen by the user (can be empty and would be if 
+        // a KML file was used as the data source), the setter returns nothing.
+        // Pre: True 
+        // Post: The value of mapInfoDataFieldsToDisplay has been returned for getting or 
+        // the value of mapInfoDataFieldsToDisplay has been set to the input value for
+        // setting.
 
-        // Pre: fileURL is not the empty string.
-        // Post: Returns an integer denoting which validation test failed, or 0 if all were successful.
-
-        private int validateFile(String fileURL)
+        public List<String> MapInfoDataFieldsToDisplay
         {
-            //Validator myValidator = new Validator();
-            int errorType = 0;
-            bool passedTest = true ;
-
-            // Pull off all the characters that come after the dot, these will be treated as the 
-            // file extension, assumes nothing about the length of the file extension, only
-            // that the string ends in .file_extension.
-
-            String fileExtension = fileURL.Substring(fileURL.LastIndexOf("."));
-
-            // Test 1: Check that folder exists. If not, return a value of 1.
-
-            //passedTest = myValidator.fileExists(fileURL);
-
-            if (!passedTest)
+            get
             {
-                errorType = 1;
-                return errorType;
+                return mapInfoDataFieldsToDisplay;
             }
-
-            // Test 2: Check that the folder is readable. If not, return a value of 2.
-
-            //passedTest = myValidator.fileIsReadable(fileURL);
-
-            if (!passedTest)
+            set
             {
-                errorType = 2;
-                return errorType;
+                mapInfoDataFieldsToDisplay = value;
             }
+        }
 
-            // Test 3: Check that the file is in the right format. If not, return a value of 3.
+        // Property to get and set the value of the sociologicalDataChoice attribute
+        // The getter returns the sociological display option (NONE, WINNING_PARTY or 
+        // SEAT_SAFETY) currently set,  the setter returns nothing.
+        // Pre: True for the getter, value is one of NONE, WINNING_PARTY or 
+        // SEAT_SAFETY for the setter
+        // Post: The value of sociologicalDataChoice has been returned for getting or 
+        // the value of sociologicalDataChoice has been set to the input value for setting.
 
-            switch (fileExtension.ToLower())
+        public SociologicalDataSelection SociologicalDataChoice
+        {
+            get
             {
-                case ".mid":
-                    //passedTest = myValidator.validateMidFormat(fileURL);
-                    // What is this?
-                    //passedTest = myValidator.validateMidFormat(fileURL, "tempString");
-                    break;
-
-                case ".mif":
-                    //passedTest = myValidator.validateMifFormat(fileURL);
-                    //passedTest = myValidator.validateMifFormat(fileURL, "tempString");
-                    break;
-
-                case ".kml":
-                    //passedTest = myValidator.validateKMLFormat(fileURL);
-                    break;
-
-                case ".xls":
-                case ".csv":
-                    //TODO: fix passedTest = myValidator.validateExcelFormat(fileURL);
-                    break;
-
-                default: 
-                    //passedTest = false;
-                    break;
+                return sociologicalDataChoice;
             }
-
-            if (!passedTest)
+            set
             {
-                errorType = 3;
-                return errorType;
+                sociologicalDataChoice = value;
             }
-
-            // If we've made it this far, the file exists, is readable and in the right format, so 
-            // errorType is still 0, just return it.
-
-            return errorType;
         }
     }
 }
