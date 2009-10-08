@@ -30,7 +30,7 @@ namespace BlackCat
         // Post: An array of field names corresponding to those found in the MapInfo file is 
         // returned.
 
-        string[] GetMapInfoDataFields();
+        List<String> GetMapInfoDataFields();
 
         // Loads the KML file fileURL into the system, arranging the updating of a progress 
         // bar as the operation proceeds. 
@@ -40,7 +40,6 @@ namespace BlackCat
         // been returned.
 
         int LoadKML(String fileURL, ProgressBar progressBar);
-
 
         // Loads the MapInfo files midFileURL and mifFileURL into the system, arranging 
         // the updating of a progress bar as the operation proceeds. 
@@ -68,8 +67,6 @@ namespace BlackCat
         // Post: The value of sociologicalDataChoice has been returned for getting or 
         // the value of sociologicalDataChoice has been set to the input value for setting.
 
-        String SociologicalDataChoice {get; set;}
-
-
+        SociologicalDataSelection SociologicalDataChoice {get; set;}
     }
 }
