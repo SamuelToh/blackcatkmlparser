@@ -25,7 +25,7 @@ namespace BlackCat
         // Post: All attributes of the StateElectorateData object have been returned to null 
         // values.
 
-        void clearAll();
+        void ClearAll();
 
     }
 }
