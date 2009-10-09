@@ -60,16 +60,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestDataMerger.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DataManipulation\DataManipulator.csproj">
-      <Project>{083352C1-FD20-44B2-9075-A9D97A7D1FB9}</Project>
-      <Name>DataManipulator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\dataModel\DataModel.csproj">
-      <Project>{8B1EEEA5-7778-4DBD-915C-A0B220785484}</Project>
-      <Name>DataModel</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
