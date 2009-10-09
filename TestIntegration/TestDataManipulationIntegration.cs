@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using BlackCat;
 using NUnit.Framework;
 using log4net.Config;
-using BlackCat;
 
 namespace TestIntegration
 {
@@ -27,7 +27,7 @@ namespace TestIntegration
             GeoModel geoModel = new GeoModel();
             String testMid = @"..\..\Data\QLD_Federal_Electoral_Boundaries.MID";
             String testMif = @"..\..\Data\QLD_Federal_Electoral_Boundaries.mif";
-            geoModel.BuildGeoModel(testMid, testMif, new ProgressBar());
+            geoModel.BuildGeoModel(new MapInfoReader(testMid, testMif), new ProgressBar());
 
             DataMerger merger = new DataMerger();
 
@@ -47,7 +47,7 @@ namespace TestIntegration
             GeoModel geoModel = new GeoModel();
             String testMid = @"..\..\Data\QLD_Federal_Electoral_Boundaries.MID";
             String testMif = @"..\..\Data\QLD_Federal_Electoral_Boundaries.mif";
-            geoModel.BuildGeoModel(testMid, testMif, new ProgressBar());
+            geoModel.BuildGeoModel(new MapInfoReader(testMid, testMif), new ProgressBar());
 
             DataMerger merger = new DataMerger();
 

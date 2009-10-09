@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using BlackCat;
 using NUnit.Framework;
 using log4net.Config;
-using BlackCat;
 
 namespace TestIntegration
 {
