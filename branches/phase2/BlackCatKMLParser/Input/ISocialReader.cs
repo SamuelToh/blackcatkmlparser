@@ -38,7 +38,7 @@ namespace BlackCat
         // Pre:federalSeat is not null
         // Post: The array of state seat names that are partially or wholly contained within the // borders of federalSeat have been returned.
 
-        String[] GetStateSeats(String federalSeat);
+        List<String> GetStateSeats(String federalSeat);
 
     }
 }
