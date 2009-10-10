@@ -38,7 +38,7 @@ namespace BlackCat
         // Pre: True for getting, dataNames is not null for setting
         // Post: the value of dataNames has been returned for getting or 
         // the value of dataNames has been set to the input value for setting.
-        String[] DataNames { get; set; }
+        List<String> DataNames { get; set; }
 
         //Method to get the data value at a particular index
         //Return value is the String data at that index 
