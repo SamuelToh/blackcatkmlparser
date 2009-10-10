@@ -17,6 +17,7 @@ namespace BlackCat
         private long totalSize;
         private int currRead;
         private List<Region> regions;
+        private List<Category> category;
 
         public KMLReader(String kmlURL)
         {
@@ -33,13 +34,13 @@ namespace BlackCat
             dataFields.Add("name"); //Standard data field for kml
             bool endOfFile = false;
 
-            this.totalSize = getFileSize(kmlFileURL);
+            this.totalSize = GetFileSize(kmlFileURL);
             //this.tempBar = bar;
             //ThreadStart theprogress = new ThreadStart(updateBar);
             //Thread startprogress = new Thread(theprogress);
             //startprogress.Start();
 
-            XmlTextReader reader = getReader(kmlFileURL);
+            XmlTextReader reader = GetReader(kmlFileURL);
             try
             {
                 while (reader.Read() && !endOfFile)
@@ -47,20 +48,25 @@ namespace BlackCat
                     //Get the curr node's tag name
                     string tagName = reader.Name.ToLower();
 
-                    //incrementRead();
-
                     switch (tagName)
                     {
+                        case "folder":
+                            {
+                                //10 October
+                                if (reader.NodeType == XmlNodeType.Element)
+                                    BuildCategory(reader);
+                                break;
+                            }
                         case "placemark":
                             {
                                 if (reader.NodeType == XmlNodeType.Element)
-                                    buildRegion(reader);
+                                    BuildRegion(reader);
                                 break;
                             }
                         case "style":
                             {
                                 if (reader.NodeType == XmlNodeType.Element)
-                                    buildStyle(reader);
+                                    BuildStyle(reader);
                                 break;
                             }
                         case "kml":
@@ -85,10 +91,48 @@ namespace BlackCat
             return regions;
         }
 
-
-        private void buildRegion(XmlTextReader reader)
+        private void BuildCategory(XmlTextReader reader)
         {
-            log.Debug("Start of buildRegion");
+            log.Debug("Start of BuildCategory");
+            Category c = new Category();
+
+            while (reader.Read())
+            {
+                if (reader.Name.ToLower() == "name" && reader.NodeType == XmlNodeType.EndElement)
+                    break;
+
+                else if (reader.Name.ToLower() == "name")
+                    c.CategoryName = reader.ReadString();
+
+                else if (reader.Name.ToLower() == "description")
+                    c.CategoryDesc = reader.ReadString();
+
+            }
+
+            ChkCategoryExist(c);
+
+        }
+
+        private void ChkCategoryExist(Category c)
+        {
+            if (this.category.Count < 1)
+                category.Add(c);
+            else
+            {
+                bool hasCat = false;
+
+                foreach (Category cat in category)
+                    if (cat.CategoryName == c.CategoryName)
+                        break;
+
+                if(!hasCat) 
+                    this.category.Add(c);
+            }
+        }
+
+        private void BuildRegion(XmlTextReader reader)
+        {
+            log.Debug("Start of BuildRegion");
             Region r = new Region();
             reader.Read();
             //incrementRead();
@@ -98,23 +142,24 @@ namespace BlackCat
                 //Search for <name> [Item name] </name>
                 if (reader.Name.ToLower() == "name")
                     r.RegionName = reader.ReadString();
-
-
+                //10 October - read in MapInfo data 
+                else if (reader.Name.ToLower() == "description")
+                    r.AddDataValue(reader.ReadString()); //read everything in
                 //Search for <polygon> 
                 else if (reader.Name.ToLower() == "polygon")
                 {
                     r.RegionType = Region.POLYGON_CODE;
-                    r.Coordinates = extractCoord(reader);
+                    r.Coordinates = ExtractCoord(reader);
                 }
                 else if (reader.Name.ToLower() == "linestring") //or pline
                 {
                     r.RegionType = Region.LINE_CODE;
-                    r.Coordinates = extractCoord(reader);
+                    r.Coordinates = ExtractCoord(reader);
                 }
                 else if (reader.Name.ToLower() == "point")
                 {
                     r.RegionType = Region.POINT_CODE;
-                    r.Coordinates = extractCoord(reader);
+                    r.Coordinates = ExtractCoord(reader);
                 }
 
                 //break;
@@ -125,7 +170,7 @@ namespace BlackCat
             this.regions.Add(r);
         }
 
-        private List<string> extractCoord(XmlTextReader reader)
+        private List<string> ExtractCoord(XmlTextReader reader)
         {
             List<string> coord = new List<string>();
 
@@ -159,7 +204,7 @@ namespace BlackCat
 
         }
 
-        private void buildStyle(XmlTextReader reader)
+        private void BuildStyle(XmlTextReader reader)
         {
             log.Debug("Building style");
             string styleId = "";
@@ -175,14 +220,14 @@ namespace BlackCat
 
                 else if (reader.Name.ToLower() == "polystyle")
                 {
-                    colorCode = extractColor(reader);
+                    colorCode = ExtractColor(reader);
                     break; //we found what we want so we break out of loop
                 }
             }
             //this.styles.Add(new Style(colorCode, styleId)); TODO: this will probably break styles, check regions for styles before output
         }
 
-        private string extractColor(XmlTextReader reader)
+        private string ExtractColor(XmlTextReader reader)
         {
             string color = "#000000"; //default color 
 
@@ -205,13 +250,13 @@ namespace BlackCat
         }
 
 
-        private long getFileSize(string fileURL)
+        private long GetFileSize(string fileURL)
         {
             return File.ReadAllLines(fileURL).Length;
             //return fileSize.Length;
         }
 
-        private XmlTextReader getReader
+        private XmlTextReader GetReader
                             (String fileURL)
         {
             return new XmlTextReader(fileURL);
