@@ -24,6 +24,7 @@ namespace BlackCat
         long totalSize;
         long currRead = 1;        
 
+
         public bool BuildGeoModel(IGeoReader reader, ProgressBar progressBar)
         {
             this.regions = reader.ReadRegions(progressBar);
@@ -48,7 +49,7 @@ namespace BlackCat
                     break;
                 }
 
-            chkModelStyle(style);
+            ChkModelStyle(style);
         }
 
         public Style GetRegionStyle(String regionIdentifier)
@@ -64,7 +65,7 @@ namespace BlackCat
             get { return this.styles.ToArray(); }
         }
 
-        private void chkModelStyle(Style style)
+        private void ChkModelStyle(Style style)
         {
             if (this.styles.Count < 1)
                 styles.Add(style);
@@ -104,7 +105,7 @@ namespace BlackCat
         }
         
         /*
-         *Added on 14 Sep 
+         *Added on 14 Sep //do we need this?
          */
         public List<String> DataFieldNames
         {
