@@ -18,6 +18,7 @@ namespace BlackCat
         private string regionName;
         private string regionType;
         private Style regionStyle;
+        private Category regionCategory;
 
         //Constructor
         public Region(string regionName, List<String> coordinates, string regionType)
@@ -62,6 +63,13 @@ namespace BlackCat
             set { regionType = value; }
         }
 
+        //Added 10th October
+        public Category RegionCategory
+        {
+            get { return regionCategory; }
+            set { regionCategory = value; }
+        }
+
         public List<String> Coordinates 
         {
             get { return coordinates; }
@@ -70,20 +78,32 @@ namespace BlackCat
 
         public List<String> DataNames 
         {
-            get { return this.dataNames; }
-            set { this.dataNames = value; }
+            get { return this.dataNames.ToArray<string>(); }
+            set { this.dataNames = value.ToList<string>(); }
         }
 
         public String GetDataValue(int index)
         {
-            if(index < this.Coordinates.Count)
-                return this.Coordinates[index];
+            //previous 
+            //if(index < this.Coordinates.Count)
+            //return this.Coordinates[index];
+            //return null;
+
+            //Changed by sam 10 october 2009 10AM
+            //we should be returning data values instead of coordinate value
+            if (index < this.dataValues.Count)
+                return this.dataValues[index];
             return null;
         }
 
         public void AddDataValue(String data)
         {
-            this.Coordinates.Add(data);
+            //previous
+            //this.Coordinates.Add(data);
+
+            //Changed by Sam 10 October 2009 10AM
+            //data values should be added to dataValue liste instead.
+            dataValues.Add(data);
         }
     }
 }
