@@ -213,6 +213,9 @@
     <None Include="BlackCat.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BlackcatKMLParser.accdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="LogConfig.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
