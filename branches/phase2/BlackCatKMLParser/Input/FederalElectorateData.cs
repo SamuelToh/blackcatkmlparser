@@ -180,8 +180,8 @@ namespace BlackCat
                     if (firstPref_ALP_Percent != null && firstPref_DEM_Percent != null && firstPref_GRN_Percent != null
                         && firstPref_LP_Percent != null && firstPref_NP_Percent != null)
                     {
-                        firstPref_OTH_Percent = 100 - firstPref_ALP_Percent - firstPref_DEM_Percent - firstPref_GRN_Percent
-                            - firstPref_LP_Percent - firstPref_NP_Percent;
+                        firstPref_OTH_Percent = (float)Math.Round((double)(100 - firstPref_ALP_Percent - firstPref_DEM_Percent - firstPref_GRN_Percent
+                            - firstPref_LP_Percent - firstPref_NP_Percent), 2);
                     }
                 }
 
