@@ -68,7 +68,7 @@ namespace BlackCat
             set { this.Coordinates = value; }
         }
 
-        public String[] DataNames 
+        public List<String> DataNames 
         {
             get { return this.dataNames; }
             set { this.dataNames = value; }

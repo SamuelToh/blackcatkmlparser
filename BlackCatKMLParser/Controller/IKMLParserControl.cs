@@ -4,8 +4,11 @@ using System.Collections.Generic;
 
 namespace BlackCat
 {
+    public enum SociologicalDataSelection { NONE, WINNING_PARTY, SEAT_SAFETY };
+
     public interface IKMLParserControl
-    {
+    {       
+
         // Checks to see if any sociological data can be added to the geographical data.
         // Returns a boolean – true if sociological data can be added, false if it can’t.
         // Pre: True
