@@ -12,21 +12,24 @@ namespace BlackCat
         const string RAW_INDENTATION = "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
         private const string KML_NAMESPACE_ADDR = "http://www.opengis.net/kml/2.2";
         private IGeoModel geoModel;
+        private string[] regCategories = new string[5]
+            {"Northern Queensland", "East Queensland", 
+                "Southern Queensland", "West Queensland", "Others"};
 
         public bool WriteToFile(IGeoModel model, List<String> dataFieldsToDisplay, String outputPath, ProgressBar progressBar)
         {
             this.geoModel = model; 
 
-            XmlTextWriter writer = this.getWriter(outputPath);
+            XmlTextWriter writer = this.GetWriter(outputPath);
             try
             {
-                writeKMLHeader(writer);
+                WriteKMLHeader(writer);
 
-                writeKMLStyles(writer);
+                WriteKMLStyles(writer);
 
-                writeKMLRegion(writer);
+                WriteKMLRegion(writer);
 
-                writeKMLFooter(writer);
+                WriteKMLFooter(writer);
             }
             catch
             {
@@ -36,7 +39,7 @@ namespace BlackCat
             return true;
         }
 
-        private void writeKMLHeader(XmlTextWriter writer)
+        private void WriteKMLHeader(XmlTextWriter writer)
         {
             writer.WriteStartElement("kml", KML_NAMESPACE_ADDR);
 
@@ -51,7 +54,7 @@ namespace BlackCat
             writer.WriteEndElement();
         }
 
-        private void writeKMLStyles(XmlTextWriter writer)
+        private void WriteKMLStyles(XmlTextWriter writer)
         {
             for (int i = 0; i < geoModel.Styles.Length; i++)
             {
@@ -83,7 +86,7 @@ namespace BlackCat
 
         static int objCounter = 0;
 
-        private void writeKMLRegion(XmlTextWriter writer)
+        private void WriteKMLRegion(XmlTextWriter writer)
         {
 
             writer.WriteStartElement("Folder");
@@ -147,7 +150,7 @@ namespace BlackCat
 
                 string kind = regions[i].RegionType;
 
-                outputData(regions[i], kind, writer);
+                OutputData(regions[i], kind, writer);
 
                 writer.WriteEndElement(); //</placemark>
                 writer.Flush();
@@ -157,29 +160,29 @@ namespace BlackCat
         }
 
 
-        private void outputData
+        private void OutputData
             (Region data, string kind, XmlTextWriter writer)
         {
             switch (kind)
             {
                 case Region.PLINE_CODE:
                     {
-                        outputPLINE(data, writer);
+                        OutputPLINE(data, writer);
                         break;
                     }
                 case Region.LINE_CODE:
                     {
-                        outputLINE(data, writer);
+                        OutputLINE(data, writer);
                         break;
                     }
                 case Region.POINT_CODE:
                     {
-                        outputPOINT(data, writer);
+                        OutputPOINT(data, writer);
                         break;
                     }
                 case Region.POLYGON_CODE:
                     {
-                        outputPOLYGON(data, writer);
+                        OutputPOLYGON(data, writer);
                         break;
                     }
             }
@@ -187,7 +190,7 @@ namespace BlackCat
 
         #region DataOutput
 
-        private void outputPLINE
+        private void OutputPLINE
             (Region data, XmlTextWriter writer)
         {
 
@@ -215,7 +218,7 @@ namespace BlackCat
 
         }
 
-        private void outputLINE
+        private void OutputLINE
             (Region data, XmlTextWriter writer)
         {
             writer.WriteStartElement("LineString");
@@ -240,7 +243,7 @@ namespace BlackCat
             writer.WriteEndElement(); //</point>
         }
 
-        private void outputPOINT
+        private void OutputPOINT
             (Region data, XmlTextWriter writer)
         {
             writer.WriteStartElement("Point");
@@ -261,7 +264,7 @@ namespace BlackCat
             writer.WriteEndElement(); //</point>
         }
 
-        private void outputPOLYGON
+        private void OutputPOLYGON
             (Region data, XmlTextWriter writer)
         {
             //First element as inner boundary
@@ -303,7 +306,7 @@ namespace BlackCat
         #endregion
 
 
-        private XmlTextWriter getWriter(String outputPath)
+        private XmlTextWriter GetWriter(String outputPath)
         {
             string filename = "BlackCatKML_"
                                 + DateTime.Now.ToString("yyyy.MM.dd")
@@ -320,7 +323,7 @@ namespace BlackCat
             return writer;
         }
 
-        private void writeKMLFooter(XmlTextWriter writer)
+        private void WriteKMLFooter(XmlTextWriter writer)
         {
             writer.WriteEndElement(); //</document>
             writer.WriteEndElement(); //</kml>
