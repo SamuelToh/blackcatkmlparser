@@ -26,6 +26,13 @@ namespace BlackCat
         // regionType has been set to the input value for setting.
         String RegionType { get; set; }
 
+        // Property to get and set the value of the regionCategory attribute
+        // The getter returns the regionCategory, the setter returns nothing.
+        // Pre: True for getting, regionCategory is not null for setting
+        // Post: The value of regionCategory has been returned for getting or the value of 
+        // regionCategory has been set to the input value for setting.
+        Category RegionCategory { get; set; }
+
         // Property to get and set the value of the coordinates attribute
         // The getter returns the list of coordinates for the Region
         // Pre: True for getting, coordinates is not null for setting
