@@ -103,6 +103,10 @@ namespace BlackCat
 
             // Otherwise do nothing - if geoModel is null or user doesn't want any sociological data.
 
+            // Add to the GeoModel information about which folder to write each region to.
+
+            // socialLogic.SetFederalDistricts(geoModel);
+
             // Next, we create a KMLWriter to perform the writing.
 
             KMLWriter writer = new KMLWriter();
