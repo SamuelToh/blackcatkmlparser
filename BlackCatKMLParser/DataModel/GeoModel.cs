@@ -27,7 +27,7 @@ namespace BlackCat
 
         public bool BuildGeoModel(IGeoReader reader, ProgressBar progressBar)
         {
-            this.regions = reader.ReadRegions(progressBar);
+            this.regions  = reader.ReadRegions(progressBar);
             //TODO: return is meaningless
             return true;
         }
