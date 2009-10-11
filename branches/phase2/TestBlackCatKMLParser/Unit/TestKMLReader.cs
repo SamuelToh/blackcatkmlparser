@@ -35,8 +35,8 @@ namespace TestBlackCatKMLParser
         public void TestReadRegionNames()
         {
             Assert.AreEqual("Polygon Test", regions[0].RegionName);
-            Assert.AreEqual("Simple placemark", regions[0].RegionName);
-            Assert.AreEqual("regionName3", regions[0].RegionName);
+            Assert.AreEqual("Simple placemark", regions[1].RegionName);
+            Assert.AreEqual(null, regions[2].RegionName); //the line object has no name tag in our test data
         }
 
         [Test]
@@ -84,9 +84,16 @@ namespace TestBlackCatKMLParser
         [Test]
         public void TestReadRegionType()
         {
+            /*
             Assert.AreEqual("Region", regions[0].RegionType);
             Assert.AreEqual("Region", regions[1].RegionType);
             Assert.AreEqual("Region", regions[2].RegionType);
+             */
+
+            //We should be testing what kind of region it is
+            Assert.AreEqual("POLYGON", regions[0].RegionType);
+            Assert.AreEqual("POINT", regions[1].RegionType);
+            Assert.AreEqual("LINE", regions[2].RegionType);
         }
 
         [Test]
@@ -99,37 +106,56 @@ namespace TestBlackCatKMLParser
         [Test]
         public void TestReadRegionCoordinates0_0()
         {
-            Assert.AreEqual("152 -27\n153 -29", regions[0].Coordinates[0]);
+            string coordinate = "\r\n153.0033333,-27.442777,0" +
+                                "\r\n153.0033333,-27.444444,0" +
+                                "\r\n153.005,-27.444444,0" +
+                                "\r\n153.005,-27.442777,0" +
+                                "\r\n153.0033333,-27.442777,0\r\n";
+
+            Assert.AreEqual(coordinate, regions[0].Coordinates[0]);
         }
 
         [Test]
         public void TestReadRegionCoordinates1_0()
         {
-            Assert.AreEqual("156 -34\n45 -23\n87 -35\n345 -86", regions[1].Coordinates[0]);
+            string coordinate = "\r\n153.0029465223778,-27.44338980361695,0\r\n";
+
+            Assert.AreEqual(coordinate, regions[1].Coordinates[0]);
         }
 
+        /*
+         * Region 2 only consist of 1 set of coordinate
         [Test]
         public void TestReadRegionCoordinates1_1()
         {
+            string coordinate = regions[1].Coordinates[1];
             Assert.AreEqual("67 -90\n45 -91", regions[1].Coordinates[1]);
         }
+        */
 
+        /*
+         * same as above, region 2 only has 1 set of coordinate
         [Test]
         public void TestReadRegionCoordinates1_2()
         {
+            string coordinate = regions[1].Coordinates[2];
             Assert.AreEqual("56 -90\n57 -89\n58 -90\n56 -91\n57 -87\n45 -666", regions[1].Coordinates[2]);
-        }
+        }*/
 
         [Test]
         public void TestReadRegionCoordinates2_0()
         {
-            Assert.AreEqual("152 -27\n153 -29", regions[2].Coordinates[0]);
+            string coordinate = "\r\n153.00300, -27.443819,0\r\n153.00300,-27.444810,0\r\n";
+            Assert.AreEqual(coordinate, regions[2].Coordinates[0]);
         }
 
+        /*
+         * We only have 1 set of coordinate for region 3
         [Test]
         public void TestReadRegionCoordinates2_1()
         {
+            string coordinate = regions[2].Coordinates[1];
             Assert.AreEqual("154 -28\n153 -34\n154 -23\n155 -27\n157 -28\n154 -56\n123 -78", regions[2].Coordinates[1]);
-        }
+        }*/
     }
 }
