@@ -78,7 +78,7 @@ namespace BlackCat
 
         public List<String> DataNames 
         {
-            get { return this.dataNames.ToArray<string>(); }
+            get { return this.dataNames.ToList<string>(); }
             set { this.dataNames = value.ToList<string>(); }
         }
 

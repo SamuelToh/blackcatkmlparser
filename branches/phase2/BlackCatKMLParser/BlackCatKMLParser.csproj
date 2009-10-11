@@ -70,7 +70,9 @@
   <ItemGroup>
     <Compile Include="Controller\IKMLParserControl.cs" />
     <Compile Include="Controller\KMLParserControl.cs" />
+    <Compile Include="DataModel\Category.cs" />
     <Compile Include="DataModel\GeoModel.cs" />
+    <Compile Include="DataModel\ICategory.cs" />
     <Compile Include="DataModel\IGeoModel.cs" />
     <Compile Include="DataModel\IRegion.cs" />
     <Compile Include="DataModel\IStyle.cs" />
