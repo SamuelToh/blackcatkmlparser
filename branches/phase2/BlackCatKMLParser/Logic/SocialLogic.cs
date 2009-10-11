@@ -77,6 +77,7 @@ namespace BlackCat
             float safety = 0;
             string seatSafety = "";
             Region[] regions = model.Regions;
+            Style colStyle;
 
             for (int i = 0; i < regions.Length; i++)
             {
@@ -97,10 +98,12 @@ namespace BlackCat
                 //store the seat safety to geoModel
                 regions[i].DataNames.Add("Seat safety");
                 regions[i].AddDataValue(seatSafety);
+
                 //set the region style if the user wants to display colours 
                 if (isMainDisplay)
                 {
-
+                    colStyle = seatSafetyStyle(seatSafety);
+                    model.SetRegionStyle(regions[i].RegionName, colStyle);
                 }
             }
         }
@@ -158,6 +161,34 @@ namespace BlackCat
             }
 
             return style;
+        }
+
+        private Style seatSafetyStyle(string seatSafety)
+        {
+            Style safetyStyle;
+
+            if (seatSafety.Equals(marginal))
+            {
+                safetyStyle = new Style("A0E3BEE2", "Very Light Purple");
+            }
+            else if (seatSafety.Equals(moderately))
+            {
+                safetyStyle = new Style("A0BC588A", "Light Purple");
+            }
+            else if (seatSafety.Equals(safe))
+            {
+                safetyStyle = new Style("A0BD0080", "Purple");
+            }
+            else if (seatSafety.Equals(vSafe))
+            {
+                safetyStyle = new Style("A05B084A", "Dark Purple");
+            }
+            else
+            {
+                safetyStyle = new Style("A01E0A1A", "Very Dark Purple");
+            }
+
+            return safetyStyle;
         }
 
         // Finds out the current margin for the specified federal electorate data
