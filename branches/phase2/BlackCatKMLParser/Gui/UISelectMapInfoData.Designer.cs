@@ -105,6 +105,7 @@
             this.Controls.Add(this.checkedListBox1);
             this.Name = "UISelectMapInfoData";
             this.Text = "UISelectMapInfoData";
+            this.VisibleChanged += new System.EventHandler(this.UISelectMapInfoData_VisibleChanged);
             this.Controls.SetChildIndex(this.checkedListBox1, 0);
             this.Controls.SetChildIndex(this.label4, 0);
             this.Controls.SetChildIndex(this.label3, 0);

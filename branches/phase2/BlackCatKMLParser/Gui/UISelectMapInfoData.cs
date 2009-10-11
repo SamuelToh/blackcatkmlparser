@@ -17,10 +17,16 @@ namespace BlackCat
             this.previous = previous;
             this.next = new UISelectSociologicalData(this);
             InitializeComponent();
-            foreach (string str in controller.GetMapInfoDataFields()){
+        }
+
+        public void LoadMapInfoDataFields()
+        {
+            foreach (string str in controller.GetMapInfoDataFields())
+            {
                 checkedListBox1.Items.Add(str.ToString(), false);
             }
         }
+
 
         private void btnNext_Click(object sender, EventArgs e)
         {
@@ -40,6 +46,12 @@ namespace BlackCat
         private void btnPrevious_Click(object sender, EventArgs e)
         {
             showPrevious();
+        }
+
+        private void UISelectMapInfoData_VisibleChanged(object sender, EventArgs e)
+        {
+            if (this.Visible)
+                LoadMapInfoDataFields();
         }
     }
 }
