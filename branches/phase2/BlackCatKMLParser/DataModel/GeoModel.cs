@@ -28,6 +28,8 @@ namespace BlackCat
         public bool BuildGeoModel(IGeoReader reader, ProgressBar progressBar)
         {
             this.regions  = reader.ReadRegions(progressBar);
+            if (regions.Count > 0)
+                this.dataFields = regions[0].DataNames;
             //TODO: return is meaningless
             return true;
         }
@@ -49,7 +51,7 @@ namespace BlackCat
                     break;
                 }
 
-            ChkModelStyle(style);
+            //ChkModelStyle(style);
         }
 
         public Style GetRegionStyle(String regionIdentifier)
@@ -62,23 +64,33 @@ namespace BlackCat
 
         public Style[] Styles
         {
-            get { return this.styles.ToArray(); }
+            //get { return this.styles.ToArray(); }
+            get
+            {
+                styles = new List<Style>();
+                foreach (Region r in regions)
+                    ChkModelStyle(r.RegionStyle);
+                return styles.ToArray();
+            }
         }
 
         private void ChkModelStyle(Style style)
         {
-            if (this.styles.Count < 1)
-                styles.Add(style);
-            else
+            if (style != null)
             {
-                bool hasStyle = false;
+                if (this.styles.Count < 1)
+                    styles.Add(style);
+                else
+                {
+                    bool hasStyle = false;
 
-                foreach (Style s in styles)
-                    if (s.StyleName == style.StyleName)
-                        hasStyle = true;
+                    foreach (Style s in styles)
+                        if (s.StyleName == style.StyleName)
+                            hasStyle = true;
 
-                if (!hasStyle)
-                    this.styles.Add(style);
+                    if (!hasStyle)
+                        this.styles.Add(style);
+                }
             }
         }
 
