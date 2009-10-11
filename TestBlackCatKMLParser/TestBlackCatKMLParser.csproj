@@ -63,6 +63,7 @@
     <Compile Include="TestKMLReader.cs" />
     <Compile Include="TestMapInfoReader.cs" />
     <Compile Include="TestRegion.cs" />
+    <Compile Include="TestSocialReader.cs" />
     <Compile Include="TestStateElectorateData.cs" />
   </ItemGroup>
   <ItemGroup>
