@@ -136,6 +136,7 @@ namespace BlackCat
             {
                 foreach (String electorate in fedElectorates)
                 {
+                    //TODO: this comparison only works if the geoModel regions and database are in the same order
                     if (regions[i].Equals(electorate))
                     {
                         hasMatched = true;
