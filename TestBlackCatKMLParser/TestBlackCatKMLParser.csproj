@@ -58,15 +58,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestFederalElectorateData.cs" />
+    <Compile Include="Unit\TestFederalElectorateData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestGeoModel.cs" />
-    <Compile Include="TestKMLReader.cs" />
-    <Compile Include="TestMapInfoReader.cs" />
-    <Compile Include="TestRegion.cs" />
-    <Compile Include="TestSocialLogic.cs" />
-    <Compile Include="TestSocialReader.cs" />
-    <Compile Include="TestStateElectorateData.cs" />
+    <Compile Include="Unit\TestGeoModel.cs" />
+    <Compile Include="Unit\TestKMLReader.cs" />
+    <Compile Include="Unit\TestMapInfoReader.cs" />
+    <Compile Include="Unit\TestRegion.cs" />
+    <Compile Include="Unit\TestSocialLogic.cs" />
+    <Compile Include="Unit\TestSocialReader.cs" />
+    <Compile Include="Unit\TestStateElectorateData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BlackCatKMLParser\BlackCatKMLParser.csproj">

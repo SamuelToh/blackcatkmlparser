@@ -131,5 +131,14 @@ namespace TestBlackCatKMLParser
         {
             Assert.AreEqual("\r\n154,-28,0\r\n153,-34,0\r\n154,-23,0\r\n155,-27,0\r\n157,-28,0\r\n154,-56,0\r\n123,-78,0", regions[2].Coordinates[1]);
         }
+
+        [Test]
+        public void TestQLD_Federal_Electoral_BoundariesSuccess()
+        {
+            MapInfoReader reader = new MapInfoReader(@"..\..\Data\QLD_Federal_Electoral_Boundaries.MID", @"..\..\Data\QLD_Federal_Electoral_Boundaries.mif");
+            List<Region> regions = reader.ReadRegions(new ProgressBar());
+            Assert.NotNull(regions);
+            Assert.Greater(regions.Count, 0);
+        }
     }
 }
