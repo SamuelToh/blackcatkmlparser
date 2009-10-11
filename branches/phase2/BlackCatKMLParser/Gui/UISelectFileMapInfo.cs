@@ -46,10 +46,10 @@ namespace BlackCat
                 {
                     MessageBox.Show(Messages.MIF_UnReadable);
                 }
-                else if (validationFileFomart(txtMidFilePath.Text, ".mid") == false) {
+                else if (validationFileFormat(txtMidFilePath.Text, ".mid") == false) {
                     MessageBox.Show(Messages.MID_Format); 
                 }
-                else if (validationFileFomart(txtMifFilePath.Text, ".mif") == false) {
+                else if (validationFileFormat(txtMifFilePath.Text, ".mif") == false) {
                     MessageBox.Show(Messages.MIF_Format);
                 }
                 else {

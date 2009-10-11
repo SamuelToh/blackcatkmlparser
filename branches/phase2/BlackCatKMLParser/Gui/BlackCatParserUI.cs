@@ -166,7 +166,7 @@ namespace BlackCat
             }
         }
 
-        public bool validationFileFomart(string filePath, string fileFormat)
+        public bool validationFileFormat(string filePath, string fileFormat)
         {
             if (filePath == "" || filePath == null || fileFormat == "" || fileFormat == null)
             {
