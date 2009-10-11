@@ -17,13 +17,14 @@ namespace BlackCat
         private long totalSize;
         private int currRead;
         private List<Region> regions;
-        private List<Category> category;
+        public List<Category> category; //11october
 
         public KMLReader(String kmlURL)
         {
             this.kmlFileURL = kmlURL;
             this.dataFields = new List<string>();
             this.regions = new List<Region>();
+            this.category = new List<Category>();
             log = LogManager.GetLogger(this.ToString());
         }
 
