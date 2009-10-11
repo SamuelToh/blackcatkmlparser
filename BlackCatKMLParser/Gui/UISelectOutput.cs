@@ -43,6 +43,7 @@ namespace BlackCat
                     MessageBox.Show(Messages.KML_Format);
                 }
                 else {
+                    outputFilePath = txtOutputPath.Text;
                     showNext();
                 }
             }
