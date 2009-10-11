@@ -1,18 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataModel", "TestDataModel\TestDataModel.csproj", "{170A5507-2592-4A20-BA70-EF83F56338D1}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F42F7E84-66E4-4679-A395-E2E9305DFD62}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDataManipulator", "TestDataManipulator\TestDataManipulator.csproj", "{C1E577B0-B9E0-4FE2-A5EF-579A62A20B20}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMapInfoConverter", "TestMapInfoConverter\TestMapInfoConverter.csproj", "{EF7FCC9E-C787-455F-9C85-15CD32EB19FD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestInput", "TestInput\TestInput.csproj", "{E7C1654C-B4E4-417C-886F-36EC8B11744D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestIntegration", "TestIntegration\TestIntegration.csproj", "{6A11A552-2C3D-47DA-81EA-F4DC30237F7B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackCatKMLParser", "BlackCatKMLParser\BlackCatKMLParser.csproj", "{7E97C915-0A38-4D05-BE3C-0C3CAD73FF8E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestBlackCatKMLParser", "TestBlackCatKMLParser\TestBlackCatKMLParser.csproj", "{9090F93C-4F3E-404A-992A-A38C972F2371}"
@@ -23,26 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{170A5507-2592-4A20-BA70-EF83F56338D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{170A5507-2592-4A20-BA70-EF83F56338D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{170A5507-2592-4A20-BA70-EF83F56338D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{170A5507-2592-4A20-BA70-EF83F56338D1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C1E577B0-B9E0-4FE2-A5EF-579A62A20B20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C1E577B0-B9E0-4FE2-A5EF-579A62A20B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C1E577B0-B9E0-4FE2-A5EF-579A62A20B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C1E577B0-B9E0-4FE2-A5EF-579A62A20B20}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EF7FCC9E-C787-455F-9C85-15CD32EB19FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF7FCC9E-C787-455F-9C85-15CD32EB19FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF7FCC9E-C787-455F-9C85-15CD32EB19FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF7FCC9E-C787-455F-9C85-15CD32EB19FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E7C1654C-B4E4-417C-886F-36EC8B11744D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E7C1654C-B4E4-417C-886F-36EC8B11744D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E7C1654C-B4E4-417C-886F-36EC8B11744D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E7C1654C-B4E4-417C-886F-36EC8B11744D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6A11A552-2C3D-47DA-81EA-F4DC30237F7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A11A552-2C3D-47DA-81EA-F4DC30237F7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A11A552-2C3D-47DA-81EA-F4DC30237F7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A11A552-2C3D-47DA-81EA-F4DC30237F7B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7E97C915-0A38-4D05-BE3C-0C3CAD73FF8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7E97C915-0A38-4D05-BE3C-0C3CAD73FF8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E97C915-0A38-4D05-BE3C-0C3CAD73FF8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -54,12 +22,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{170A5507-2592-4A20-BA70-EF83F56338D1} = {F42F7E84-66E4-4679-A395-E2E9305DFD62}
-		{C1E577B0-B9E0-4FE2-A5EF-579A62A20B20} = {F42F7E84-66E4-4679-A395-E2E9305DFD62}
-		{EF7FCC9E-C787-455F-9C85-15CD32EB19FD} = {F42F7E84-66E4-4679-A395-E2E9305DFD62}
-		{E7C1654C-B4E4-417C-886F-36EC8B11744D} = {F42F7E84-66E4-4679-A395-E2E9305DFD62}
-		{6A11A552-2C3D-47DA-81EA-F4DC30237F7B} = {F42F7E84-66E4-4679-A395-E2E9305DFD62}
 	EndGlobalSection
 EndGlobal
