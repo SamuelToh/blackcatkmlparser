@@ -5,16 +5,18 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using BlackCat;
 
 namespace BlackCat
 {
-    public partial class UISelectFileMapInfo : BlackCatParserUI
+    public partial class UISelectFileMapInfo : BlackCat.BlackCatParserUI
     {
+
         public UISelectFileMapInfo(BlackCatParserUI previous)
         {
             InitializeComponent();
             this.previous = previous;
-            //TODO: this.next = new UISelectAdditionalInfoMapInfo(this);
+            this.next = new UISelectMapInfoData(this);
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -29,14 +31,39 @@ namespace BlackCat
             }
             else
             {
-                int response = controller.LoadMapInfo(txtMidFilePath.Text, txtMifFilePath.Text, progressLoading);
-                if (response == 0)
-                    showNext();
-                else
+                if (fileExists(txtMifFilePath.Text) == false  )
                 {
-                    //TODO: specific error messages
-                    MessageBox.Show(Messages.MAPINFO_LOAD_ERROR);
+                    MessageBox.Show(Messages.NO_MIF_FILE_PATH);
                 }
+                else if (fileExists(txtMidFilePath.Text) == false) {
+                    MessageBox.Show(Messages.NO_MID_FILE_PATH);
+                }
+                else if (fileIsReadable(txtMidFilePath.Text) == false)
+                {
+                    MessageBox.Show(Messages.MID_UnReadable);
+                }
+                else if (fileIsReadable(txtMifFilePath.Text) == false)
+                {
+                    MessageBox.Show(Messages.MIF_UnReadable);
+                }
+                else if (validationFileFomart(txtMidFilePath.Text, ".mid") == false) {
+                    MessageBox.Show(Messages.MID_Format); 
+                }
+                else if (validationFileFomart(txtMifFilePath.Text, ".mif") == false) {
+                    MessageBox.Show(Messages.MIF_Format);
+                }
+                else {
+                    int response = controller.LoadMapInfo(txtMidFilePath.Text, txtMifFilePath.Text, progressLoading);
+                    if (response == 0)
+                        showNext();
+                    else
+                    {
+                        //TODO: specific error messages
+                        MessageBox.Show(Messages.MAPINFO_LOAD_ERROR);
+                    }
+                    showNext();
+                }
+
             }
         }
 
@@ -48,7 +75,7 @@ namespace BlackCat
 
         private void btnMifBrowse_Click(object sender, EventArgs e)
         {
-            openMifFileDialog.Filter = "MIF files (*.mif)|*.mif"; ;
+            openMifFileDialog.Filter = "MIF files (*.mif)|*.mif"; 
             openMifFileDialog.ShowDialog();
         }
 
@@ -61,5 +88,6 @@ namespace BlackCat
         {
             txtMifFilePath.Text = openMifFileDialog.FileName;
         }
+
     }
 }

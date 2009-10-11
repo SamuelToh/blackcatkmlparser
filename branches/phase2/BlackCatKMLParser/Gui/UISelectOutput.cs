@@ -26,30 +26,24 @@ namespace BlackCat
             {
                 String path = txtOutputPath.Text;
                 path = path.Substring(0, path.LastIndexOf('\\'));
-                //int response = controller.validateFolder(path);
-                int response = 0; //TODO: actually check the validity
-                if (response == 0)
-                {
-                    outputFilePath = txtOutputPath.Text;
-                    showNext();
+                if(folderExists(path) == false){
+                    MessageBox.Show(Messages.FOLDER_INVALID_1);
                 }
-                else
+                else if(folderIsWritable(path) == false){
+                    MessageBox.Show(Messages.FOLDER_INVALID_2);
+                }
+                else if(hasSufficientDiskSpace(path) == false){
+                    MessageBox.Show(Messages.FOLDER_INVALID_3);
+                }
+                else if (urlLengthIsValid(txtOutputPath.Text) == false) {
+                    MessageBox.Show(Messages.FOLDER_INVALID_4);
+                }
+                else if (validationFileFomart(txtOutputPath.Text, ".kml") == false)
                 {
-                    string error = Messages.OUTPUT_PATH_INVALID;
-                    switch (response)
-                    {
-                        case 1: error = Messages.FOLDER_INVALID_1;
-                            break;
-                        case 2: error = Messages.FOLDER_INVALID_2;
-                            break;
-                        case 3: error = Messages.FOLDER_INVALID_3;
-                            break;
-                        case 4: error = Messages.FOLDER_INVALID_4;
-                            break;
-                        default:
-                            break;
-                    }
-                    MessageBox.Show(error);
+                    MessageBox.Show(Messages.KML_Format);
+                }
+                else {
+                    showNext();
                 }
             }
         }
@@ -61,12 +55,13 @@ namespace BlackCat
 
         private void btnOutputBrowse_Click(object sender, EventArgs e)
         {
+            saveKMLFileDialog.Filter = "KML files (*.kml)|*.kml"; 
             saveKMLFileDialog.ShowDialog();
         }
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-
+            showPrevious();
         }
     }
 }

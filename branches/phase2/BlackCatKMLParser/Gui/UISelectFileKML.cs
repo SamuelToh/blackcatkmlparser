@@ -10,10 +10,11 @@ namespace BlackCat
 {
     public partial class UISelectFileKML : BlackCat.BlackCatParserUI
     {
+        public string KMLFilePath = "";
         public UISelectFileKML(BlackCatParserUI previous)
         {
             this.previous = previous;
-            //TODO: this.next = new UISelectAdditionalInfoKML(this);
+            this.next = new UISelectSociologicalData(this);
             InitializeComponent();
         }
 
@@ -25,18 +26,36 @@ namespace BlackCat
             }
             else
             {
-                setProgressVisible(true);
-                int response = controller.LoadKML(txtKmlFilePath.Text, progressLoading);
-                if (response == 0)
+                if(fileExists(txtKmlFilePath.Text)==false){
+                    MessageBox.Show(Messages.NO_KML_FILE_PATH);
+                }
+                else if (fileIsReadable(txtKmlFilePath.Text) == false) {
+                    MessageBox.Show(Messages.NO_KML_UnReadable);
+                }
+                else if (fileIsReadable(txtKmlFilePath.Text) == false) {
+                    MessageBox.Show(Messages.NO_KML_UnReadable);
+                }
+                else if (validationFileFomart(txtKmlFilePath.Text,".kml") == false)
                 {
-                    showNext();
+                    MessageBox.Show(Messages.KML_Format);
                 }
                 else
                 {
-                    //TODO: specific error messages
-                    MessageBox.Show(Messages.MAPINFO_LOAD_ERROR);
+                    KMLFilePath = txtKmlFilePath.Text;
+                    setProgressVisible(true);
+                    int response = controller.LoadKML(txtKmlFilePath.Text, progressLoading);
+                    if (response == 0)
+                    {
+                        showNext();
+                    }
+                    else
+                    {
+                        //TODO: specific error messages
+                        MessageBox.Show(Messages.MAPINFO_LOAD_ERROR);
+                    }
+                    setProgressVisible(false);
                 }
-                setProgressVisible(false);
+
             }
         }
 
@@ -49,10 +68,12 @@ namespace BlackCat
         private void openKMLFileDialog_FileOk(object sender, CancelEventArgs e)
         {
             txtKmlFilePath.Text = openKMLFileDialog.FileName;
+
         }
 
         private void btnKMLBrowse_Click(object sender, EventArgs e)
         {
+            openKMLFileDialog.Filter = "KML files (*.kml)|*.kml"; 
             openKMLFileDialog.ShowDialog();
         }
     }
