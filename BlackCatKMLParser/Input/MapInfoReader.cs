@@ -11,7 +11,7 @@ namespace BlackCat
 {
     public class MapInfoReader : IGeoReader
     {
-        private ILog log = LogManager.GetLogger(typeof(GeoModel));
+        private ILog log = LogManager.GetLogger(typeof(MapInfoReader));
 
         private String midURL;
         private String mifURL;
@@ -33,7 +33,7 @@ namespace BlackCat
             this.dataFieldNames = new List<String>();
             this.objCounter = 0;
             this.bar = bar;
-        
+
             try
             {
                 StreamReader mifReader = new StreamReader(mifURL);
@@ -42,6 +42,7 @@ namespace BlackCat
 
                 // READ mif header
                 //int dataCount;
+                log.Debug("Reading header");
                 readHeader(mifReader);
 
                 /*bool delimSuccess = char.TryParse(headerData[0], out delim);
@@ -56,20 +57,23 @@ namespace BlackCat
                 int regionNameIndex = 0;
                 //if (dataCount > 1)
                 //{
-                    regionNameIndex = 1;
-                    //dataFields.Add("Elect_div");
+                regionNameIndex = 1;
+                //dataFields.Add("Elect_div");
                 //}
 
                 // READ mid file - if there is data
                 //if (dataCount > 0)
-                    readMidFile(midReader, delimiter, regionNameIndex);
+                log.Debug("Reading mid file");
+                readMidFile(midReader, delimiter, regionNameIndex);
                 //else
-                    //TODO: examine log.Info("There was no column information in the mif file - not reading mid file");
+                //TODO: examine log.Info("There was no column information in the mif file - not reading mid file");
                 //add data name info
-                    foreach (Region r in regions)
-                        r.DataNames = this.dataFieldNames;
+                log.Debug("Setting data field names");
+                foreach (Region r in regions)
+                    r.DataNames = this.dataFieldNames;
 
                 // READ mif DATA information
+                log.Debug("Reading mif data");
                 int regionCount = 0;
                 String line = mifReader.ReadLine();
                 while (!mifReader.EndOfStream)
@@ -91,10 +95,10 @@ namespace BlackCat
                         else if (line.ToUpper().StartsWith("PLINE"))
                         {
                             string[] plineCount = line.Split(' ');
-                           ReadPLINE(mifReader,
-                                           Convert.ToInt16(plineCount[1]),
-                                           regionCount);
-                           regionCount++;
+                            ReadPLINE(mifReader,
+                                            Convert.ToInt16(plineCount[1]),
+                                            regionCount);
+                            regionCount++;
                         }
                         else if (line.ToUpper().StartsWith("POINT"))
                         {
@@ -124,10 +128,15 @@ namespace BlackCat
                 }
                 //TODO: check return true;
             }
-            catch (Exception e)
+            catch (MapInfoFormatException e)
             {
-                //TODO: catch more specific exceptions
-                log.Error("Exception occurred while building GeoModel from MapInfo files");
+                //TODO: catch more specific exceptions - and throw it!
+                log.Error("MapInfoFormatException occurred while building GeoModel from MapInfo files");
+                log.Error(e.Message);
+            }
+            catch (MapInfoMismatchException e)
+            {
+                log.Error("MapInfoFormatException occurred while building GeoModel from MapInfo files");
                 log.Error(e.Message);
             }
             return regions;
@@ -141,7 +150,7 @@ namespace BlackCat
         private void readHeader(StreamReader mifReader)
         {
             log.Debug("Reading mif header file");
-            String delimiter = "\t";
+            //String delimiter = "\t";
 
             //String[] data = new String[2];
            
@@ -154,7 +163,10 @@ namespace BlackCat
                 if (line.Trim().ToUpper().StartsWith("DELIMITER"))
                 {
                     //data[0] = line.Substring(line.IndexOf('"') + 1, 1);
-                    delimiter = line.Substring(line.IndexOf('"') + 1, 1);
+                    Boolean delimSuccess = Char.TryParse(line.Substring(line.IndexOf('"') + 1, 1),out delimiter);
+                    if (!delimSuccess)
+                        throw new MapInfoFormatException("Unexpected delimiter line");
+                    log.Debug("Delimiter located, value is - \"" + delimiter + "\"");
                 }
                 else if (line.Trim().ToUpper().StartsWith("COLUMNS"))
                 {
@@ -190,11 +202,12 @@ namespace BlackCat
         // The name of each region will be the data item at regionNameIndex on that line
         private void readMidFile(StreamReader midReader, Char delim, int regionNameIndex)
         {
-            log.Debug("Reading mid data file");
+            log.Debug("Reading mid data file, delim is \"" + delim + "\"");
             String line = midReader.ReadLine();
             while (line != null)
             {
-                String[] lineParts = line.Split(delim);
+                String[] lineParts = line.Split(delimiter);
+                log.Debug("Split line up - count is " + lineParts.Length);
                 Region reg = new Region();
                 if (regionNameIndex < lineParts.Length)
                 {
