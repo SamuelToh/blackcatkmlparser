@@ -41,6 +41,7 @@ namespace BlackCat
             set {this.regions = new List<Region>(value);}
         }
 
+        //first or secondary display also calls this
         public void SetRegionStyle
                (string regionIdentifier, Style style)
         {
@@ -54,6 +55,25 @@ namespace BlackCat
                 }
 
             //ChkModelStyle(style);
+        }
+
+        public void SetRegionSecondaryData
+            (bool seatWinnerIsMainDisplay, string regionIdentifier, string data)
+        {
+            StringBuilder key =  new StringBuilder("<br>");
+
+            if (!seatWinnerIsMainDisplay)
+                key.Append("Region party winner : ");
+            else
+                key.Append("Predicted seat safety : ");
+
+            foreach (Region r in regions)
+
+                if (r.RegionName == regionIdentifier)
+                {
+                    r.AddDataValue(key.Append(data).ToString());
+                    break;
+                }
         }
 
         public Style GetRegionStyle(String regionIdentifier)
@@ -127,6 +147,48 @@ namespace BlackCat
             set { dataFields = value; }
         }
 
+/*
+        private string getColorCode(string status)
+        {
+            string code = "#00000000";
+
+            switch (status)
+            {
+                case "Marginal Seat":
+                    {
+                        code = "A0E3BEE2";
+                        break;
+                    }
+
+                case "Moderately Safe":
+                    {
+                        code = "A0BC588A";
+                        break;
+                    }
+
+                case "Safe":
+                    {
+                        code = "A0BD0080";
+                        break;
+                    }
+
+                case "Very Safe":
+                    {
+                        code = "A05B084A";
+                        break;
+                    }
+
+                case "Rock Solid":
+                    {
+                        code = "A01E0A1A";
+                        break;
+                    }
+
+            }
+
+            return code;
+        }
+*/
     }
 }
 
