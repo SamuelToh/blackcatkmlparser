@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="TestFederalElectorateData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestGeoModel.cs" />
     <Compile Include="TestKMLReader.cs" />
     <Compile Include="TestMapInfoReader.cs" />
     <Compile Include="TestRegion.cs" />
