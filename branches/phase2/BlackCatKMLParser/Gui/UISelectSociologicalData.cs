@@ -20,13 +20,13 @@ namespace BlackCat
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if(radioButton1.Checked == true){
+            if(rbtnShowNone.Checked == true){
                 controller.SociologicalDataChoice = SociologicalDataSelection.NONE;
             }
-            else if(radioButton2.Checked == true){
+            else if(rbtnShowWinner.Checked == true){
                 controller.SociologicalDataChoice = SociologicalDataSelection.WINNING_PARTY;
             }
-            else if (radioButton3.Checked == true) {
+            else if (rbtnShowSafety.Checked == true) {
                 controller.SociologicalDataChoice = SociologicalDataSelection.SEAT_SAFETY;
             }
             this.next = new UISelectOutput(this);
@@ -38,31 +38,46 @@ namespace BlackCat
             showPrevious();
         }
 
-        private void UISelectSociologicalData_Load(object sender, EventArgs e)
+        private void SetRadioButtonStates()
         {
-
             if (previous.GetType().ToString() == "BlackCat.UISelectFileKML")
             {
-                radioButton1.Enabled = false;
-                radioButton2.Checked = true;
-                if(controller .CanAddSociologicalData () == false){
+                rbtnShowNone.Enabled = false;
+                rbtnShowWinner.Checked = true;
+                if (controller.CanAddSociologicalData() == false)
+                {
                     MessageBox.Show(Messages.GeoSoc_NoMatch);
                     this.next = new UISelectFileKML(this);
                     showNext();
                     this.Dispose();
                 }
             }
-            else {
-                radioButton1.Checked = true;
-                if (controller.CanAddSociologicalData() == false)
+            else
+            {
+                rbtnShowNone.Checked = true;
+                if (controller.CanAddSociologicalData())
+                {
+                    label4.Visible = false;
+
+                    rbtnShowNone.Enabled = true;
+                    rbtnShowWinner.Enabled = true;
+                    rbtnShowSafety.Enabled = true;
+                }
+                else
                 {
                     label4.Visible = true;
-                    
-                    radioButton1.Enabled = true;
-                    radioButton2.Enabled = false;
-                    radioButton3.Enabled = false;
+
+                    rbtnShowNone.Enabled = true;
+                    rbtnShowWinner.Enabled = false;
+                    rbtnShowSafety.Enabled = false;
                 }
             }
+        }
+
+        private void UISelectSociologicalData_VisibleChanged(object sender, EventArgs e)
+        {
+            if (Visible)
+                SetRadioButtonStates();
         }
     }
 }
