@@ -6,6 +6,7 @@ Coordsys Earth Projection 1, 33
 Columns 2
 	E_div_number Integer
 	Elect_div Char(30)
+	Data_Item2 String
 Data
 
 Region 1
