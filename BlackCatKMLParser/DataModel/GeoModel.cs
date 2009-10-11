@@ -37,6 +37,8 @@ namespace BlackCat
         public Region[] Regions
         {
             get {return this.regions.ToArray();}
+            //added for testing
+            set {this.regions = new List<Region>(value);}
         }
 
         public void SetRegionStyle
