@@ -22,7 +22,7 @@ namespace BlackCat
             int response = controller.GenerateKMLFile(outputFilePath, progressGenerating);
             if (response == 0)
             {
-                lblConverting.Text = "Complete";
+                lblConverting.Text = "Finish";
                 progressGenerating.Value = progressGenerating.Maximum;
             }
             else
@@ -38,7 +38,7 @@ namespace BlackCat
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-
+            showPrevious();
         }
 
         /*

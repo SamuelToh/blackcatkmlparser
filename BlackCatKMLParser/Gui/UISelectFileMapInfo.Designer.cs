@@ -77,7 +77,7 @@
             this.btnMifBrowse.Name = "btnMifBrowse";
             this.btnMifBrowse.Size = new System.Drawing.Size(56, 28);
             this.btnMifBrowse.TabIndex = 120;
-            this.btnMifBrowse.Text = "&Browse";
+            this.btnMifBrowse.Text = "B&rowse";
             this.btnMifBrowse.UseVisualStyleBackColor = true;
             this.btnMifBrowse.Click += new System.EventHandler(this.btnMifBrowse_Click);
             // 

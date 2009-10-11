@@ -36,6 +36,24 @@
             this.progressLoading = new System.Windows.Forms.ProgressBar();
             this.SuspendLayout();
             // 
+            // lblDestinationFolder
+            // 
+            this.lblDestinationFolder.BackColor = System.Drawing.Color.Transparent;
+            // 
+            // lblAddAdditionalInput
+            // 
+            this.lblAddAdditionalInput.BackColor = System.Drawing.Color.Teal;
+            this.lblAddAdditionalInput.ForeColor = System.Drawing.SystemColors.ControlLight;
+            // 
+            // lblSelectFiles
+            // 
+            this.lblSelectFiles.BackColor = System.Drawing.SystemColors.Control;
+            this.lblSelectFiles.ForeColor = System.Drawing.SystemColors.ControlText;
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Enabled = false;
+            // 
             // btnNext
             // 
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);

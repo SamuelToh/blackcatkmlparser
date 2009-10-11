@@ -19,7 +19,8 @@ namespace BlackCat
         protected BlackCatParserUI next;
         protected IKMLParserControl controller;
         protected static string outputFilePath;
-        protected ILog log; 
+        protected ILog log;
+
         
         public BlackCatParserUI()
         {
@@ -134,6 +135,49 @@ namespace BlackCat
             {
                 return false;
             }
+        }
+        public bool hasSufficientDiskSpace(String drivePath)
+        {
+            DriveInfo drive = new DriveInfo(drivePath);
+            if (drive.AvailableFreeSpace / (1024 * 1024) < 100)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        public bool urlLengthIsValid(String fileURL)
+        {
+            char[] tempString = fileURL.ToCharArray();
+            int length = 0;
+            foreach (char c in tempString)
+            {
+                length++;
+            }
+            if (length >= 248)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool validationFileFomart(string filePath, string fileFormat)
+        {
+            if (filePath == "" || filePath == null || fileFormat == "" || fileFormat == null)
+            {
+                return false;
+            }
+            FileInfo fileinfo = new FileInfo(filePath);
+            if (fileinfo.Extension != fileFormat)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

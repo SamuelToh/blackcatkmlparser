@@ -100,7 +100,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(161, 40);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Add additional data from Excel files to an existing KML file.";
+            this.label3.Text = "Add additional data from database to an existing KML file.";
             // 
             // label2
             // 
