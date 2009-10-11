@@ -179,14 +179,14 @@ namespace BlackCat
                             throw new MapInfoFormatException("Mif file Column count information in unexpected format");
 
                         //data[1] = lineParts[1];
-                        this.dataFieldNames = new List<string>(dataCount);
-                        line = mifReader.ReadLine();
+                        this.dataFieldNames = new List<string>(dataCount);                        
                         for (int i = 0; i < dataCount; i++)
                         {
+                            line = mifReader.ReadLine();
                             if (line.Trim().ToUpper().Equals("DATA"))
                                 throw new MapInfoFormatException("Not enough column names found in .mif column section");
                             lineParts = line.Split(new Char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                            dataFieldNames.Add(lineParts[0]);
+                            dataFieldNames.Add(lineParts[0].Trim());
                         }
                     }
                 }
@@ -217,6 +217,7 @@ namespace BlackCat
                     string name = lineParts[regionNameIndex];
                     name = name.TrimStart(commas);
                     name = name.TrimEnd(commas);
+                    log.Debug("Setting region name = " + name);
                     reg.RegionName = name;
 
                     //all data
