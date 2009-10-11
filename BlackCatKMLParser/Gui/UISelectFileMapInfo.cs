@@ -54,7 +54,7 @@ namespace BlackCat
                 }
                 else {
                     int response = controller.LoadMapInfo(txtMidFilePath.Text, txtMifFilePath.Text, progressLoading);
-                    if (response == 0)
+                    if (response == 0)                        
                         showNext();
                     else
                     {

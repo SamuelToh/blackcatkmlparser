@@ -30,9 +30,9 @@
         {
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.rbtnShowNone = new System.Windows.Forms.RadioButton();
+            this.rbtnShowWinner = new System.Windows.Forms.RadioButton();
+            this.rbtnShowSafety = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -67,38 +67,38 @@
             this.label3.TabIndex = 116;
             this.label3.Text = "Sociological data";
             // 
-            // radioButton1
+            // rbtnShowNone
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(246, 177);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(221, 17);
-            this.radioButton1.TabIndex = 117;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Show none (Plain geographical data only)";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.rbtnShowNone.AutoSize = true;
+            this.rbtnShowNone.Location = new System.Drawing.Point(246, 177);
+            this.rbtnShowNone.Name = "rbtnShowNone";
+            this.rbtnShowNone.Size = new System.Drawing.Size(221, 17);
+            this.rbtnShowNone.TabIndex = 117;
+            this.rbtnShowNone.TabStop = true;
+            this.rbtnShowNone.Text = "Show none (Plain geographical data only)";
+            this.rbtnShowNone.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // rbtnShowWinner
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(246, 201);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(109, 17);
-            this.radioButton2.TabIndex = 118;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Show seat winner";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.rbtnShowWinner.AutoSize = true;
+            this.rbtnShowWinner.Location = new System.Drawing.Point(246, 201);
+            this.rbtnShowWinner.Name = "rbtnShowWinner";
+            this.rbtnShowWinner.Size = new System.Drawing.Size(109, 17);
+            this.rbtnShowWinner.TabIndex = 118;
+            this.rbtnShowWinner.TabStop = true;
+            this.rbtnShowWinner.Text = "Show seat winner";
+            this.rbtnShowWinner.UseVisualStyleBackColor = true;
             // 
-            // radioButton3
+            // rbtnShowSafety
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(246, 225);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(106, 17);
-            this.radioButton3.TabIndex = 119;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Show seat safety";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.rbtnShowSafety.AutoSize = true;
+            this.rbtnShowSafety.Location = new System.Drawing.Point(246, 225);
+            this.rbtnShowSafety.Name = "rbtnShowSafety";
+            this.rbtnShowSafety.Size = new System.Drawing.Size(106, 17);
+            this.rbtnShowSafety.TabIndex = 119;
+            this.rbtnShowSafety.TabStop = true;
+            this.rbtnShowSafety.Text = "Show seat safety";
+            this.rbtnShowSafety.UseVisualStyleBackColor = true;
             // 
             // label4
             // 
@@ -116,17 +116,17 @@
             this.ClientSize = new System.Drawing.Size(537, 370);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.rbtnShowWinner);
+            this.Controls.Add(this.rbtnShowNone);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.radioButton3);
+            this.Controls.Add(this.rbtnShowSafety);
             this.Name = "UISelectSociologicalData";
             this.Text = "UISelectSociologicalData";
-            this.Load += new System.EventHandler(this.UISelectSociologicalData_Load);
-            this.Controls.SetChildIndex(this.radioButton3, 0);
+            this.VisibleChanged += new System.EventHandler(this.UISelectSociologicalData_VisibleChanged);
+            this.Controls.SetChildIndex(this.rbtnShowSafety, 0);
             this.Controls.SetChildIndex(this.label4, 0);
-            this.Controls.SetChildIndex(this.radioButton1, 0);
-            this.Controls.SetChildIndex(this.radioButton2, 0);
+            this.Controls.SetChildIndex(this.rbtnShowNone, 0);
+            this.Controls.SetChildIndex(this.rbtnShowWinner, 0);
             this.Controls.SetChildIndex(this.label2, 0);
             this.Controls.SetChildIndex(this.label3, 0);
             this.Controls.SetChildIndex(this.lblStepDescriptor, 0);
@@ -142,9 +142,9 @@
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
-        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton rbtnShowNone;
+        private System.Windows.Forms.RadioButton rbtnShowWinner;
+        private System.Windows.Forms.RadioButton rbtnShowSafety;
         private System.Windows.Forms.Label label4;
     }
 }
