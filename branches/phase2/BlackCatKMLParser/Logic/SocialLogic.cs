@@ -304,7 +304,7 @@ namespace BlackCat
                 StateElectorateData seData = sr.GetStateResults(stateE);
 
                 // check tpp party for the state is not empty string
-                if (!seData.TPP_WinnerParty.Equals(""))
+                if (seData.TPP_WinnerParty != null && !seData.TPP_WinnerParty.Equals(""))
                 {
                     if (feData.FirstPref_SeatWinner.Equals(seData.TPP_WinnerParty))
                     {
