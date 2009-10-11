@@ -10,12 +10,12 @@ namespace BlackCat
     {
         private OleDbConnection con;
 
-
         //constructor
         public SocialReader()
         {
-            string connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;" +
-                    "data source= BlackcatKMLParser.accdb;";
+            String connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;" +
+                    /*"data source= BlackcatKMLParser.accdb;";*/
+                    @"data source= C:\Documents and Settings\Vanessa\My Documents\Uni\phase2\TestBlackCatKMLParser\Bin\Debug\BlackcatKMLParser.accdb";
 
             con = new OleDbConnection(connectionString);
         }
