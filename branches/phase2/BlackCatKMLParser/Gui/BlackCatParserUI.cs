@@ -173,7 +173,7 @@ namespace BlackCat
                 return false;
             }
             FileInfo fileinfo = new FileInfo(filePath);
-            if (fileinfo.Extension != fileFormat)
+            if (fileinfo.Extension.ToUpper() != fileFormat.ToUpper())
             {
                 return false;
             }

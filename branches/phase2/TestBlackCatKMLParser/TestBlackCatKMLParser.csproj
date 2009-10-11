@@ -58,6 +58,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IntegrationTestController.cs" />
+    <Compile Include="IntegrationTestGeoModel.cs" />
     <Compile Include="Unit\TestFederalElectorateData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\TestGeoModel.cs" />
