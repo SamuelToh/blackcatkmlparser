@@ -97,18 +97,26 @@ namespace BlackCat
             log.Debug("Start of BuildCategory");
             Category c = new Category();
 
-            while (reader.Read())
-            {
-                if (reader.Name.ToLower() == "name" && reader.NodeType == XmlNodeType.EndElement)
-                    break;
+            reader.Read();
 
-                else if (reader.Name.ToLower() == "name")
-                    c.CategoryName = reader.ReadString();
+            //Check to see if the following 2 tag is name 
+            if (reader.Name.ToLower() != "name")
 
-                else if (reader.Name.ToLower() == "description")
-                    c.CategoryDesc = reader.ReadString();
+                //if they are not, we need to break out of this method
+                return;
 
-            }
+            else
+                //otherwise we contiune to read for the folder's name or desc
+                while (reader.Read())
+                {
+                    if (reader.Name.ToLower() == "name" && reader.NodeType == XmlNodeType.EndElement)
+                        break;
+
+                    else if (reader.Name.ToLower() == "name")
+                        c.CategoryName = reader.ReadString();
+                    
+
+                }
 
             ChkCategoryExist(c);
 

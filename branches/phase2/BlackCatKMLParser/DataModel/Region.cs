@@ -73,7 +73,8 @@ namespace BlackCat
         public List<String> Coordinates 
         {
             get { return coordinates; }
-            set { this.Coordinates = value; }
+            //Changed by sam to fix the infinite loop issue
+            set { this.coordinates = value; }
         }
 
         public List<String> DataNames 
