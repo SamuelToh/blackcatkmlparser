@@ -24,5 +24,21 @@ namespace TestBlackCatKMLParser
             Assert.AreEqual("Average tide 2m", region.GetDataValue(1));
             Assert.AreEqual("Yearly Rainfall 22mm", region.GetDataValue(2));
         }
+
+        [Test]
+        public void testAddDataNamesCount()
+        {
+            Region region = new Region();
+            region.DataNames.Add("Population");
+            Assert.AreEqual(1, region.DataNames.Count);
+        }
+
+        [Test]
+        public void testAddDataNames()
+        {
+            Region region = new Region();
+            region.DataNames.Add("Population");
+            Assert.AreEqual("Population", region.DataNames[0]);
+        }
     }
 }
