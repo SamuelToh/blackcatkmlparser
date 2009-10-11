@@ -17,7 +17,7 @@ namespace TestBlackCatKMLParser
         private List<Region> regions;
 
         [TestFixtureSetUp]
-        public void fixtureSetUp()
+        public void FixtureSetUp()
         {
             BasicConfigurator.Configure();
             log = LogManager.GetLogger(this.ToString());
