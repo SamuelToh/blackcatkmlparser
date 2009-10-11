@@ -78,19 +78,12 @@ namespace BlackCat
 
         public List<String> DataNames 
         {
-            get { return this.dataNames.ToList<string>(); }
-            set { this.dataNames = value.ToList<string>(); }
+            get { return this.dataNames; }
+            set { this.dataNames = value; }
         }
 
         public String GetDataValue(int index)
         {
-            //previous 
-            //if(index < this.Coordinates.Count)
-            //return this.Coordinates[index];
-            //return null;
-
-            //Changed by sam 10 october 2009 10AM
-            //we should be returning data values instead of coordinate value
             if (index < this.dataValues.Count)
                 return this.dataValues[index];
             return null;
@@ -98,11 +91,6 @@ namespace BlackCat
 
         public void AddDataValue(String data)
         {
-            //previous
-            //this.Coordinates.Add(data);
-
-            //Changed by Sam 10 October 2009 10AM
-            //data values should be added to dataValue liste instead.
             dataValues.Add(data);
         }
     }
