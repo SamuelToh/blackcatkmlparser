@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using log4net;
 
 namespace BlackCat
 {
     public class SocialLogic : ISocialLogic
     {
+        ILog log = LogManager.GetLogger(typeof(SocialLogic));
+
         private ISocialReader sr;
         private const string marginal = "Marginal Seat";
         private const string moderately = "Moderately safe";
@@ -43,13 +46,19 @@ namespace BlackCat
                     feData.FirstPref_GRN_Percent.HasValue && feData.FirstPref_LP_Percent.HasValue &&
                     feData.FirstPref_NP_Percent.HasValue && feData.FirstPref_OTH_Percent.HasValue &&
                     feData.ALP_Votes.HasValue && feData.LP_Votes.HasValue)
+                {
                     //calculate winner party
                     winnerParty = calculateWinner(feData);
-
-                
+                }
+                else
+                {
+                    log.Debug("Required value is null");
+                }
+                log.Debug("Adding \"seat winner\" data value for " + regions[i].RegionName + " = " + winnerParty);
                 regions[i].DataNames.Add("Seat winner");
                 // store winner party in the geoModel
                 regions[i].AddDataValue(winnerParty);
+                log.Debug(regions[i].GetDataValue(regions[i].DataNames.Count - 1));
 
                 //set the region style if the user wants to display colours 
                 if (isMainDisplay)
@@ -445,6 +454,13 @@ namespace BlackCat
 
             return winParty;
 
+        }
+
+        //Added for testing purposes
+        public ISocialReader Reader
+        {
+            get { return this.sr; }
+            set { this.sr = value; }
         }
     }
 }
