@@ -32,11 +32,12 @@ namespace BlackCat
         public void CalculateSeatWinners(GeoModel model, Boolean isMainDisplay)
         {
             string winnerParty = "";
-            String[] regions = model.RegionIdentifiers;
+            Region[] regions = model.Regions;
+            Style colStyle;
 
             for (int i = 0; i < regions.Length; i++)
             {
-                FederalElectorateData feData = sr.GetFederalResults(regions[i]);
+                FederalElectorateData feData = sr.GetFederalResults(regions[i].RegionName);
 
                 if (feData.FirstPref_ALP_Percent.HasValue && feData.FirstPref_DEM_Percent.HasValue &&
                     feData.FirstPref_GRN_Percent.HasValue && feData.FirstPref_LP_Percent.HasValue &&
@@ -45,7 +46,17 @@ namespace BlackCat
                     //calculate winner party
                     winnerParty = calculateWinner(feData);
 
-                // **store winner party in the geoModel
+                
+                regions[i].DataNames.Add("Seat winner");
+                // store winner party in the geoModel
+                regions[i].AddDataValue(winnerParty);
+
+                //set the region style if the user wants to display colours 
+                if (isMainDisplay)
+                {
+                    colStyle = winnerPartyStyle(winnerParty);
+                    model.SetRegionStyle(regions[i].RegionName,colStyle);
+                }
             }
         }
 
@@ -65,11 +76,11 @@ namespace BlackCat
             float stateFact = 0;
             float safety = 0;
             string seatSafety = "";
-            String[] regions = model.RegionIdentifiers;
+            Region[] regions = model.Regions;
 
             for (int i = 0; i < regions.Length; i++)
             {
-                FederalElectorateData feData = sr.GetFederalResults(regions[i]);
+                FederalElectorateData feData = sr.GetFederalResults(regions[i].RegionName);
                 // check the winner party is not empty string
                 if (!feData.FirstPref_SeatWinner.Equals(""))
                 {
@@ -83,7 +94,14 @@ namespace BlackCat
                 safety = (float)Math.Round(currMargin * prevWonFact * stateFact / 10000, 2);
 
                 seatSafety = findSeatSafety(safety);
-                //** store the seat safety to geoModel
+                //store the seat safety to geoModel
+                regions[i].DataNames.Add("Seat safety");
+                regions[i].AddDataValue(seatSafety);
+                //set the region style if the user wants to display colours 
+                if (isMainDisplay)
+                {
+
+                }
             }
         }
 
@@ -115,6 +133,31 @@ namespace BlackCat
             }
 
             return hasMatched;
+        }
+
+        private Style winnerPartyStyle(string winParty)
+        {
+            Style style;
+ 
+            if (winParty.Equals("ALP"))
+            {
+                //colour is a hex notation(ABGR)
+                style = new Style("7d0000ff", "Red");
+            }
+            else if (winParty.Equals("LIB") || winParty.Equals("LNP") || winParty.Equals("NPA"))
+            {
+                style = new Style("7dff0000", "Blue");
+            }
+            else if (winParty.Equals("GRN"))
+            {
+                style = new Style("7d00ff00", "Green");
+            }
+            else
+            {
+                style = new Style("7d00ffff", "Yellow");
+            }
+
+            return style;
         }
 
         // Finds out the current margin for the specified federal electorate data
