@@ -35,8 +35,8 @@ namespace TestBlackCatKMLParser
         public void TestReadRegionNames()
         {
             Assert.AreEqual("regionName1",regions[0].RegionName);
-            Assert.AreEqual("regionName2",regions[0].RegionName);
-            Assert.AreEqual("regionName3", regions[0].RegionName);
+            Assert.AreEqual("regionName2",regions[1].RegionName);
+            Assert.AreEqual("regionName3", regions[2].RegionName);
         }
 
         [Test]
@@ -84,9 +84,9 @@ namespace TestBlackCatKMLParser
         [Test]
         public void TestReadRegionType()
         {
-            Assert.AreEqual("Region", regions[0].RegionType);
-            Assert.AreEqual("Region", regions[1].RegionType);
-            Assert.AreEqual("Region", regions[2].RegionType);
+            Assert.AreEqual(Region.POLYGON_CODE, regions[0].RegionType);
+            Assert.AreEqual(Region.POLYGON_CODE, regions[1].RegionType);
+            Assert.AreEqual(Region.POLYGON_CODE, regions[2].RegionType);
         }
 
         [Test]
@@ -99,37 +99,37 @@ namespace TestBlackCatKMLParser
         [Test]
         public void TestReadRegionCoordinates0_0()
         {
-            Assert.AreEqual("152 -27\n153 -29", regions[0].Coordinates[0]);
+            Assert.AreEqual("\r\n152,-27,0\r\n153,-29,0", regions[0].Coordinates[0]);
         }
 
         [Test]
         public void TestReadRegionCoordinates1_0()
         {
-            Assert.AreEqual("156 -34\n45 -23\n87 -35\n345 -86", regions[1].Coordinates[0]);
+            Assert.AreEqual("\r\n156,-34,0\r\n45,-23,0\r\n87,-35,0\r\n345,-86,0", regions[1].Coordinates[0]);
         }
 
         [Test]
         public void TestReadRegionCoordinates1_1()
         {
-            Assert.AreEqual("67 -90\n45 -91", regions[1].Coordinates[1]);
+            Assert.AreEqual("\r\n67,-90,0\r\n45,-91,0", regions[1].Coordinates[1]);
         }
 
         [Test]
         public void TestReadRegionCoordinates1_2()
         {
-            Assert.AreEqual("56 -90\n57 -89\n58 -90\n56 -91\n57 -87\n45 -666", regions[1].Coordinates[2]);
+            Assert.AreEqual("\r\n56,-90,0\r\n57,-89,0\r\n58,-90,0\r\n56,-91,0\r\n57,-87,0\r\n45,-666,0", regions[1].Coordinates[2]);
         }
 
         [Test]
         public void TestReadRegionCoordinates2_0()
         {
-            Assert.AreEqual("152 -27\n153 -29", regions[2].Coordinates[0]);
+            Assert.AreEqual("\r\n152,-27,0\r\n153,-29,0", regions[2].Coordinates[0]);
         }
 
         [Test]
         public void TestReadRegionCoordinates2_1()
         {
-            Assert.AreEqual("154 -28\n153 -34\n154 -23\n155 -27\n157 -28\n154 -56\n123 -78", regions[2].Coordinates[1]);
+            Assert.AreEqual("\r\n154,-28,0\r\n153,-34,0\r\n154,-23,0\r\n155,-27,0\r\n157,-28,0\r\n154,-56,0\r\n123,-78,0", regions[2].Coordinates[1]);
         }
     }
 }
