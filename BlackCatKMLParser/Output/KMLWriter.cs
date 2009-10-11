@@ -12,9 +12,11 @@ namespace BlackCat
         const string RAW_INDENTATION = "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
         private const string KML_NAMESPACE_ADDR = "http://www.opengis.net/kml/2.2";
         private IGeoModel geoModel;
-        private string[] regCategories = new string[5]
+        /*private string[] regCategories = new string[5]
             {"Northern Queensland", "East Queensland", 
-                "Southern Queensland", "West Queensland", "Others"};
+                "Southern Queensland", "West Queensland", "Others"};*/
+
+        private List<Category> district = new List<Category>();
 
         public bool WriteToFile(IGeoModel model, List<String> dataFieldsToDisplay, String outputPath, ProgressBar progressBar)
         {
@@ -86,12 +88,90 @@ namespace BlackCat
 
         static int objCounter = 0;
 
+        //11 october
         private void WriteKMLRegion(XmlTextWriter writer)
         {
+            //Region[] regions = this.geoModel.Regions;
+            List<Region> regions = this.geoModel.Regions.ToList<Region>();
 
-            writer.WriteStartElement("Folder");
+            foreach (Category c in district)
+            {
+                writer.WriteStartElement("Folder");
 
-            #region "KML Folder Items"
+                //if desc not empty
+                if(c.CategoryDesc.Length > 0)
+                {
+                    writer.WriteStartElement("description"); //<description>
+                    writer.WriteString(c.CategoryDesc); //write the description out
+                    writer.WriteEndElement(); //</description>
+                }
+
+                //Check every region's category
+                for(int i = 0; i < regions.Count; i ++)
+                {
+                    //If selected region data is the same as curr category, print data
+                    if (regions[i].RegionCategory.CategoryName == c.CategoryName)
+                    {
+                        //Write KML Data
+                        writer.WriteStartElement("Placemark");
+                        writer.WriteStartElement("name");
+
+                        //check region data value
+                        if(regions[i].DataNames.Count > 0)
+                        {
+                            writer.WriteStartElement("description"); //<description>
+                            StringBuilder sb = new StringBuilder();
+                            sb.Append("<!CDATA[");
+
+                            List<String> dataNames = regions[i].DataNames;
+                            int x = 0;
+
+                            foreach (string name in dataNames)
+                            {
+                                sb.Append(name);
+                                sb.Append(" ");
+                                sb.Append(regions[x].GetDataValue(x));
+                                sb.Append("<br>"); //break line
+                            }
+
+                            sb.Append("]]>");
+                            writer.WriteString(sb.ToString());
+                            writer.WriteEndElement(); //</description>
+                        }
+
+                        writer.WriteString(regions[i].RegionName);
+                        writer.WriteEndElement(); //</name>
+                        writer.WriteStartElement("visibility"); //indicating the style
+                        writer.WriteString("0"); //show the polygon
+                        writer.WriteEndElement(); //</visibility>
+
+                        if (regions[i].RegionStyle != null)
+                        {
+                            writer.WriteStartElement("styleUrl"); //indicating the style
+                            writer.WriteString(regions[i].RegionStyle.StyleName); //show the polygon
+                            writer.WriteEndElement(); //</styleUrl>
+                        }
+
+                        string kind = regions[i].RegionType;
+
+                        OutputData(regions[i], kind, writer);
+
+                        writer.WriteEndElement(); //</placemark>
+                        writer.Flush();
+                        //11october
+                        regions.RemoveAt(i); //remove added data
+                        i --; //decrease index back by 1
+                    }//End if
+                }//end For loop
+
+                writer.WriteEndElement(); //</Folder>
+
+            }//End for each loop
+            
+            //writer.WriteStartElement("Folder");
+
+            #region "Obsolete KML Folder Items"
+            /*
             writer.WriteStartElement("name");
             writer.WriteString("BlackCat KML Parser Object(s) Folder");
             writer.WriteEndElement();
@@ -100,7 +180,7 @@ namespace BlackCat
                                     " using BlackCat KML Parser Version 1.0");
             writer.WriteEndElement();
 
-            /*
+            
             writer.WriteStartElement("LookAt");
             
             writer.WriteStartElement("longitude");
@@ -125,9 +205,10 @@ namespace BlackCat
             writer.WriteEndElement(); //</lookat>
              */
             #endregion
-           
-            Region[] regions = this.geoModel.Regions;
-            for (int i = 0; i < regions.Length; i++)
+
+            #region Old Phase 1 method
+            //Region[] regions = this.geoModel.Regions;
+            /*for (int i = 0; i < regions.Length; i++)
             {
                 writer.WriteStartElement("Placemark");
                 writer.WriteStartElement("name");
@@ -156,7 +237,9 @@ namespace BlackCat
                 writer.Flush();
             }
 
-            writer.WriteEndElement(); //</Folder>
+            writer.WriteEndElement(); //</Folder>*/
+            #endregion
+            
         }
 
 
