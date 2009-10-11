@@ -105,7 +105,7 @@ namespace BlackCat
 
             // Add to the GeoModel information about which folder to write each region to.
 
-            // socialLogic.SetFederalDistricts(geoModel);
+            //TODO:uncomment socialLogic.SetFederalDistricts(geoModel);
 
             // Next, we create a KMLWriter to perform the writing.
 
