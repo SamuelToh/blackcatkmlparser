@@ -127,25 +127,16 @@ namespace BlackCat
         // false has been returned.
         public Boolean CanMatchSociologicalData(GeoModel model)
         {
-            Boolean hasMatched = false;
             String[] regions = model.RegionIdentifiers;
             List<String> fedElectorates = sr.GetFederalElectorateNames();
 
-            //search the data
-            for (int i = 0; i < regions.Length; i++)
+            //search the data 
+            foreach (String r in regions)
             {
-                foreach (String electorate in fedElectorates)
-                {
-                    //TODO: this comparison only works if the geoModel regions and database are in the same order
-                    if (regions[i].Equals(electorate))
-                    {
-                        hasMatched = true;
-                        break;
-                    }
-                }
+                if (!fedElectorates.Contains(r))
+                    return false;
             }
-
-            return hasMatched;
+            return true;
         }
 
         private Style winnerPartyStyle(string winParty)
