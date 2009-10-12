@@ -60,20 +60,26 @@ namespace BlackCat
         public void SetRegionSecondaryData
             (bool seatWinnerIsMainDisplay, string regionIdentifier, string data)
         {
-            StringBuilder key =  new StringBuilder("<br>");
+            StringBuilder key =  new StringBuilder();
+            //string key = "";
 
             if (!seatWinnerIsMainDisplay)
-                key.Append("Region party winner : ");
+                key.Append("Seat safety :"); 
+                
             else
-                key.Append("Predicted seat safety : ");
+                
+                key.Append("Party winner : ");
 
             foreach (Region r in regions)
-
+            {
                 if (r.RegionName == regionIdentifier)
                 {
-                    r.AddDataValue(key.Append(data).ToString());
+                    r.DataNames.Add(key.ToString());
+                    r.AddDataValue(data);
                     break;
                 }
+            }
+
         }
 
         public Style GetRegionStyle(String regionIdentifier)

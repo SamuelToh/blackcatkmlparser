@@ -79,8 +79,16 @@ namespace BlackCat
                 //TODO: examine log.Info("There was no column information in the mif file - not reading mid file");
                 //add data name info
                 log.Debug("Setting data field names");
+
+                // 12 october changed by sam
+                // each region should have their own data names array if we assign the original list
+                // all region will be having the same ptr to the original list
                 foreach (Region r in regions)
-                    r.DataNames = this.dataFieldNames;
+                {
+                    string[] newFieldNames = new string[dataFieldNames.Count];
+                    dataFieldNames.CopyTo(newFieldNames);
+                    r.DataNames = newFieldNames.ToList<string>();
+                }
 
                 // READ mif DATA information
                 log.Debug("Reading mif data");
