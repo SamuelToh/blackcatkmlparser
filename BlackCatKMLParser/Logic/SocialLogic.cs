@@ -55,16 +55,21 @@ namespace BlackCat
                     log.Debug("Required value is null");
                 }
                 log.Debug("Adding \"seat winner\" data value for " + regions[i].RegionName + " = " + winnerParty);
-                regions[i].DataNames.Add("Seat winner");
+                //regions[i].DataNames.Add("Seat winner");
                 // store winner party in the geoModel
-                regions[i].AddDataValue(winnerParty);
+                //regions[i].AddDataValue(winnerParty);
                 log.Debug(regions[i].GetDataValue(regions[i].DataNames.Count - 1));
 
                 //set the region style if the user wants to display colours 
                 if (isMainDisplay)
                 {
                     colStyle = winnerPartyStyle(winnerParty);
-                    model.SetRegionStyle(regions[i].RegionName,colStyle);
+                    model.SetRegionStyle(regions[i].RegionName, colStyle);
+                }
+                else
+                {
+                    //Added by sam
+                    model.SetRegionSecondaryData(true, regions[i].RegionName, winnerParty);
                 }
             }
         }
@@ -106,14 +111,19 @@ namespace BlackCat
 
                 seatSafety = findSeatSafety(safety);
                 //store the seat safety to geoModel
-                regions[i].DataNames.Add("Seat safety");
-                regions[i].AddDataValue(seatSafety);
+                //regions[i].DataNames.Add("Seat safety");
+                //regions[i].AddDataValue(seatSafety);
 
                 //set the region style if the user wants to display colours 
                 if (isMainDisplay)
                 {
                     colStyle = seatSafetyStyle(seatSafety);
                     model.SetRegionStyle(regions[i].RegionName, colStyle);
+                }
+                else
+                {
+                    //added by sam to fix the bug where program doesnt stores the secondary data
+                    model.SetRegionSecondaryData(false, regions[i].RegionName, seatSafety);
                 }
             }
         }

@@ -160,6 +160,7 @@ namespace BlackCat
                             sb.Append("Map info data<br><hr>");
                             sb.Append("<table>");
 
+
                             //12 October Display only the items the user requested
                             int[] selectedIndex = new int[dataFieldsToDisplay.Count];
 
@@ -171,6 +172,16 @@ namespace BlackCat
 
                             //retrieve a list of datanames out
                             List<String> dataNames = regions[i].DataNames;
+
+                            //12 October to display the alternative data
+                            if (dataNames.Count > 0)
+                            {
+                                sb.Append("<tr><td>");
+                                sb.Append(dataNames[dataNames.Count - 1]); //take last name
+                                sb.Append("</td><td>");
+                                sb.Append(regions[i].GetDataValue(dataNames.Count - 1)); //take corresponding datavalue out
+                                sb.Append("</td></tr>");
+                            }
 
                             //for each selected index we append its names and value to the <desc> tag
                             for (int x = 0; x < selectedIndex.Length; x++)
