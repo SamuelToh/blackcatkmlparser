@@ -81,7 +81,7 @@ namespace BlackCat
         public void CalculateSeatSafety(GeoModel model, Boolean isMainDisplay)
         {
             float currMargin = 0;
-            float prevWonFact = 0;
+            int prevWonFact = 0;
             float stateFact = 0;
             float safety = 0;
             string seatSafety = "";
@@ -94,8 +94,8 @@ namespace BlackCat
                 // check the winner party is not empty string
                 if (!feData.FirstPref_SeatWinner.Equals(""))
                 {
-                    currMargin = Math.Abs(validIntData(feData.ALP_Votes) - validIntData(feData.LP_Votes)) / 
-                        (validIntData(feData.ALP_Votes) + validIntData(feData.LP_Votes)) * 100;
+                    currMargin = (float)Math.Round((double)100 * Math.Abs(validIntData(feData.ALP_Votes) - validIntData(feData.LP_Votes)) /
+                        (validIntData(feData.ALP_Votes) + validIntData(feData.LP_Votes)), 2);
                 }
                 // find previously won factor
                 prevWonFact = getPrevWonFactor(feData);
@@ -201,19 +201,13 @@ namespace BlackCat
         // This is used to calculate the seat safety.
         // pre: feData is not null.
         // post: Returns calculated previous won factor.
-        private float getPrevWonFactor(FederalElectorateData feData)
+        private int getPrevWonFactor(FederalElectorateData feData)
         {
-            float wonFactor = 0;
+            int wonFactor = 0;
             int year = 0;
-            int alpVote = 0;
-            int lnpVote = 0;
-            //int tppMargin = 0;
-            //float increasedMargin = 0;
 
             //check whether the data does not contain null
             year = validIntData(feData.HeldSince);
-            alpVote = validIntData(feData.ALP_Votes);
-            lnpVote = validIntData(feData.LP_Votes);
             //hold 2 consecutive elections
             if (year <= 2001 && year >= 1998)
             {
@@ -235,10 +229,10 @@ namespace BlackCat
                 wonFactor = 10;
             }
             // no changes in TPP margin
-            else
-            {
-                wonFactor = 0;
-            }
+            //else
+            //{
+            //    wonFactor = 0;
+            //}
 
             return wonFactor;
         }
@@ -263,20 +257,10 @@ namespace BlackCat
                 // check tpp party for the state is not empty string
                 if (seData.TPP_WinnerParty != null && !seData.TPP_WinnerParty.Equals(""))
                 {
-                    //same party
-                    if (feData.FirstPref_SeatWinner.Equals(seData.TPP_WinnerParty))
-                    {
-                        stateFactorSum += 2;
-                        countStateSeats++;
-                    }
-                    // check similar party 
-                    else if (feData.FirstPref_SeatWinner.Equals("LIB") && seData.TPP_WinnerParty.Equals("NPA"))
-                    {
-                        stateFactorSum += 2;
-                        countStateSeats++;
-                    }
-                    // check similar party 
-                    else if (feData.FirstPref_SeatWinner.Equals("NPA") && seData.TPP_WinnerParty.Equals("LIB"))
+                    //same party or similar party
+                    if (feData.FirstPref_SeatWinner.Equals(seData.TPP_WinnerParty) ||
+                        feData.FirstPref_SeatWinner.Equals("LIB") && seData.TPP_WinnerParty.Equals("NPA") ||
+                        feData.FirstPref_SeatWinner.Equals("NPA") && seData.TPP_WinnerParty.Equals("LIB"))
                     {
                         stateFactorSum += 2;
                         countStateSeats++;
