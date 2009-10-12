@@ -124,6 +124,7 @@ namespace BlackCat
 
             foreach (Category c in district)
             {
+                Console.WriteLine("Writing District > " + c.CategoryName);
                 writer.WriteStartElement("Folder");
 
                 writer.WriteStartElement("name");
@@ -157,7 +158,7 @@ namespace BlackCat
                             StringBuilder sb = new StringBuilder();
 
                             sb.Append("Map info data<br><hr>");
-
+                            sb.Append("<table>");
 
                             //12 October Display only the items the user requested
                             int[] selectedIndex = new int[dataFieldsToDisplay.Count];
@@ -174,12 +175,15 @@ namespace BlackCat
                             //for each selected index we append its names and value to the <desc> tag
                             for (int x = 0; x < selectedIndex.Length; x++)
                             {
+                                sb.Append("<tr><td>");
                                 sb.Append(dataNames[selectedIndex[x]]);
-                                sb.Append(" ");
-                                sb.Append(regions[x].GetDataValue(selectedIndex[x]));
+                                sb.Append("</td><td>");
+                                sb.Append(regions[i].GetDataValue(selectedIndex[x]));
+                                sb.Append("</td></tr>");
                             }
 
                             //sb.Append("]]>");
+                            sb.Append("</table><br><hr>");
                             writer.WriteCData(sb.ToString());
                             //writer.WriteString(sb.ToString());
                             writer.WriteEndElement(); //</description>
