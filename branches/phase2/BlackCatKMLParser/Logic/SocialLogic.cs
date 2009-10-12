@@ -94,14 +94,16 @@ namespace BlackCat
                 // check the winner party is not empty string
                 if (!feData.FirstPref_SeatWinner.Equals(""))
                 {
-                    currMargin = getCurrMargin(feData);
+                    currMargin = Math.Abs(validIntData(feData.ALP_Votes) - validIntData(feData.LP_Votes)) / 
+                        (validIntData(feData.ALP_Votes) + validIntData(feData.LP_Votes)) * 100;
                 }
                 // find previously won factor
                 prevWonFact = getPrevWonFactor(feData);
                 // find state impact factor
                 stateFact = getStateImpactFact(feData);
                 //calculate seat safety
-                safety = (float)Math.Round(currMargin * prevWonFact * stateFact / 10000, 2);
+                //safety = (float)Math.Round(currMargin * prevWonFact * stateFact / 10000, 2);
+                safety = currMargin + prevWonFact + stateFact;
 
                 seatSafety = findSeatSafety(safety);
                 //store the seat safety to geoModel
@@ -130,11 +132,15 @@ namespace BlackCat
             String[] regions = model.RegionIdentifiers;
             List<String> fedElectorates = sr.GetFederalElectorateNames();
 
+
             //search the data 
             foreach (String r in regions)
             {
+
+
                 if (!fedElectorates.Contains(r))
                     return false;
+
             }
             return true;
         }
@@ -195,39 +201,39 @@ namespace BlackCat
         // Finds out the current margin for the specified federal electorate data
         // pre: feData is not null.
         // post: Returns current percentage of the winner party.
-        private float getCurrMargin(FederalElectorateData feData)
-        {
-            float currMargin = 0;
+        //private float getCurrMargin(FederalElectorateData feData)
+        //{
+        //    float currMargin = 0;
 
-            switch (feData.FirstPref_SeatWinner)
-            {
-                case "ALP": if (feData.FirstPref_ALP_Percent.HasValue)
-                        currMargin = feData.FirstPref_ALP_Percent.Value;
-                    break;
+        //    switch (feData.FirstPref_SeatWinner)
+        //    {
+        //        case "ALP": if (feData.FirstPref_ALP_Percent.HasValue)
+        //                currMargin = feData.FirstPref_ALP_Percent.Value;
+        //            break;
 
-                case "LIB": if (feData.FirstPref_LP_Percent.HasValue)
-                        currMargin = feData.FirstPref_LP_Percent.Value;
-                    break;
+        //        case "LIB": if (feData.FirstPref_LP_Percent.HasValue)
+        //                currMargin = feData.FirstPref_LP_Percent.Value;
+        //            break;
 
-                case "NPA": if (feData.FirstPref_NP_Percent.HasValue)
-                        currMargin = feData.FirstPref_NP_Percent.Value;
-                    break;
+        //        case "NPA": if (feData.FirstPref_NP_Percent.HasValue)
+        //                currMargin = feData.FirstPref_NP_Percent.Value;
+        //            break;
 
-                case "DEM": if (feData.FirstPref_DEM_Percent.HasValue)
-                        currMargin = feData.FirstPref_DEM_Percent.Value;
-                    break;
+        //        case "DEM": if (feData.FirstPref_DEM_Percent.HasValue)
+        //                currMargin = feData.FirstPref_DEM_Percent.Value;
+        //            break;
 
-                case "GRN": if (feData.FirstPref_GRN_Percent.HasValue)
-                        currMargin = feData.FirstPref_GRN_Percent.Value;
-                    break;
+        //        case "GRN": if (feData.FirstPref_GRN_Percent.HasValue)
+        //                currMargin = feData.FirstPref_GRN_Percent.Value;
+        //            break;
 
-                default: if (feData.FirstPref_OTH_Percent.HasValue)
-                        currMargin = feData.FirstPref_OTH_Percent.Value;
-                    break;
-            }
+        //        default: if (feData.FirstPref_OTH_Percent.HasValue)
+        //                currMargin = feData.FirstPref_OTH_Percent.Value;
+        //            break;
+        //    }
 
-            return currMargin;
-        }
+        //    return currMargin;
+        //}
 
         // Calculates the previous won factor for the specified federal electrate data.
         // This is used to calculate the seat safety.
@@ -239,8 +245,8 @@ namespace BlackCat
             int year = 0;
             int alpVote = 0;
             int lnpVote = 0;
-            int tppMargin = 0;
-            float increasedMargin = 0;
+            //int tppMargin = 0;
+            //float increasedMargin = 0;
 
             //check whether the data does not contain null
             year = validIntData(feData.HeldSince);
@@ -249,28 +255,30 @@ namespace BlackCat
             //hold 2 consecutive elections
             if (year <= 2001 && year >= 1998)
             {
-                tppMargin = getMargin(alpVote, lnpVote);
+                //tppMargin = getMargin(alpVote, lnpVote);
 
                 // increase 5%
-                increasedMargin = (float)Convert.ToDecimal(tppMargin * 1.05);
-                wonFactor = (float)Math.Round(100 * increasedMargin / (alpVote + lnpVote), 2);
-
+                //increasedMargin = (float)Convert.ToDecimal(tppMargin * 1.05);
+                //wonFactor = (float)Math.Round(100 * increasedMargin / (alpVote + lnpVote), 2);
+                wonFactor = 5;
             }
             //hold more than 4 consecutive elections
             else if (year <= 1996 && year > 0)
             {
-                tppMargin = getMargin(alpVote, lnpVote);
+                //tppMargin = getMargin(alpVote, lnpVote);
 
                 // increase 10%
-                increasedMargin = (float)Convert.ToDecimal(tppMargin * 1.1);
-                wonFactor = (float)Math.Round(100 * increasedMargin / (alpVote + lnpVote), 2);
+                //increasedMargin = (float)Convert.ToDecimal(tppMargin * 1.1);
+                //wonFactor = (float)Math.Round(100 * increasedMargin / (alpVote + lnpVote), 2);
+                wonFactor = 10;
             }
             // no changes in TPP margin
             else
             {
-                tppMargin = getMargin(alpVote, lnpVote);
+                //tppMargin = getMargin(alpVote, lnpVote);
 
-                wonFactor = (float)Math.Round((double)100 * tppMargin / (alpVote + lnpVote), 2);
+                //wonFactor = (float)Math.Round((double)100 * tppMargin / (alpVote + lnpVote), 2);
+                wonFactor = 0;
             }
 
             return wonFactor;
@@ -297,32 +305,37 @@ namespace BlackCat
                 // check tpp party for the state is not empty string
                 if (seData.TPP_WinnerParty != null && !seData.TPP_WinnerParty.Equals(""))
                 {
+                    //same party
                     if (feData.FirstPref_SeatWinner.Equals(seData.TPP_WinnerParty))
                     {
                         //margin increases 2%
-                        margin = (float)Math.Round(margin * 1.02, 2);
+                        //margin = (float)Math.Round(margin * 1.02, 2);
+                        stateFactor += 2;
                     }
                     // check similar party 
                     else if (feData.FirstPref_SeatWinner.Equals("LIB") && seData.TPP_WinnerParty.Equals("NPA"))
                     {
                         //margin increases 2%
-                        margin = (float)Math.Round(margin * 1.02, 2);
+                        //margin = (float)Math.Round(margin * 1.02, 2);
+                        stateFactor += 2;
                     }
                     // check similar party 
                     else if (feData.FirstPref_SeatWinner.Equals("NPA") && seData.TPP_WinnerParty.Equals("LIB"))
                     {
                         //margin increases 2%
-                        margin = (float)Math.Round(margin * 1.02, 2);
+                        //margin = (float)Math.Round(margin * 1.02, 2);
+                        stateFactor += 2;
                     }
-                    //margin decrease 4%
+                    //opposite party. margin decrease 4%
                     else
                     {
-                        margin = (float)Math.Round(margin * 0.96, 2);
+                        //margin = (float)Math.Round(margin * 0.96, 2);
+                        stateFactor -= 4;
                     }
                 }
             }
 
-            stateFactor = (float)Math.Round(100 * margin / (alpVote + lnpVote), 2);
+            //stateFactor = (float)Math.Round(100 * margin / (alpVote + lnpVote), 2);
 
             return stateFactor;
         }
