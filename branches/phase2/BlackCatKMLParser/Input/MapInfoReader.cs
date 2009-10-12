@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using System.IO;
 using log4net;
 using System.Text.RegularExpressions;
+using System.Data.OleDb;
 
 namespace BlackCat
 {
@@ -21,10 +22,19 @@ namespace BlackCat
         private List<String> dataFieldNames; //TODO: data should be held only in region
         private Char delimiter = '\t';
 
+        private OleDbConnection con; //db connection
+
         public MapInfoReader(String midURL, String mifURL)
         {
             this.midURL = midURL;
             this.mifURL = mifURL;
+
+            String dataFilePath = System.IO.Directory.GetCurrentDirectory() + "\\BlackcatKMLParser.accdb";
+            log.Debug("Database file path - " + dataFilePath);
+            String connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;" +
+                "data source= " + dataFilePath + ";";
+
+            con = new OleDbConnection(connectionString);
         }
 
         public List<Region> ReadRegions(ProgressBar bar)
@@ -220,6 +230,12 @@ namespace BlackCat
                     log.Debug("Setting region name = " + name);
                     reg.RegionName = name;
 
+                    //12 October Sam
+                    Category c = new Category();
+                    c.CategoryName = getDistrict(reg.RegionName);
+                    reg.RegionCategory = c;
+                    //end 12 october
+
                     //all data
                     foreach (String d in lineParts)
                         reg.AddDataValue(d);
@@ -229,6 +245,45 @@ namespace BlackCat
                 regions.Add(reg);
                 line = midReader.ReadLine();
             }
+        }
+
+        //Newly added by sam 
+        private string getDistrict(string givenRegName)
+        {
+            string selectDistrict =
+                "SELECT Districts.DistrictName " + 
+                "FROM (Districts INNER JOIN Region ON Districts.DistrictId = Region.DistrictId)" +
+                "WHERE (Region.RegionName = '{0}')";
+
+            selectDistrict = string.Format(selectDistrict, givenRegName);
+            string districtName = "Others"; //initialize it as others first
+
+            try
+            {
+                con.Open();
+                OleDbCommand cmdGetDistrict = new OleDbCommand(selectDistrict, con);
+                // execute query
+                OleDbDataReader reader = cmdGetDistrict.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    districtName = reader[0].ToString();
+                }
+            }
+            catch (OleDbException oldEx)
+            {
+                Console.WriteLine(oldEx.ToString());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                con.Close();
+            }
+
+            return districtName;
         }
 
         //Reads a MapInfo "Region" - kml calls this a "Polygon"
