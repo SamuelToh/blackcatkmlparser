@@ -31,7 +31,7 @@ namespace BlackCat
 
                 WriteKMLStyles(writer);
 
-                WriteKMLRegion(writer);
+                WriteKMLRegion(writer, dataFieldsToDisplay);
 
                 WriteKMLFooter(writer);
             }
@@ -117,7 +117,7 @@ namespace BlackCat
         static int objCounter = 0;
 
         //11 october
-        private void WriteKMLRegion(XmlTextWriter writer)
+        private void WriteKMLRegion(XmlTextWriter writer, List<String> dataFieldsToDisplay)
         {
             //Region[] regions = this.geoModel.Regions;
             List<Region> regions = this.geoModel.Regions.ToList<Region>();
@@ -155,21 +155,33 @@ namespace BlackCat
                         {
                             writer.WriteStartElement("description"); //<description>
                             StringBuilder sb = new StringBuilder();
-                            sb.Append("&lt;!CDATA[");
 
-                            List<String> dataNames = regions[i].DataNames;
-                            int x = 0;
+                            sb.Append("Map info data<br><hr>");
 
-                            foreach (string name in dataNames)
+
+                            //12 October Display only the items the user requested
+                            int[] selectedIndex = new int[dataFieldsToDisplay.Count];
+
+                            //First we convert all selected index to array
+                            for (int x = 0; x < dataFieldsToDisplay.Count; x++)
                             {
-                                sb.Append(name);
-                                sb.Append(" ");
-                                sb.Append(regions[x].GetDataValue(x));
-                                sb.Append("<br>"); //break line
+                                selectedIndex[x] = Convert.ToInt16(dataFieldsToDisplay[x]);
                             }
 
-                            sb.Append("]]>");
-                            writer.WriteString(sb.ToString());
+                            //retrieve a list of datanames out
+                            List<String> dataNames = regions[i].DataNames;
+
+                            //for each selected index we append its names and value to the <desc> tag
+                            for (int x = 0; x < selectedIndex.Length; x++)
+                            {
+                                sb.Append(dataNames[selectedIndex[x]]);
+                                sb.Append(" ");
+                                sb.Append(regions[x].GetDataValue(selectedIndex[x]));
+                            }
+
+                            //sb.Append("]]>");
+                            writer.WriteCData(sb.ToString());
+                            //writer.WriteString(sb.ToString());
                             writer.WriteEndElement(); //</description>
                         }
 
