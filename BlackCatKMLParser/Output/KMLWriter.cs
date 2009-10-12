@@ -16,11 +16,13 @@ namespace BlackCat
             {"Northern Queensland", "East Queensland", 
                 "Southern Queensland", "West Queensland", "Others"};*/
 
-        private List<Category> district = new List<Category>();
+        private List<Category> district;
 
         public bool WriteToFile(IGeoModel model, List<String> dataFieldsToDisplay, String outputPath, ProgressBar progressBar)
         {
-            this.geoModel = model; 
+            this.geoModel = model;
+
+            InitializeCategoryList();
 
             XmlTextWriter writer = this.GetWriter(outputPath);
             try
@@ -39,6 +41,32 @@ namespace BlackCat
             }
 
             return true;
+        }
+
+        private void InitializeCategoryList()
+        {
+            this.district = new List<Category>();
+
+            if (geoModel.Regions.Count() > 0)
+                district.Add(geoModel.Regions[0].RegionCategory);
+
+            foreach (Region r in geoModel.Regions)
+            {
+                bool hasDistrict = false;
+
+                for (int i = 0; i < district.Count; i++)
+                {
+                    if (district[i].CategoryName
+                            == r.RegionCategory.CategoryName)
+                    {
+                        hasDistrict = true;
+                        break;
+                    }
+                }
+
+                if(!hasDistrict)
+                    district.Add(r.RegionCategory);
+            }
         }
 
         private void WriteKMLHeader(XmlTextWriter writer)
@@ -98,8 +126,12 @@ namespace BlackCat
             {
                 writer.WriteStartElement("Folder");
 
+                writer.WriteStartElement("name");
+                writer.WriteString(c.CategoryName);
+                writer.WriteEndElement(); //</name>
+
                 //if desc not empty
-                if(c.CategoryDesc.Length > 0)
+                if(c.CategoryDesc != null)
                 {
                     writer.WriteStartElement("description"); //<description>
                     writer.WriteString(c.CategoryDesc); //write the description out
@@ -115,13 +147,15 @@ namespace BlackCat
                         //Write KML Data
                         writer.WriteStartElement("Placemark");
                         writer.WriteStartElement("name");
+                        writer.WriteString(regions[i].RegionName);
+                        writer.WriteEndElement(); //</name>
 
                         //check region data value
                         if(regions[i].DataNames.Count > 0)
                         {
                             writer.WriteStartElement("description"); //<description>
                             StringBuilder sb = new StringBuilder();
-                            sb.Append("<!CDATA[");
+                            sb.Append("&lt;!CDATA[");
 
                             List<String> dataNames = regions[i].DataNames;
                             int x = 0;
@@ -139,8 +173,7 @@ namespace BlackCat
                             writer.WriteEndElement(); //</description>
                         }
 
-                        writer.WriteString(regions[i].RegionName);
-                        writer.WriteEndElement(); //</name>
+
                         writer.WriteStartElement("visibility"); //indicating the style
                         writer.WriteString("0"); //show the polygon
                         writer.WriteEndElement(); //</visibility>

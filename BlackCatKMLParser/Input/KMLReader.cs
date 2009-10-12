@@ -153,7 +153,12 @@ namespace BlackCat
                     r.RegionName = reader.ReadString();
                 //10 October - read in MapInfo data 
                 else if (reader.Name.ToLower() == "description")
+                {
+                    List<String> dataKey = r.DataNames;
+                    dataKey.Add("OriginalDesc");
+                    r.DataNames = dataKey;
                     r.AddDataValue(reader.ReadString()); //read everything in
+                }
                 //Search for <polygon> 
                 else if (reader.Name.ToLower() == "polygon")
                 {
