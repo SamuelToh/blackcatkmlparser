@@ -3,20 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.OleDb;
+using log4net;
 
 namespace BlackCat
 {
     public class SocialReader : ISocialReader
     {
-        private OleDbConnection con;
+        private ILog log = LogManager.GetLogger(typeof(SocialReader));
+        private OleDbConnection con;        
 
         //constructor
         public SocialReader()
         {
+            String dataFilePath = System.IO.Directory.GetCurrentDirectory() + "\\BlackcatKMLParser.accdb";
+            log.Debug("Database file path - " + dataFilePath);
             String connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;" +
-                    /*"data source= BlackcatKMLParser.accdb;";*/
-                    @"data source= C:\Documents and Settings\Vanessa\My Documents\Uni\phase2\TestBlackCatKMLParser\Bin\Debug\BlackcatKMLParser.accdb";
-
+                "data source= " + dataFilePath + ";";
+            
             con = new OleDbConnection(connectionString);
         }
 
