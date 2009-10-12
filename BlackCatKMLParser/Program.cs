@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using log4net.Config;
+using log4net.Appender;
 using log4net;
 
 namespace BlackCat
@@ -23,7 +24,9 @@ namespace BlackCat
         
         static void InitialiseLogging()
         {
-            BasicConfigurator.Configure();
+            //BasicConfigurator.Configure();
+            XmlConfigurator.Configure(new System.IO.FileInfo(System.IO.Directory.GetCurrentDirectory()));
+
         }
 
     }

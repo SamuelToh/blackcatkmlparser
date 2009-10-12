@@ -47,12 +47,12 @@ namespace BlackCat
             }
             catch (OleDbException oldEx)
             {
-                Console.WriteLine(oldEx.ToString());
+                log.Error(oldEx.ToString());
             }
-            catch (Exception ex)
+            /*catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
-            }
+                log.Error(ex.ToString());
+            }*/
             finally
             {
                 con.Close();
@@ -88,12 +88,12 @@ namespace BlackCat
             }
             catch (OleDbException oldEx)
             {
-                Console.WriteLine(oldEx.ToString());
+                log.Error(oldEx.ToString());
             }
-            catch (Exception ex)
+            /*catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-            }
+            }*/
             finally
             {
                 con.Close();
@@ -128,12 +128,12 @@ namespace BlackCat
             }
             catch (OleDbException oldEx)
             {
-                Console.WriteLine(oldEx.ToString());
+                log.Error(oldEx.ToString());
             }
-            catch (Exception ex)
+            /*catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-            }
+            }*/
             finally
             {
                 con.Close();
@@ -178,12 +178,12 @@ namespace BlackCat
             }
             catch (OleDbException oldEx)
             {
-                Console.WriteLine(oldEx.ToString());
+                log.Error(oldEx.ToString());
             }
-            catch (Exception ex)
+            /*catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-            }
+            }*/
             finally
             {
                 con.Close();
