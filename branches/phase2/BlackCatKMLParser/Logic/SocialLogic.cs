@@ -131,13 +131,15 @@ namespace BlackCat
             String[] regions = model.RegionIdentifiers;
             List<String> fedElectorates = sr.GetFederalElectorateNames();
 
+            //Minimize all string to lower case
+            for (int i = 0; i < fedElectorates.Count; i++)
+                fedElectorates[i] = fedElectorates[i].ToLower();
 
             //search the data 
             foreach (String r in regions)
             {
-
-
-                if (!fedElectorates.Contains(r))
+                //this shouldnt be case sensitive
+                if (!fedElectorates.Contains(r.ToLower()))
                     return false;
 
             }
