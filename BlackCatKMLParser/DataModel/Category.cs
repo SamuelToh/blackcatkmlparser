@@ -13,6 +13,11 @@ namespace BlackCat
         //Constructor
         public Category() { }
 
+        public Category(string categoryName)
+        {
+            this.categoryName = categoryName;
+        }
+
         public Category(string categoryName,
                             string categoryDesc)
         {

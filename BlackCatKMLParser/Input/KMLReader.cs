@@ -42,12 +42,15 @@ namespace BlackCat
             //startprogress.Start();
 
             XmlTextReader reader = GetReader(kmlFileURL);
+            string currCategoryName = "";
+
             try
             {
                 while (reader.Read() && !endOfFile)
                 {
                     //Get the curr node's tag name
                     string tagName = reader.Name.ToLower();
+                    
 
                     switch (tagName)
                     {
@@ -55,13 +58,13 @@ namespace BlackCat
                             {
                                 //10 October
                                 if (reader.NodeType == XmlNodeType.Element)
-                                    BuildCategory(reader);
+                                    currCategoryName = BuildCategory(reader);
                                 break;
                             }
                         case "placemark":
                             {
                                 if (reader.NodeType == XmlNodeType.Element)
-                                    BuildRegion(reader);
+                                    BuildRegion(reader, currCategoryName);
                                 break;
                             }
                         case "style":
@@ -92,34 +95,26 @@ namespace BlackCat
             return regions;
         }
 
-        private void BuildCategory(XmlTextReader reader)
+        private string BuildCategory(XmlTextReader reader)
         {
             log.Debug("Start of BuildCategory");
             Category c = new Category();
 
-            reader.Read();
-
-            //Check to see if the following 2 tag is name 
-            if (reader.Name.ToLower() != "name")
-
-                //if they are not, we need to break out of this method
-                return;
-
-            else
-                //otherwise we contiune to read for the folder's name or desc
-                while (reader.Read())
+            while (reader.Read())
+            {
+                if (reader.Name.ToLower() == "name")
                 {
-                    if (reader.Name.ToLower() == "name" && reader.NodeType == XmlNodeType.EndElement)
-                        break;
-
-                    else if (reader.Name.ToLower() == "name")
-                        c.CategoryName = reader.ReadString();
-                    
-
+                    c.CategoryName = reader.ReadString();
+                    return c.CategoryName;
                 }
+                else if (reader.Name.ToLower() == "")
+                { /*White space indentation we ignore this and chk next node*/ }
+                else
+                    return ""; //return nothing
 
-            ChkCategoryExist(c);
+            }
 
+            return "";
         }
 
         private void ChkCategoryExist(Category c)
@@ -139,10 +134,13 @@ namespace BlackCat
             }
         }
 
-        private void BuildRegion(XmlTextReader reader)
+        private void BuildRegion(XmlTextReader reader, string category)
         {
             log.Debug("Start of BuildRegion");
             Region r = new Region();
+            //12 October
+            Category c = new Category(category);
+            r.RegionCategory = c;
             reader.Read();
             //incrementRead();
 

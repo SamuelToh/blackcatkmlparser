@@ -48,24 +48,26 @@ namespace BlackCat
             this.district = new List<Category>();
 
             if (geoModel.Regions.Count() > 0)
+            {
                 district.Add(geoModel.Regions[0].RegionCategory);
 
-            foreach (Region r in geoModel.Regions)
-            {
-                bool hasDistrict = false;
-
-                for (int i = 0; i < district.Count; i++)
+                foreach (Region r in geoModel.Regions)
                 {
-                    if (district[i].CategoryName
-                            == r.RegionCategory.CategoryName)
-                    {
-                        hasDistrict = true;
-                        break;
-                    }
-                }
+                    bool hasDistrict = false;
 
-                if(!hasDistrict)
-                    district.Add(r.RegionCategory);
+                    for (int i = 0; i < district.Count; i++)
+                    {
+                        if (district[i].CategoryName
+                                == r.RegionCategory.CategoryName)
+                        {
+                            hasDistrict = true;
+                            break;
+                        }
+                    }
+
+                    if (!hasDistrict)
+                        district.Add(r.RegionCategory);
+                }
             }
         }
 
@@ -121,10 +123,11 @@ namespace BlackCat
         {
             //Region[] regions = this.geoModel.Regions;
             List<Region> regions = this.geoModel.Regions.ToList<Region>();
+            bool isEnhancedKML = false; //flag
 
             foreach (Category c in district)
             {
-                Console.WriteLine("Writing District > " + c.CategoryName);
+                //Console.WriteLine("Writing District > " + c.CategoryName);
                 writer.WriteStartElement("Folder");
 
                 writer.WriteStartElement("name");
@@ -156,12 +159,36 @@ namespace BlackCat
                         {
                             writer.WriteStartElement("description"); //<description>
                             StringBuilder sb = new StringBuilder();
-
-                            sb.Append("Map info data<br><hr>");
-                            sb.Append("<table>");
-
+                            
+                            if (dataFieldsToDisplay == null)
+                            {
+                                dataFieldsToDisplay = new List<string>();
+                                isEnhancedKML = true;
+                            }
 
                             //12 October Display only the items the user requested
+                            if (isEnhancedKML)
+                            {
+                                //Enhanecd KML route
+                                
+                                if (regions[i].DataNames.Count > 1) //if has preserved item
+                                {
+                                    sb.Append("Preserved Map info data<br><hr>");
+                                    sb.Append("<table border='1'>");
+                                    sb.Append("<tr><td colspan='2'>");
+                                    sb.Append(regions[i].GetDataValue(0));
+                                    sb.Append("</td></tr>");
+                                    sb.Append("</table>");
+                                    sb.Append("<br>");
+                                    sb.Append("<b>New</b><br>");
+
+                                }
+
+                            }
+
+                                sb.Append("Map info data<br><hr>");
+                                sb.Append("<table>");
+                            
                             int[] selectedIndex = new int[dataFieldsToDisplay.Count];
 
                             //First we convert all selected index to array
