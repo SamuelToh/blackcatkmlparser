@@ -55,6 +55,7 @@ namespace BlackCat
                 return false;
             }
 
+            writer.Close(); //close writer
             return true;
         }
 
@@ -171,6 +172,8 @@ namespace BlackCat
                         writer.WriteStartElement("name");
                         writer.WriteString(regions[i].RegionName);
                         writer.WriteEndElement(); //</name>
+
+                        Console.WriteLine(regions[i].RegionName);
 
                         //check region data value
                         if(regions[i].DataNames.Count > 0)
