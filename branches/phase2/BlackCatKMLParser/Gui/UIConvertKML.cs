@@ -22,13 +22,16 @@ namespace BlackCat
             int response = controller.GenerateKMLFile(outputFilePath, progressGenerating);
             if (response == 0)
             {
-                lblConverting.Text = "Finish";
-                progressGenerating.Value = progressGenerating.Maximum;
+                lblConverting.Text = "Complete";
+                btnCancel.Text = "Finish";
+                progressGenerating.Value = progressGenerating.Maximum;                
             }
             else
             {
                 MessageBox.Show(Messages.OUTPUT_FAILED);
+                btnPrevious.Enabled = true;                
             }
+            btnCancel.Enabled = true;
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -38,6 +41,7 @@ namespace BlackCat
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
+            btnCancel.Text = "Cancel";
             showPrevious();
         }
 
