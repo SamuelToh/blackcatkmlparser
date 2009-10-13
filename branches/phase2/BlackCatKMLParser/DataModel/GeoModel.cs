@@ -57,6 +57,17 @@ namespace BlackCat
             //ChkModelStyle(style);
         }
 
+        public void SetRegionCategory(String regionIdentifier, String districtName)
+        {
+            foreach (Region r in regions)
+
+                if (r.RegionName == regionIdentifier)
+                {
+                    r.RegionCategory = new Category(districtName);
+                    break;
+                }
+        }
+
         public void SetRegionSecondaryData
             (bool seatWinnerIsMainDisplay, string regionIdentifier, string data)
         {
