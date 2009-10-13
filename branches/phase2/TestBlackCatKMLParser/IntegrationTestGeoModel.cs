@@ -27,7 +27,7 @@ namespace TestBlackCatKMLParser
         {
             GeoModel model = new GeoModel();
             IGeoReader reader = new MapInfoReader(@"../../Data/testMap1.mid", @"../../Data/testMap1.mif");
-            bool success = model.BuildGeoModel(reader, new ProgressBar());
+            bool success = model.BuildGeoModel(reader, new ProgressWrapper(new ProgressBar()));
             Assert.IsTrue(success);
         }
 
@@ -36,7 +36,7 @@ namespace TestBlackCatKMLParser
         {
             GeoModel model = new GeoModel();
             IGeoReader reader = new MapInfoReader(@"..\..\Data\QLD_Federal_Electoral_Boundaries.MID", @"..\..\Data\QLD_Federal_Electoral_Boundaries.mif");
-            bool success = model.BuildGeoModel(reader, new ProgressBar());
+            bool success = model.BuildGeoModel(reader, new ProgressWrapper(new ProgressBar()));
             Assert.IsTrue(success);
         }
 
@@ -45,7 +45,7 @@ namespace TestBlackCatKMLParser
         {
             GeoModel model = new GeoModel();
             IGeoReader reader = new MapInfoReader(@"../../Data/testMap1.mid", @"../../Data/testMap1.mif");
-            bool success = model.BuildGeoModel(reader, new ProgressBar());
+            bool success = model.BuildGeoModel(reader, new ProgressWrapper(new ProgressBar()));
             List<String> dataFields = model.DataFieldNames;
             Assert.AreEqual(3, dataFields.Count);
         }
@@ -55,7 +55,7 @@ namespace TestBlackCatKMLParser
         {
             GeoModel model = new GeoModel();
             IGeoReader reader = new MapInfoReader(@"..\..\Data\QLD_Federal_Electoral_Boundaries.MID", @"..\..\Data\QLD_Federal_Electoral_Boundaries.mif");
-            bool success = model.BuildGeoModel(reader, new ProgressBar());
+            bool success = model.BuildGeoModel(reader, new ProgressWrapper(new ProgressBar()));
             List<String> dataFields = model.DataFieldNames;
             Assert.AreEqual(9, dataFields.Count);
         }
@@ -65,7 +65,7 @@ namespace TestBlackCatKMLParser
         {
             GeoModel model = new GeoModel();
             IGeoReader reader = new MapInfoReader(@"../../Data/testMap1.mid", @"../../Data/testMap1.mif");
-            bool success = model.BuildGeoModel(reader, new ProgressBar());
+            bool success = model.BuildGeoModel(reader, new ProgressWrapper(new ProgressBar()));
             List<String> dataFields = model.DataFieldNames;
             Assert.Contains("E_div_number", dataFields);
             Assert.Contains("Elect_div", dataFields);
@@ -77,7 +77,7 @@ namespace TestBlackCatKMLParser
         {
             GeoModel model = new GeoModel();
             IGeoReader reader = new MapInfoReader(@"..\..\Data\QLD_Federal_Electoral_Boundaries.MID", @"..\..\Data\QLD_Federal_Electoral_Boundaries.mif");
-            bool success = model.BuildGeoModel(reader, new ProgressBar());
+            bool success = model.BuildGeoModel(reader, new ProgressWrapper(new ProgressBar()));
             List<String> dataFields = model.DataFieldNames;
             Assert.Contains("E_div_number", dataFields);
             Assert.Contains("Elect_div", dataFields);

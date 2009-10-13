@@ -24,7 +24,7 @@ namespace BlackCat
         // Pre: outputFileURL is not the empty string progressBar is not  null
         // Post: A new KML file is written to outputFolderURL, created from the input files.
 
-        int GenerateKMLFile(String outputFileURL, ProgressBar progressBar);
+        int GenerateKMLFile(String outputFileURL, ProgressWrapper progress);
 
         // Extracts the data fields from the MapInfo file so that the user can select one or more // of them to display in Google Earth.
         // Returns a string array containing the names of the data fields present in the 
@@ -42,7 +42,7 @@ namespace BlackCat
         // Post: fileURL has been loaded and an integer denoting success or otherwise has 
         // been returned.
 
-        int LoadKML(String fileURL, ProgressBar progressBar);
+        int LoadKML(String fileURL, ProgressWrapper progress);
 
         // Loads the MapInfo files midFileURL and mifFileURL into the system, arranging 
         // the updating of a progress bar as the operation proceeds. 
@@ -51,7 +51,7 @@ namespace BlackCat
         // Post: midFileURL and mifFileURL have been loaded and an integer denoting 
         // success or otherwise has been returned.
 
-        int LoadMapInfo(String midFileURL, String mifFileURL ,ProgressBar progressBar);
+        int LoadMapInfo(String midFileURL, String mifFileURL, ProgressWrapper progress);
 
         // Property to get and set the value of the mapInfoDataFieldsToDisplay attribute
         // The getter returns the list of fields chosen by the user (can be empty and would be if // a KML file was used as the data source), the setter returns nothing.

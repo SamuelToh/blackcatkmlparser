@@ -67,6 +67,7 @@
     <Compile Include="Unit\TestGeoModel.cs" />
     <Compile Include="Unit\TestKMLReader.cs" />
     <Compile Include="Unit\TestMapInfoReader.cs" />
+    <Compile Include="Unit\TestProgressWrapper.cs" />
     <Compile Include="Unit\TestRegion.cs" />
     <Compile Include="Unit\TestSocialLogic.cs" />
     <Compile Include="Unit\TestSocialReader.cs" />

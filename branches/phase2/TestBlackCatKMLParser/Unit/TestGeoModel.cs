@@ -61,7 +61,7 @@ namespace TestBlackCatKMLParser
             regionList.Add(testRegion3);
             //Create mock GeoReader
             DynamicMock mockIGeoReader = new DynamicMock(typeof(IGeoReader));
-            ProgressBar bar = new ProgressBar();
+            ProgressWrapper bar = new ProgressWrapper(new ProgressBar());
             mockIGeoReader.ExpectAndReturn("ReadRegions", regionList, new Object[]{bar});
             //Build model            
             model.BuildGeoModel((IGeoReader)mockIGeoReader.MockInstance, bar);

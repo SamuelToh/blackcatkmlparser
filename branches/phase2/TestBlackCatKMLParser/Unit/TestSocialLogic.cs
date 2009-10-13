@@ -83,7 +83,7 @@ namespace TestBlackCatKMLParser
             GeoModel model = new GeoModel();
             model.Regions = new Region[]{region1};
 
-            logic.CalculateSeatSafety(model, false);
+            logic.CalculateSeatSafety(model, false, new ProgressWrapper(new ProgressBar()));
             Assert.AreEqual(safetyDescription, region1.GetDataValue(0));
         }
 
@@ -149,7 +149,7 @@ namespace TestBlackCatKMLParser
             region2.RegionName = "electorate2";
             geoModel.Regions = new Region[] { region1, region2 };
 
-            logic.CalculateSeatWinners(geoModel, false);
+            logic.CalculateSeatWinners(geoModel, false, new ProgressWrapper(new ProgressBar()));
             Assert.AreEqual(0, geoModel.Styles.Length);
             Assert.IsNull(geoModel.Regions[0].RegionStyle);
             Assert.IsNull(geoModel.Regions[1].RegionStyle);
@@ -164,7 +164,7 @@ namespace TestBlackCatKMLParser
             Region region1 = new Region();
             region1.RegionName = "electorate1";
             geoModel.Regions = new Region[] { region1 };
-            logic.CalculateSeatWinners(geoModel, false);
+            logic.CalculateSeatWinners(geoModel, false, new ProgressWrapper(new ProgressBar()));
 
             Assert.AreEqual(1, region1.DataNames.Count);
             Assert.AreEqual("Winning Party : ", region1.DataNames[0]);
@@ -184,7 +184,7 @@ namespace TestBlackCatKMLParser
             Region region3 = new Region();
             region3.RegionName = "electorate3";
             geoModel.Regions = new Region[] { region1, region2, region3 };
-            logic.CalculateSeatWinners(geoModel, false);
+            logic.CalculateSeatWinners(geoModel, false, new ProgressWrapper(new ProgressBar()));
 
             Assert.AreEqual("ALP", region1.GetDataValue(0));
             Assert.AreEqual("GRN", region2.GetDataValue(0));
@@ -203,7 +203,7 @@ namespace TestBlackCatKMLParser
             region2.RegionName = "electorate2";
             geoModel.Regions = new Region[] { region1, region2 };
 
-            logic.CalculateSeatWinners(geoModel, true);
+            logic.CalculateSeatWinners(geoModel, true, new ProgressWrapper(new ProgressBar()));
             Assert.AreEqual(2, geoModel.Styles.Length);
             Assert.IsNotNull(geoModel.Regions[0].RegionStyle);
             Assert.IsNotNull(geoModel.Regions[1].RegionStyle);
@@ -219,7 +219,7 @@ namespace TestBlackCatKMLParser
             region1.RegionName = "electorate1";
             geoModel.Regions = new Region[] { region1 };
 
-            logic.CalculateSeatWinners(geoModel, true);
+            logic.CalculateSeatWinners(geoModel, true, new ProgressWrapper(new ProgressBar()));
             Assert.AreEqual(1, region1.DataNames.Count);
             Assert.AreEqual("Winning Party : ", region1.DataNames[0]);
         }
@@ -238,7 +238,7 @@ namespace TestBlackCatKMLParser
             region3.RegionName = "electorate3";
             geoModel.Regions = new Region[] { region1, region2, region3 };
 
-            logic.CalculateSeatWinners(geoModel, true);
+            logic.CalculateSeatWinners(geoModel, true, new ProgressWrapper(new ProgressBar()));
             Assert.AreEqual("ALP", region1.GetDataValue(0));
             Assert.AreEqual("GRN", region2.GetDataValue(0));
             Assert.AreEqual("LNP", region3.GetDataValue(0));

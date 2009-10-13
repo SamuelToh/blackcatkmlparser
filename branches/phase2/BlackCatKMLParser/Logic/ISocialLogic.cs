@@ -17,7 +17,7 @@ namespace BlackCat
         // Post: Seat safety data has been added to the model according to whether 
         // isMainDisplay is true or false.
 
-        void CalculateSeatSafety(GeoModel model, Boolean isMainDisplay);
+        void CalculateSeatSafety(GeoModel model, Boolean isMainDisplay, ProgressWrapper progress);
 
         // Calculate which party won the seat using data in the database, in accordance 
         // with the procedures set down in Appendices 1, 2 and 3 of the Requirements 
@@ -28,7 +28,7 @@ namespace BlackCat
         // Post: Seat winner data has been added to the model according to whether 
         // isMainDisplay is true or false.
 
-        void CalculateSeatWinners(GeoModel model, Boolean isMainDisplay);
+        void CalculateSeatWinners(GeoModel model, Boolean isMainDisplay, ProgressWrapper progress);
 
         // Check if the regions in the GeoModel can be found in database. This prevent the 
         // user from trying to add sociological data to files that the database does not have 

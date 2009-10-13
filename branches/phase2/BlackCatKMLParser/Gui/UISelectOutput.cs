@@ -13,38 +13,48 @@ namespace BlackCat
         public UISelectOutput(BlackCatParserUI previous)
         {
             this.previous = previous;
-            this.next = new UIConvertKML(this);
+            //this.next = new UIConvertKML(this);
             InitializeComponent();
             //txtOutputPath.Text = @"C:\Users\Sabers Father\Desktop\Output\test2.kml"; //Testing
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (txtOutputPath.Text == null || txtOutputPath.Text.Length == 0)
-                MessageBox.Show(Messages.NO_OUTPUT_FILE_PATH);
-            else
+            if (!lblConverting.Visible)
             {
-                String path = txtOutputPath.Text;
-                path = path.Substring(0, path.LastIndexOf('\\'));
-                if(folderExists(path) == false){
-                    MessageBox.Show(Messages.FOLDER_INVALID_1);
-                }
-                else if(folderIsWritable(path) == false){
-                    MessageBox.Show(Messages.FOLDER_INVALID_2);
-                }
-                else if(hasSufficientDiskSpace(path) == false){
-                    MessageBox.Show(Messages.FOLDER_INVALID_3);
-                }
-                else if (urlLengthIsValid(txtOutputPath.Text) == false) {
-                    MessageBox.Show(Messages.FOLDER_INVALID_4);
-                }
-                else if (validationFileFormat(txtOutputPath.Text, FileFormat.KML) == false)
+                if (txtOutputPath.Text == null || txtOutputPath.Text.Length == 0)
+                    MessageBox.Show(Messages.NO_OUTPUT_FILE_PATH);
+                else
                 {
-                    MessageBox.Show(Messages.KML_Format);
-                }
-                else {
-                    outputFilePath = txtOutputPath.Text;
-                    showNext();
+                    String path = txtOutputPath.Text;
+                    path = path.Substring(0, path.LastIndexOf('\\'));
+                    if (folderExists(path) == false)
+                    {
+                        MessageBox.Show(Messages.FOLDER_INVALID_1);
+                    }
+                    else if (folderIsWritable(path) == false)
+                    {
+                        MessageBox.Show(Messages.FOLDER_INVALID_2);
+                    }
+                    else if (hasSufficientDiskSpace(path) == false)
+                    {
+                        MessageBox.Show(Messages.FOLDER_INVALID_3);
+                    }
+                    else if (urlLengthIsValid(txtOutputPath.Text) == false)
+                    {
+                        MessageBox.Show(Messages.FOLDER_INVALID_4);
+                    }
+                    else if (validationFileFormat(txtOutputPath.Text, FileFormat.KML) == false)
+                    {
+                        MessageBox.Show(Messages.KML_Format);
+                    }
+                    else
+                    {
+                        outputFilePath = txtOutputPath.Text;
+                        log.Debug("Output path entered - " + outputFilePath);
+                        //showNext();
+                        SwitchDisplayMode();
+                    }
                 }
             }
         }
@@ -62,7 +72,69 @@ namespace BlackCat
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            showPrevious();
+            if (lblConverting.Visible)
+                SwitchDisplayMode();
+            else
+            {
+                SwitchDisplayMode();
+                showPrevious();
+            }
+        }
+
+        private void SwitchDisplayMode()
+        {
+            log.Debug("Switching display mode");
+            String step3Label = "Step #3 Choose your output folder";
+            String step4Label = "Step #4 - Generating your new KML file";
+            if (lblStepDescriptor.Text == step3Label)
+            {
+                //Switch to step 4 layout
+                lblStepDescriptor.Text = step4Label;
+                lblOutputFolder.Visible = false;
+                txtOutputPath.Visible = false;
+                btnOutputBrowse.Visible = false;
+                lblConverting.Visible = true;
+                progressGenerating.Visible = true;
+                btnNext.Enabled = false;
+                lblConvertNow.BackColor = lblDestinationFolder.BackColor;
+                lblConvertNow.ForeColor = lblDestinationFolder.ForeColor;
+                lblDestinationFolder.BackColor = lblAddAdditionalInput.BackColor;
+                lblDestinationFolder.ForeColor = lblAddAdditionalInput.ForeColor;
+
+                GenerateKML();
+            }
+            else
+            {
+                //Switch to step 3 layout
+                lblStepDescriptor.Text = step3Label;
+                lblOutputFolder.Visible = true;
+                txtOutputPath.Visible = true;
+                btnOutputBrowse.Visible = true;
+                lblConverting.Visible = false;
+                progressGenerating.Visible = false;
+                btnNext.Enabled = true;
+                lblDestinationFolder.BackColor = lblConvertNow.BackColor;
+                lblDestinationFolder.ForeColor = lblConvertNow.ForeColor;
+                lblConvertNow.BackColor = lblAddAdditionalInput.BackColor;
+                lblConvertNow.ForeColor = lblAddAdditionalInput.ForeColor;
+            }
+        }
+
+        private void GenerateKML()
+        {
+            log.Debug("Generating KML file");
+            ProgressWrapper progress = new ProgressWrapper(progressGenerating);
+            int response = controller.GenerateKMLFile(outputFilePath, progress);
+            if (response == 0)
+            {
+                lblConverting.Text = "Complete";
+                btnCancel.Text = "Finish";
+                btnPrevious.Enabled = false;
+            }
+            else
+            {
+                MessageBox.Show(Messages.OUTPUT_FAILED);
+            }
         }
     }
 }

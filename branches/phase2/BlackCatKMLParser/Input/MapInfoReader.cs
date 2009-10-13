@@ -16,7 +16,7 @@ namespace BlackCat
 
         private String midURL;
         private String mifURL;
-        private ProgressBar bar;
+        private ProgressWrapper progress;
         private List<Region> regions;
         private int objCounter; //TODO: identical to region.count?
         private List<String> dataFieldNames; //TODO: data should be held only in region
@@ -30,58 +30,40 @@ namespace BlackCat
             this.mifURL = mifURL;
         }
 
-        public List<Region> ReadRegions(ProgressBar bar)
+        public List<Region> ReadRegions(ProgressWrapper progress)
         {
             this.regions = new List<Region>();
             this.dataFieldNames = new List<String>();
             this.objCounter = 0;
-            this.bar = bar;
+            this.progress = progress;
 
             try
             {
                 StreamReader mifReader = new StreamReader(mifURL);
                 StreamReader midReader = new StreamReader(midURL);
-                bar.Maximum = 100;
 
                 // READ mif header
                 //int dataCount;
                 log.Debug("Reading header");
                 readHeader(mifReader);
-
-                /*bool delimSuccess = char.TryParse(headerData[0], out delim);
-                bool dataCountSuccess = int.TryParse(headerData[1], out dataCount);
-                if (!delimSuccess)
-                    throw new MapInfoFormatException("Mif file Delimiter information in unexpected format");
-                if (!dataCountSuccess)
-                    throw new MapInfoFormatException("Mif file Column information in unexpected format");
-                */
+                progress.SetPercentage(2);
 
                 //TODO: this is hard coded to be the second data item - in our test MapInfo files, this is Elect_div
                 int regionNameIndex = 0;
-                //if (dataCount > 1)
-                //{
                 regionNameIndex = 1;
-                //dataFields.Add("Elect_div");
-                //}
 
                 // READ mid file - if there is data
-                //if (dataCount > 0)
                 log.Debug("Reading mid file");
                 readMidFile(midReader, delimiter, regionNameIndex);
-                //else
-                //TODO: examine log.Info("There was no column information in the mif file - not reading mid file");
-                //add data name info
                 log.Debug("Setting data field names");
 
-                // 12 october changed by sam
-                // each region should have their own data names array if we assign the original list
-                // all region will be having the same ptr to the original list
                 foreach (Region r in regions)
                 {
                     string[] newFieldNames = new string[dataFieldNames.Count];
                     dataFieldNames.CopyTo(newFieldNames);
                     r.DataNames = newFieldNames.ToList<string>();
                 }
+                progress.SetPercentage(5);
 
                 // READ mif DATA information
                 log.Debug("Reading mif data");
@@ -89,10 +71,13 @@ namespace BlackCat
                 String line = mifReader.ReadLine();
                 while (!mifReader.EndOfStream)
                 {
+                    log.Debug("Reading line");
                     if (line != null)
                     {
+                        log.Debug("Line not null - " + line);
                         if (line.ToUpper().StartsWith("REGION"))
                         {
+                            log.Debug("Line starts with region");
                             line = line.Substring(6).Trim();
                             int polyCount;
                             bool polyCountSuccess = int.TryParse(line, out polyCount);
@@ -124,6 +109,7 @@ namespace BlackCat
                             regionCount++;
                         }
                     }
+
                     line = mifReader.ReadLine();
                     //Remove Pen, Brush, Center information - if it is there
                     while (line != null &&
@@ -135,9 +121,12 @@ namespace BlackCat
                     }
 
                     //increment bar 
-                    bar.Value = (int)(regionCount / regions.Count * 100);
+                    int percentageDone = (int)(regionCount * 95d / regions.Count) + 5;
+                    log.Debug("Setting percentage - " + percentageDone); 
+                    progress.SetPercentage(percentageDone);
                 }
                 //TODO: check return true;
+                progress.SetPercentage(100);
             }
             catch (MapInfoFormatException e)
             {

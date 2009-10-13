@@ -14,8 +14,8 @@ namespace BlackCat
         private string kmlFileURL;
         private ILog log;
         private List<String> dataFields; //TODO: necessary? move to Region
-        private long totalSize;
-        private int currRead;
+        //private long totalSize;
+        //private int currRead;
         private List<Region> regions;
         public List<Category> category; //11october
 
@@ -28,20 +28,19 @@ namespace BlackCat
             log = LogManager.GetLogger(this.ToString());
         }
 
-        public List<Region> ReadRegions(ProgressBar bar)
+        public List<Region> ReadRegions(ProgressWrapper progress)
         {
             log.Debug("Start of BuildGeoModel");
             this.dataFields.Clear();
             dataFields.Add("name"); //Standard data field for kml
             bool endOfFile = false;
 
-            this.totalSize = GetFileSize(kmlFileURL);
-            //this.tempBar = bar;
-            //ThreadStart theprogress = new ThreadStart(updateBar);
-            //Thread startprogress = new Thread(theprogress);
-            //startprogress.Start();
+            int totalSize = GetFileSize(kmlFileURL);
 
             XmlTextReader reader = GetReader(kmlFileURL);
+            if (!reader.HasLineInfo())
+                log.Warn("No line information available - progress will be inaccurate");
+            progress.SetPercentage(1);
             string currCategoryName = "";
 
             try
@@ -49,8 +48,7 @@ namespace BlackCat
                 while (reader.Read() && !endOfFile)
                 {
                     //Get the curr node's tag name
-                    string tagName = reader.Name.ToLower();
-                    
+                    string tagName = reader.Name.ToLower();                    
 
                     switch (tagName)
                     {
@@ -80,7 +78,9 @@ namespace BlackCat
                                 break;
                             }
                     }//End Switch
-
+                    int lineNumber = reader.LineNumber;
+                    if (lineNumber != 0)
+                        progress.SetPercentage((int)(lineNumber * 100d / totalSize));
                 }//End While
             }
             catch
@@ -88,10 +88,8 @@ namespace BlackCat
                 //TODO: react better to exceptions return false;
             }
 
-            //startprogress.Abort();
-            bar.Value = 100;
-            this.totalSize = 0;
-            this.currRead = 1;
+            progress.SetPercentage(100);
+            reader.Close();
             return regions;
         }
 
@@ -189,8 +187,6 @@ namespace BlackCat
             while (reader.Read())
             {
                 //incrementRead();
-                log.Debug("Reading node - " + reader.Name);
-
                 if ((reader.Name.ToLower() == "polygon"
                         || reader.Name.ToLower() == "point"
                         || reader.Name.ToLower() == "linestring")
@@ -201,7 +197,6 @@ namespace BlackCat
                 //TODO: Ignoring inner boundaries as our model does not currently support this.
                 if (reader.Name.ToLower() == "innerboundaryis")
                 {
-                    log.Debug("Skipping node - " + reader.Name);
                     reader.Skip();
                 }
 
@@ -262,14 +257,13 @@ namespace BlackCat
         }
 
 
-        private long GetFileSize(string fileURL)
+        private int GetFileSize(string fileURL)
         {
             return File.ReadAllLines(fileURL).Length;
             //return fileSize.Length;
         }
 
-        private XmlTextReader GetReader
-                            (String fileURL)
+        private XmlTextReader GetReader(String fileURL)
         {
             return new XmlTextReader(fileURL);
         }

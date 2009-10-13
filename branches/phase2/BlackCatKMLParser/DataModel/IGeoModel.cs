@@ -15,7 +15,7 @@ namespace BlackCat
         // Pre: The outputFileURL is a valid, writable path and reader is not null.
         // Post: True is returned if a GeoModel could be built from the data provided through the reader, otherwise false has been returned.
 
-        bool BuildGeoModel(IGeoReader reader, ProgressBar progressBar);
+        bool BuildGeoModel(IGeoReader reader, ProgressWrapper progress);
 
         // Property to get and set the value of the data fields defined for each region.
         // The getter returns the dataFieldNames, the setter returns nothing.

@@ -25,9 +25,9 @@ namespace BlackCat
         long currRead = 1;        
 
 
-        public bool BuildGeoModel(IGeoReader reader, ProgressBar progressBar)
+        public bool BuildGeoModel(IGeoReader reader, ProgressWrapper progress)
         {
-            this.regions  = reader.ReadRegions(progressBar);
+            this.regions  = reader.ReadRegions(progress);
             if (regions.Count > 0)
                 this.dataFields = regions[0].DataNames;
             //TODO: return is meaningless
