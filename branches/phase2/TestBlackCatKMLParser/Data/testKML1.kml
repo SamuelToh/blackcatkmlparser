@@ -29,10 +29,11 @@
 </Style>
 <!-- End Style Definitions -->
 <Folder>
+  <name>TestFolderA</name>
 <Placemark>
 <styleUrl>#myDefaultStyles</styleUrl>
 <name>Polygon Test</name>
-<description>A test file</description>
+<description>Hello description tag!</description>
 <LookAt>
 <longitude>153.0033333</longitude>
 <latitude>-27.443610</latitude>
@@ -70,7 +71,7 @@
 </Polygon>
 </Placemark>
 <Placemark>
-<description>Attached</description>
+<description>This is a test data to see weather our reader is able to record old text value.</description>
 <name>Simple placemark</name>
 <styleUrl>#myDefaultStyles</styleUrl>
 <Point>
