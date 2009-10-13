@@ -204,43 +204,43 @@ namespace TestBlackCatKMLParser
         public void TestGetFederalElectorateDistrictsCount()
         {
             List<IDistrict> districtList = reader.GetFederalElectorateDistricts();
-            Assert.AreEqual(5, districtList.Count);
+            Assert.AreEqual(7, districtList.Count);
         }
 
         [Test]
-        public void TestGetFederalElectorateDistrictsRegionCountsNorth()
+        public void TestGetFederalElectorateDistrictsRegionCountsSouthEastQld()
         {
             List<IDistrict> districtList = reader.GetFederalElectorateDistricts();
-            IDistrict north = getDistrict("Northern Queensland", districtList);
+            IDistrict north = getDistrict("SouthEast Qld", districtList);
             Assert.NotNull(north);
-            Assert.AreEqual(8, north.RegionNames.Count);
+            Assert.AreEqual(9, north.RegionNames.Count);
         }
            
         [Test]
-        public void TestGetFederalElectorateDistrictsRegionCountsEast()
+        public void TestGetFederalElectorateDistrictsRegionCountsWesternQld()
         {
             List<IDistrict> districtList = reader.GetFederalElectorateDistricts();
-            IDistrict north = getDistrict("East Queensland", districtList);
+            IDistrict north = getDistrict("Western Qld", districtList);
             Assert.NotNull(north);
-            Assert.AreEqual(1, north.RegionNames.Count);
+            Assert.AreEqual(6, north.RegionNames.Count);
         }
 
         [Test]
-        public void TestGetFederalElectorateDistrictsRegionCountsWest()
+        public void TestGetFederalElectorateDistrictsRegionCountsCentralQld()
         {
             List<IDistrict> districtList = reader.GetFederalElectorateDistricts();
-            IDistrict north = getDistrict("West Queensland", districtList);
+            IDistrict north = getDistrict("Central Qld", districtList);
             Assert.NotNull(north);
-            Assert.AreEqual(1, north.RegionNames.Count);
+            Assert.AreEqual(11, north.RegionNames.Count);
         }
 
         [Test]
-        public void TestGetFederalElectorateDistrictsRegionCountsSouth()
+        public void TestGetFederalElectorateDistrictsRegionCountsNorthernQld()
         {
             List<IDistrict> districtList = reader.GetFederalElectorateDistricts();
-            IDistrict north = getDistrict("Southern Queensland", districtList);
+            IDistrict north = getDistrict("Northern Qld", districtList);
             Assert.NotNull(north);
-            Assert.AreEqual(3, north.RegionNames.Count);
+            Assert.AreEqual(10, north.RegionNames.Count);
         } 
         
         [Test]
@@ -249,8 +249,26 @@ namespace TestBlackCatKMLParser
             List<IDistrict> districtList = reader.GetFederalElectorateDistricts();
             IDistrict north = getDistrict("Brisbane", districtList);
             Assert.NotNull(north);
+            Assert.AreEqual(38, north.RegionNames.Count);
+        }
+
+        [Test]
+        public void TestGetFederalElectorateDistrictsRegionCountsGoldCoast()
+        {
+            List<IDistrict> districtList = reader.GetFederalElectorateDistricts();
+            IDistrict north = getDistrict("Gold Coast", districtList);
+            Assert.NotNull(north);
             Assert.AreEqual(8, north.RegionNames.Count);
-        } 
+        }
+
+        [Test]
+        public void TestGetFederalElectorateDistrictsRegionCountsSunshineCoast()
+        {
+            List<IDistrict> districtList = reader.GetFederalElectorateDistricts();
+            IDistrict north = getDistrict("Sunshine Coast", districtList);
+            Assert.NotNull(north);
+            Assert.AreEqual(7, north.RegionNames.Count);
+        }
 
         private IDistrict getDistrict(String districtName, List<IDistrict> districts)
         {

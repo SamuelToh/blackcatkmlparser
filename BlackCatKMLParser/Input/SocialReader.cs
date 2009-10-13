@@ -194,31 +194,21 @@ namespace BlackCat
 
         public List<IDistrict> GetFederalElectorateDistricts()
         {
-            string selectDistricts = "SELECT DistrictName, DistrictId " +
-                                       "FROM Districts";
+            string selectDistricts = "SELECT StateElectorateName, DistrictName " +
+                                        "FROM Districts";
             List<IDistrict> districts = new List<IDistrict>();
             try
             {
+                //Execute query
                 con.Open();
                 OleDbCommand cmdDistricts = new OleDbCommand(selectDistricts, con);
-                // execute query
                 OleDbDataReader reader = cmdDistricts.ExecuteReader();
+                //Process results
                 while (reader.Read())
                 {
-                    log.Debug("District select readline");
-                    District district = new District();
-                    district.DistrictName = reader["DistrictName"].ToString();
-
-                    string selectRegionNames = "SELECT RegionName " +
-                                                "FROM Region " +
-                                                "WHERE DistrictId = " + reader["DistrictId"];
-                    OleDbCommand cmdRegions = new OleDbCommand(selectRegionNames, con);
-                    OleDbDataReader regionReader = cmdRegions.ExecuteReader();
-                    while (regionReader.Read())
-                    {
-                        district.RegionNames.Add(regionReader["RegionName"].ToString());
-                    }
-                    districts.Add(district);
+                    AddDistrict(districts, 
+                        reader["StateElectorateName"].ToString(), 
+                        reader["DistrictName"].ToString());
                 }
             }
             catch (OleDbException oldEx)
@@ -234,6 +224,31 @@ namespace BlackCat
                 con.Close();
             }
             return districts;
+        }
+
+        private void AddDistrict(List<IDistrict> districts, String electorateName, String districtName)
+        {
+            log.Debug("Adding district - " + electorateName + " (" + districtName + ")");
+            IDistrict storedDistrict = GetDistrict(districts, districtName);
+            if (storedDistrict != null)
+                storedDistrict.RegionNames.Add(electorateName);
+            else
+            {
+                IDistrict newDistrict = new District();
+                newDistrict.DistrictName = districtName;
+                newDistrict.RegionNames.Add(electorateName);
+                districts.Add(newDistrict);
+            }
+        }
+
+        private IDistrict GetDistrict(List<IDistrict> districts, String districtName)
+        {
+            foreach (IDistrict d in districts)
+            {
+                if (d.DistrictName == districtName)
+                    return d;
+            }
+            return null;
         }
 
         // Validation method for checking the integer data does not contain null value.
