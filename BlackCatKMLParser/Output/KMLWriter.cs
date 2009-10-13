@@ -219,12 +219,20 @@ namespace BlackCat
                             List<String> dataNames = regions[i].DataNames;
 
                             //12 October to display the alternative data
-                            if (dataNames.Count > 0)
+                            if (dataNames.Count > 1) //has last two values (winner and safety keys);
                             {
+                                //Seat winner value
                                 sb.Append("<tr><td>");
                                 sb.Append(dataNames[dataNames.Count - 1]); //take last name
                                 sb.Append("</td><td>");
                                 sb.Append(regions[i].GetDataValue(dataNames.Count - 1)); //take corresponding datavalue out
+                                sb.Append("</td></tr>");
+
+                                //Seat Safety Value
+                                sb.Append("<tr><td>");
+                                sb.Append(dataNames[dataNames.Count - 2]); //take last name
+                                sb.Append("</td><td>");
+                                sb.Append(regions[i].GetDataValue(dataNames.Count - 2)); //take corresponding datavalue out
                                 sb.Append("</td></tr>");
                             }
 
