@@ -100,5 +100,14 @@ namespace TestBlackCatKMLParser
             Assert.IsTrue(canAdd);
         }
 
+        [Test]
+        public void TestGenerateKMLFileReturnSuccess()
+        {
+            KMLParserControl controller = KMLParserControl.Instance();
+            controller.LoadMapInfo(@"..\..\Data\QLD_Federal_Electoral_Boundaries.MID", @"..\..\Data\QLD_Federal_Electoral_Boundaries.mif", new ProgressBar());
+            int response = controller.GenerateKMLFile(@"..\..\Data\temp.kml", new ProgressBar());
+            Assert.AreEqual(0, response);
+        }
+
     }
 }

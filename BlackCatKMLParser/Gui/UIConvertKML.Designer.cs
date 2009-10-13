@@ -42,8 +42,13 @@
             this.lblAddAdditionalInput.BackColor = System.Drawing.Color.Teal;
             this.lblAddAdditionalInput.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Enabled = false;
+            // 
             // btnPrevious
             // 
+            this.btnPrevious.Enabled = false;
             this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // btnNext
