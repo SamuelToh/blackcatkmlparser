@@ -69,13 +69,13 @@ namespace BlackCat
 
         private void btnMidBrowse_Click(object sender, EventArgs e)
         {
-            openMidFileDialog.Filter = "MID files (*.mid)|*.mid";
+            openMidFileDialog.Filter = "MID files (*.mid)|*.mid|All Files |*";
             openMidFileDialog.ShowDialog();
         }
 
         private void btnMifBrowse_Click(object sender, EventArgs e)
         {
-            openMifFileDialog.Filter = "MIF files (*.mif)|*.mif"; 
+            openMifFileDialog.Filter = "MIF files (*.mif)|*.mif|All Files |*"; 
             openMifFileDialog.ShowDialog();
         }
 
