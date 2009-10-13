@@ -61,7 +61,7 @@ namespace BlackCat
         {
             foreach (Region r in regions)
 
-                if (r.RegionName == regionIdentifier)
+                if (r.RegionName.ToUpper() == regionIdentifier.ToUpper())
                 {
                     r.RegionCategory = new Category(districtName);
                     break;
