@@ -24,7 +24,6 @@ namespace BlackCat
         {
             if (percentage >= 0 && percentage <= 100)
             {
-                log.Debug("Set percentage is - " + percentage);
                 this.bar.Value = percentage;
             }
         }
@@ -37,8 +36,6 @@ namespace BlackCat
         public void Increment(int value)
         {
             int newPercentage = GetPercentage() + value;
-            log.Debug("Increment - increment is " + value);
-            log.Debug("Increment - new value is " + newPercentage);
             SetPercentage(newPercentage);
         }
 

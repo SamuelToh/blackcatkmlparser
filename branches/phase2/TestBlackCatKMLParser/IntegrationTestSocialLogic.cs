@@ -44,7 +44,7 @@ namespace TestBlackCatKMLParser
             Region[] regions = model.Regions;
 
             Assert.NotNull(GetRegionByName("Blair", regions));
-            Assert.AreEqual("Brisbane", GetRegionByName("Blair", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Western Qld", GetRegionByName("Blair", regions).RegionCategory.CategoryName);
         }
 
         [Test]
@@ -89,7 +89,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Capricornia", regions));
 
-            Assert.AreEqual("Northern Queensland", GetRegionByName("Capricornia", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Central Qld", GetRegionByName("Capricornia", regions).RegionCategory.CategoryName);
         }
 
 
@@ -101,7 +101,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Dawson", regions));
 
-            Assert.AreEqual("Northern Queensland", GetRegionByName("Dawson", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Northern Qld", GetRegionByName("Dawson", regions).RegionCategory.CategoryName);
         }
 
 
@@ -125,7 +125,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Fadden", regions));
 
-            Assert.AreEqual("Southern Queensland", GetRegionByName("Fadden", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Brisbane", GetRegionByName("Fadden", regions).RegionCategory.CategoryName);
         }
 
 
@@ -137,7 +137,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Fairfax", regions));
 
-            Assert.AreEqual("Northern Queensland", GetRegionByName("Fairfax", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Sunshine Coast", GetRegionByName("Fairfax", regions).RegionCategory.CategoryName);
         }
 
 
@@ -149,7 +149,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Fisher", regions));
 
-            Assert.AreEqual("Northern Queensland", GetRegionByName("Fisher", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Sunshine Coast", GetRegionByName("Fisher", regions).RegionCategory.CategoryName);
         }
 
 
@@ -161,7 +161,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Forde", regions));
 
-            Assert.AreEqual("Southern Queensland", GetRegionByName("Forde", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("SouthEast Qld", GetRegionByName("Forde", regions).RegionCategory.CategoryName);
         }
 
 
@@ -185,7 +185,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Groom", regions));
 
-            Assert.AreEqual("West Queensland", GetRegionByName("Groom", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("SouthEast Qld", GetRegionByName("Groom", regions).RegionCategory.CategoryName);
         }
 
 
@@ -197,7 +197,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Herbert", regions));
 
-            Assert.AreEqual("Northern Queensland", GetRegionByName("Herbert", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Northern Qld", GetRegionByName("Herbert", regions).RegionCategory.CategoryName);
         }
 
 
@@ -209,7 +209,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Hinkler", regions));
 
-            Assert.AreEqual("Northern Queensland", GetRegionByName("Hinkler", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Central Qld", GetRegionByName("Hinkler", regions).RegionCategory.CategoryName);
         }
 
 
@@ -221,7 +221,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Kennedy", regions));
 
-            Assert.AreEqual("Northern Queensland", GetRegionByName("Kennedy", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Western Qld", GetRegionByName("Kennedy", regions).RegionCategory.CategoryName);
         }
 
 
@@ -233,7 +233,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Leichhardt", regions));
 
-            Assert.AreEqual("Northern Queensland", GetRegionByName("Leichhardt", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Northern Qld", GetRegionByName("Leichhardt", regions).RegionCategory.CategoryName);
         }
 
 
@@ -257,7 +257,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Longman", regions));
 
-            Assert.AreEqual("Brisbane", GetRegionByName("Longman", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Sunshine Coast", GetRegionByName("Longman", regions).RegionCategory.CategoryName);
         }
 
 
@@ -269,7 +269,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Maranoa", regions));
 
-            Assert.AreEqual("East Queensland", GetRegionByName("Maranoa", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Western Qld", GetRegionByName("Maranoa", regions).RegionCategory.CategoryName);
         }
 
         [Test]
@@ -280,7 +280,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("McPherson", regions));
 
-            Assert.AreEqual("Southern Queensland", GetRegionByName("McPherson", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Gold Coast", GetRegionByName("McPherson", regions).RegionCategory.CategoryName);
         }
 
 
@@ -292,7 +292,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Moncrieff", regions));
             //TODO: define district
-            Assert.AreEqual("", GetRegionByName("Moncrieff", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Gold Coast", GetRegionByName("Moncrieff", regions).RegionCategory.CategoryName);
         }
 
 
@@ -304,7 +304,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Moreton", regions));
             //TODO: define district
-            Assert.AreEqual("", GetRegionByName("Moreton", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Brisbane", GetRegionByName("Moreton", regions).RegionCategory.CategoryName);
         }
 
 
@@ -316,7 +316,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Oxley", regions));
             //TODO: define district
-            Assert.AreEqual("", GetRegionByName("Oxley", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Brisbane", GetRegionByName("Oxley", regions).RegionCategory.CategoryName);
         }
 
 
@@ -328,7 +328,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Petrie", regions));
             //TODO: define district
-            Assert.AreEqual("", GetRegionByName("Petrie", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Brisbane", GetRegionByName("Petrie", regions).RegionCategory.CategoryName);
         }
 
 
@@ -340,7 +340,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Rankin", regions));
             //TODO: define district
-            Assert.AreEqual("", GetRegionByName("Rankin", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Brisbane", GetRegionByName("Rankin", regions).RegionCategory.CategoryName);
         }
 
 
@@ -352,7 +352,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Ryan", regions));
             //TODO: define district
-            Assert.AreEqual("", GetRegionByName("Ryan", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Brisbane", GetRegionByName("Ryan", regions).RegionCategory.CategoryName);
         }
 
         [Test]
@@ -363,7 +363,7 @@ namespace TestBlackCatKMLParser
 
             Assert.NotNull(GetRegionByName("Wide Bay", regions));
             //TODO: define district
-            Assert.AreEqual("", GetRegionByName("Wide Bay", regions).RegionCategory.CategoryName);
+            Assert.AreEqual("Sunshine Coast", GetRegionByName("Wide Bay", regions).RegionCategory.CategoryName);
         }
 
         private Region GetRegionByName(String name, Region[] regions)

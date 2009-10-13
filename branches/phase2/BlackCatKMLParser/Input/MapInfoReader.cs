@@ -74,10 +74,8 @@ namespace BlackCat
                     log.Debug("Reading line");
                     if (line != null)
                     {
-                        log.Debug("Line not null - " + line);
                         if (line.ToUpper().StartsWith("REGION"))
                         {
-                            log.Debug("Line starts with region");
                             line = line.Substring(6).Trim();
                             int polyCount;
                             bool polyCountSuccess = int.TryParse(line, out polyCount);
@@ -197,7 +195,6 @@ namespace BlackCat
             while (line != null)
             {
                 String[] lineParts = line.Split(delimiter);
-                log.Debug("Split line up - count is " + lineParts.Length);
                 Region reg = new Region();
                 if (regionNameIndex < lineParts.Length)
                 {

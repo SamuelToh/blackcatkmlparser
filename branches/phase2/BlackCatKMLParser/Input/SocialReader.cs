@@ -228,7 +228,6 @@ namespace BlackCat
 
         private void AddDistrict(List<IDistrict> districts, String electorateName, String districtName)
         {
-            log.Debug("Adding district - " + electorateName + " (" + districtName + ")");
             IDistrict storedDistrict = GetDistrict(districts, districtName);
             if (storedDistrict != null)
                 storedDistrict.RegionNames.Add(electorateName);
