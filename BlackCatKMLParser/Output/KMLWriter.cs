@@ -98,8 +98,11 @@ namespace BlackCat
 
                 writer.WriteStartElement("LineStyle");
                 writer.WriteStartElement("width");
-                writer.WriteString("2");
+                writer.WriteString("3");
                 writer.WriteEndElement();
+                writer.WriteStartElement("color");
+                writer.WriteString("ff000000");
+                writer.WriteEndElement(); //</color>
                 writer.WriteEndElement();
 
                 writer.WriteStartElement("PolyStyle");
