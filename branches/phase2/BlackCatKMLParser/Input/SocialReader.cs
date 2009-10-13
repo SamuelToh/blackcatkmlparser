@@ -192,6 +192,50 @@ namespace BlackCat
             return federalData;
         }
 
+        public List<IDistrict> GetFederalElectorateDistricts()
+        {
+            string selectDistricts = "SELECT DistrictName, DistrictId " +
+                                       "FROM Districts";
+            List<IDistrict> districts = new List<IDistrict>();
+            try
+            {
+                con.Open();
+                OleDbCommand cmdDistricts = new OleDbCommand(selectDistricts, con);
+                // execute query
+                OleDbDataReader reader = cmdDistricts.ExecuteReader();
+                while (reader.Read())
+                {
+                    log.Debug("District select readline");
+                    District district = new District();
+                    district.DistrictName = reader["DistrictName"].ToString();
+
+                    string selectRegionNames = "SELECT RegionName " +
+                                                "FROM Region " +
+                                                "WHERE DistrictId = " + reader["DistrictId"];
+                    OleDbCommand cmdRegions = new OleDbCommand(selectRegionNames, con);
+                    OleDbDataReader regionReader = cmdRegions.ExecuteReader();
+                    while (regionReader.Read())
+                    {
+                        district.RegionNames.Add(regionReader["RegionName"].ToString());
+                    }
+                    districts.Add(district);
+                }
+            }
+            catch (OleDbException oldEx)
+            {
+                log.Error(oldEx.ToString());
+            }
+            /*catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }*/
+            finally
+            {
+                con.Close();
+            }
+            return districts;
+        }
+
         // Validation method for checking the integer data does not contain null value.
         // Returns an integer value if the data is not null. 
         // pre: odReader is not null and ordinal >= 0

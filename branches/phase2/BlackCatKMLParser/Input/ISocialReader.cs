@@ -40,5 +40,8 @@ namespace BlackCat
 
         List<String> GetStateSeats(String federalSeat);
 
+        // TODO: write comment :) 
+        List<IDistrict> GetFederalElectorateDistricts();
+
     }
 }
