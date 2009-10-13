@@ -63,7 +63,6 @@ namespace BlackCat
             set { regionType = value; }
         }
 
-        //Added 10th October
         public Category RegionCategory
         {
             get { return regionCategory; }
@@ -73,7 +72,6 @@ namespace BlackCat
         public List<String> Coordinates 
         {
             get { return coordinates; }
-            //Changed by sam to fix the infinite loop issue
             set { this.coordinates = value; }
         }
 
