@@ -198,5 +198,66 @@ namespace TestBlackCatKMLParser
             Assert.IsTrue(stateSeats.Contains("Nanango"));
         }
 
+        //
+        //List<IDistrict> GetFederalElectorateDistricts();
+        [Test]
+        public void TestGetFederalElectorateDistrictsCount()
+        {
+            List<IDistrict> districtList = reader.GetFederalElectorateDistricts();
+            Assert.AreEqual(5, districtList.Count);
+        }
+
+        [Test]
+        public void TestGetFederalElectorateDistrictsRegionCountsNorth()
+        {
+            List<IDistrict> districtList = reader.GetFederalElectorateDistricts();
+            IDistrict north = getDistrict("Northern Queensland", districtList);
+            Assert.NotNull(north);
+            Assert.AreEqual(8, north.RegionNames.Count);
+        }
+           
+        [Test]
+        public void TestGetFederalElectorateDistrictsRegionCountsEast()
+        {
+            List<IDistrict> districtList = reader.GetFederalElectorateDistricts();
+            IDistrict north = getDistrict("East Queensland", districtList);
+            Assert.NotNull(north);
+            Assert.AreEqual(1, north.RegionNames.Count);
+        }
+
+        [Test]
+        public void TestGetFederalElectorateDistrictsRegionCountsWest()
+        {
+            List<IDistrict> districtList = reader.GetFederalElectorateDistricts();
+            IDistrict north = getDistrict("West Queensland", districtList);
+            Assert.NotNull(north);
+            Assert.AreEqual(1, north.RegionNames.Count);
+        }
+
+        [Test]
+        public void TestGetFederalElectorateDistrictsRegionCountsSouth()
+        {
+            List<IDistrict> districtList = reader.GetFederalElectorateDistricts();
+            IDistrict north = getDistrict("Southern Queensland", districtList);
+            Assert.NotNull(north);
+            Assert.AreEqual(3, north.RegionNames.Count);
+        } 
+        
+        [Test]
+        public void TestGetFederalElectorateDistrictsRegionCountsBrisbane()
+        {
+            List<IDistrict> districtList = reader.GetFederalElectorateDistricts();
+            IDistrict north = getDistrict("Brisbane", districtList);
+            Assert.NotNull(north);
+            Assert.AreEqual(8, north.RegionNames.Count);
+        } 
+
+        private IDistrict getDistrict(String districtName, List<IDistrict> districts)
+        {
+            foreach (IDistrict d in districts)
+                if (d.DistrictName == districtName)
+                    return d;
+            return null;
+        }
     }
 }

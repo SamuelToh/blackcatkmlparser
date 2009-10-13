@@ -323,5 +323,60 @@ namespace TestBlackCatKMLParser
 
             Assert.IsFalse(logic.CanMatchSociologicalData(model));
         }
+
+
+        //void SetFederalDistricts(GeoModel model);
+        [Test]
+        public void TestSetFederalDistricts()
+        {
+            Region region1 = new Region();
+            region1.RegionName = "Reg1";
+            Region region2 = new Region();
+            region2.RegionName = "Reg2";
+            Region region3 = new Region();
+            region3.RegionName = "Reg3";
+            Region region4 = new Region();
+            region4.RegionName = "Reg4";
+            Region region5 = new Region();
+            region5.RegionName = "Reg5";
+            Region[] regions = new Region[] { region1, region2, region3, region4, region5 };
+            GeoModel model = new GeoModel();
+            model.Regions = regions;
+            
+            DynamicMock mockISocialReader = new DynamicMock(typeof(ISocialReader));
+
+            List<String> regionNames1 = new List<string>();
+            regionNames1.Add(region1.RegionName);
+            regionNames1.Add(region5.RegionName);
+
+            List<String> regionNames2 = new List<string>();
+            regionNames2.Add(region2.RegionName);
+            regionNames2.Add(region3.RegionName);
+            regionNames2.Add(region4.RegionName);
+
+            IDistrict district1 = new District();
+            district1.DistrictName = "district1";
+            district1.RegionNames = regionNames1;
+
+            IDistrict district2 = new District();
+            district2.DistrictName = "district2";
+            district2.RegionNames = regionNames2;
+
+            List<IDistrict> districts = new List<IDistrict>();
+            districts.Add(district1);
+            districts.Add(district2);
+
+            mockISocialReader.ExpectAndReturn("GetFederalElectorateDistricts", districts);
+
+            logic = new SocialLogic();
+            logic.Reader = (ISocialReader)mockISocialReader.MockInstance;
+            logic.SetFederalDistricts(model);
+
+            Assert.AreEqual(district1.DistrictName, region1.RegionCategory.CategoryName);
+            Assert.AreEqual(district2.DistrictName, region2.RegionCategory.CategoryName);
+            Assert.AreEqual(district2.DistrictName, region3.RegionCategory.CategoryName);
+            Assert.AreEqual(district2.DistrictName, region4.RegionCategory.CategoryName);
+            Assert.AreEqual(district1.DistrictName, region5.RegionCategory.CategoryName);
+        }
     }
 }

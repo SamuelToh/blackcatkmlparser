@@ -99,5 +99,6 @@ namespace TestBlackCatKMLParser
             bool canAdd = controller.CanAddSociologicalData();
             Assert.IsTrue(canAdd);
         }
+
     }
 }

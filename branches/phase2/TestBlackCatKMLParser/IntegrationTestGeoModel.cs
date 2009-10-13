@@ -13,6 +13,15 @@ namespace TestBlackCatKMLParser
     [TestFixture]
     public class IntegrationTestGeoModel
     {
+        private ILog log;
+
+        [TestFixtureSetUp]
+        public void fixtureSetUp()
+        {
+            BasicConfigurator.Configure();
+            log = LogManager.GetLogger(this.ToString());
+        }
+
         [Test]
         public void TestBuildGeoModelSuccess_TestMap1File()
         {
