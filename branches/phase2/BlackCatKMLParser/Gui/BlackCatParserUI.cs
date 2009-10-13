@@ -25,6 +25,7 @@ namespace BlackCat
         
         public BlackCatParserUI()
         {
+            this.StartPosition = FormStartPosition.Manual;
             this.controller = KMLParserControl.Instance();
             InitializeComponent();
             log = LogManager.GetLogger(this.Name);
@@ -42,6 +43,7 @@ namespace BlackCat
         {
             if (next != null)
             {
+                next.DesktopLocation = this.DesktopLocation;
                 this.Hide();
                 next.Show();
             }
@@ -54,6 +56,7 @@ namespace BlackCat
         {
             if (previous != null)
             {
+                previous.DesktopLocation = this.DesktopLocation;
                 this.Hide();
                 previous.Show();
             }
