@@ -43,42 +43,36 @@ namespace TestBlackCatKMLParser
         public void TestReadRegionDataNames0()
         {
             List<String> dataNames = regions[0].DataNames;
-            Assert.AreEqual("E_div_number", dataNames[0]);
-            Assert.AreEqual("Elect_div", dataNames[1]);
-            Assert.AreEqual("Data_Item2", dataNames[2]);
+            //test can preserve old data
+            Assert.AreEqual("OriginalDesc", dataNames[0]);
         }
 
         [Test]
         public void TestReadRegionDataNames1()
         {
             List<String> dataNames = regions[1].DataNames;
-            Assert.AreEqual("E_div_number", dataNames[0]);
-            Assert.AreEqual("Elect_div", dataNames[1]);
-            Assert.AreEqual("Data_Item2", dataNames[2]);
+            Assert.AreEqual("OriginalDesc", dataNames[0]);
         }
 
         [Test]
         public void TestReadRegionData0()
         {
-            Assert.AreEqual("data1", regions[0].GetDataValue(0));
-            Assert.AreEqual("regionName1", regions[0].GetDataValue(1));
-            Assert.AreEqual("data4", regions[0].GetDataValue(2));
+            //test preserved data value
+            Assert.AreEqual("Hello description tag!", regions[0].GetDataValue(0));
         }
 
         [Test]
         public void TestReadRegionData1()
         {
-            Assert.AreEqual("data2", regions[1].GetDataValue(0));
-            Assert.AreEqual("regionName2", regions[1].GetDataValue(1));
-            Assert.AreEqual("data5", regions[1].GetDataValue(2));
+            Assert.AreEqual("This is a test data to see weather our reader " +
+                            "is able to record old text value.", regions[1].GetDataValue(0));
         }
 
         [Test]
         public void TestReadRegionData2()
         {
-            Assert.AreEqual("data3", regions[2].GetDataValue(0));
-            Assert.AreEqual("regionName3", regions[2].GetDataValue(1));
-            Assert.AreEqual("data6", regions[2].GetDataValue(2));
+            //test no preserve data scenario
+            Assert.AreEqual(null, regions[2].GetDataValue(0));
         }
 
         [Test]
@@ -106,10 +100,9 @@ namespace TestBlackCatKMLParser
         [Test]
         public void TestReadRegionCoordinates0_0()
         {
-            string coordinate = "\r\n153.0033333,-27.442777,0" +
-                                "\r\n153.0033333,-27.444444,0" +
-                                "\r\n153.005,-27.444444,0" +
-                                "\r\n153.005,-27.442777,0" +
+
+            string coordinate = "\r\n153.0033333,-27.442777,0\r\n153.0033333,-27.444444,0" +
+                                "\r\n153.005,-27.444444,0\r\n153.005,-27.442777,0" +
                                 "\r\n153.0033333,-27.442777,0\r\n";
 
             Assert.AreEqual(coordinate, regions[0].Coordinates[0]);
