@@ -23,6 +23,7 @@ namespace BlackCat
 
         //Controller error messages
         public static string MAPINFO_LOAD_ERROR = "Mapinfo load error occurred";
+        public static string KML_LOAD_ERROR = "Kml load error occurred";
         public static string EXCEL_LOAD_ERROR = "Excel load error occurred";
         public static string FIELD_LINK_ERROR = "The chosen data fields are not linkable.";
         public static string OUTPUT_FAILED = "Conversion failed";

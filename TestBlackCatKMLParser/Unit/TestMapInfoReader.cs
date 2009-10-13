@@ -28,7 +28,7 @@ namespace TestBlackCatKMLParser
         {
             regions = new List<Region>();
             MapInfoReader reader = new MapInfoReader(@"..\..\Data\testMap1.mid", @"..\..\Data\testMap1.mif");
-            regions = reader.ReadRegions(new ProgressBar());
+            regions = reader.ReadRegions(new ProgressWrapper(new ProgressBar()));
         }
 
         [Test]
@@ -136,7 +136,7 @@ namespace TestBlackCatKMLParser
         public void TestQLD_Federal_Electoral_BoundariesSuccess()
         {
             MapInfoReader reader = new MapInfoReader(@"..\..\Data\QLD_Federal_Electoral_Boundaries.MID", @"..\..\Data\QLD_Federal_Electoral_Boundaries.mif");
-            List<Region> regions = reader.ReadRegions(new ProgressBar());
+            List<Region> regions = reader.ReadRegions(new ProgressWrapper(new ProgressBar()));
             Assert.NotNull(regions);
             Assert.Greater(regions.Count, 0);
         }

@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Windows.Forms;
+using log4net;
 
 namespace BlackCat
 {
     public class KMLWriter : IGeoWriter
     {
+        private ILog log;
         const string RAW_INDENTATION = "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
         private const string KML_NAMESPACE_ADDR = "http://www.opengis.net/kml/2.2";
         private IGeoModel geoModel;
@@ -18,7 +20,12 @@ namespace BlackCat
 
         private List<Category> district;
 
-        public bool WriteToFile(IGeoModel model, List<String> dataFieldsToDisplay, String outputPath, ProgressBar progressBar)
+        public KMLWriter()
+        {
+            log = LogManager.GetLogger(this.ToString());
+        }
+
+        public bool WriteToFile(IGeoModel model, List<String> dataFieldsToDisplay, String outputPath, ProgressWrapper progressBar)
         {
             this.geoModel = model;
 
@@ -27,13 +34,21 @@ namespace BlackCat
             XmlTextWriter writer = this.GetWriter(outputPath);
             try
             {
+                int progress = progressBar.GetPercentage();
+                log.Debug("Start Write - percentage is " + progress);
+                int progressIncrement = (100 - progress)/4;
                 WriteKMLHeader(writer);
-
+                progressBar.Increment(progressIncrement);
+                log.Debug("Writing styles");
                 WriteKMLStyles(writer);
-
+                progressBar.Increment(progressIncrement);
+                log.Debug("Writing regions");
                 WriteKMLRegion(writer, dataFieldsToDisplay);
-
+                log.Debug("Incrementing progress bar #3");
+                progressBar.Increment(progressIncrement);
+                log.Debug("Writing footer");
                 WriteKMLFooter(writer);
+                progressBar.Increment(progressIncrement);
             }
             catch
             {

@@ -30,8 +30,10 @@
         {
             this.btnOutputBrowse = new System.Windows.Forms.Button();
             this.txtOutputPath = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
+            this.lblOutputFolder = new System.Windows.Forms.Label();
             this.saveKMLFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.progressGenerating = new System.Windows.Forms.ProgressBar();
+            this.lblConverting = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lblDestinationFolder
@@ -74,36 +76,58 @@
             this.txtOutputPath.Size = new System.Drawing.Size(296, 20);
             this.txtOutputPath.TabIndex = 116;
             // 
-            // label7
+            // lblOutputFolder
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(231, 114);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(71, 13);
-            this.label7.TabIndex = 115;
-            this.label7.Text = "Output Folder";
+            this.lblOutputFolder.AutoSize = true;
+            this.lblOutputFolder.Location = new System.Drawing.Point(231, 114);
+            this.lblOutputFolder.Name = "lblOutputFolder";
+            this.lblOutputFolder.Size = new System.Drawing.Size(71, 13);
+            this.lblOutputFolder.TabIndex = 115;
+            this.lblOutputFolder.Text = "Output Folder";
             // 
             // saveKMLFileDialog
             // 
             this.saveKMLFileDialog.Filter = "KML file|*.kml";
             this.saveKMLFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.saveKMLFileDialog_FileOk);
             // 
+            // progressGenerating
+            // 
+            this.progressGenerating.Location = new System.Drawing.Point(238, 219);
+            this.progressGenerating.Name = "progressGenerating";
+            this.progressGenerating.Size = new System.Drawing.Size(289, 23);
+            this.progressGenerating.TabIndex = 119;
+            this.progressGenerating.Visible = false;
+            // 
+            // lblConverting
+            // 
+            this.lblConverting.AutoSize = true;
+            this.lblConverting.Location = new System.Drawing.Point(235, 201);
+            this.lblConverting.Name = "lblConverting";
+            this.lblConverting.Size = new System.Drawing.Size(67, 13);
+            this.lblConverting.TabIndex = 118;
+            this.lblConverting.Text = "Converting...";
+            this.lblConverting.Visible = false;
+            // 
             // UISelectOutput
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.ClientSize = new System.Drawing.Size(537, 370);
+            this.Controls.Add(this.progressGenerating);
+            this.Controls.Add(this.lblConverting);
             this.Controls.Add(this.btnOutputBrowse);
             this.Controls.Add(this.txtOutputPath);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.lblOutputFolder);
             this.Name = "UISelectOutput";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Controls.SetChildIndex(this.btnNext, 0);
             this.Controls.SetChildIndex(this.btnPrevious, 0);
             this.Controls.SetChildIndex(this.btnCancel, 0);
             this.Controls.SetChildIndex(this.lblStepDescriptor, 0);
-            this.Controls.SetChildIndex(this.label7, 0);
+            this.Controls.SetChildIndex(this.lblOutputFolder, 0);
             this.Controls.SetChildIndex(this.txtOutputPath, 0);
             this.Controls.SetChildIndex(this.btnOutputBrowse, 0);
+            this.Controls.SetChildIndex(this.lblConverting, 0);
+            this.Controls.SetChildIndex(this.progressGenerating, 0);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -113,7 +137,9 @@
 
         private System.Windows.Forms.Button btnOutputBrowse;
         private System.Windows.Forms.TextBox txtOutputPath;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label lblOutputFolder;
         private System.Windows.Forms.SaveFileDialog saveKMLFileDialog;
+        private System.Windows.Forms.ProgressBar progressGenerating;
+        private System.Windows.Forms.Label lblConverting;
     }
 }

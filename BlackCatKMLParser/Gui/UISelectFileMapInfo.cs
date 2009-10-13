@@ -11,7 +11,6 @@ namespace BlackCat
 {
     public partial class UISelectFileMapInfo : BlackCat.BlackCatParserUI
     {
-
         public UISelectFileMapInfo(BlackCatParserUI previous)
         {
             InitializeComponent();
@@ -52,18 +51,10 @@ namespace BlackCat
                 else if (validationFileFormat(txtMifFilePath.Text, FileFormat.MIF) == false) {
                     MessageBox.Show(Messages.MIF_Format);
                 }
-                else {
-                    int response = controller.LoadMapInfo(txtMidFilePath.Text, txtMifFilePath.Text, progressLoading);
-                    if (response == 0)                        
-                        showNext();
-                    else
-                    {
-                        //TODO: specific error messages
-                        MessageBox.Show(Messages.MAPINFO_LOAD_ERROR);
-                    }
-                    showNext();
+                else 
+                {
+                    LoadMapInfo();
                 }
-
             }
         }
 
@@ -87,6 +78,29 @@ namespace BlackCat
         private void openMifFileDialog_FileOk(object sender, CancelEventArgs e)
         {
             txtMifFilePath.Text = openMifFileDialog.FileName;
+        }
+
+        private void LoadMapInfo()
+        {
+            ProgressWrapper progress = new ProgressWrapper(progressLoading);
+
+            SetLoadProgressVisibility(true);
+            int response = controller.LoadMapInfo(txtMidFilePath.Text, txtMifFilePath.Text, progress);
+            if (response == 0)
+            {
+                showNext();
+            }
+            else
+            {
+                //TODO: specific error messages?
+                MessageBox.Show(Messages.MAPINFO_LOAD_ERROR);
+            }
+        }
+
+        private void SetLoadProgressVisibility(bool visible)
+        {
+            lblLoading.Visible = visible;
+            progressLoading.Visible = visible;
         }
 
     }

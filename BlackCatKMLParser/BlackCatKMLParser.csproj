@@ -76,6 +76,7 @@
     <Compile Include="DataModel\IGeoModel.cs" />
     <Compile Include="DataModel\IRegion.cs" />
     <Compile Include="DataModel\IStyle.cs" />
+    <Compile Include="Gui\ProgressWrapper.cs" />
     <Compile Include="Gui\UISelectMapInfoData.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -133,10 +134,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Gui\UIConvertKML.resx">
-      <DependentUpon>UIConvertKML.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Gui\UIMain.resx">
       <DependentUpon>UIMain.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -166,12 +163,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="Gui\UIConvertKML.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Gui\UIConvertKML.Designer.cs">
-      <DependentUpon>UIConvertKML.cs</DependentUpon>
     </Compile>
     <Compile Include="Gui\UIMain.cs">
       <SubType>Form</SubType>

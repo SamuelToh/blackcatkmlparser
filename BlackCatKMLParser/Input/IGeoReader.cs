@@ -14,7 +14,7 @@ namespace BlackCat
         // Pre: bar is not null
         // Post: A list of Region objects has been returned and bar updated.
 
-        List<Region> ReadRegions(ProgressBar bar);
+        List<Region> ReadRegions(ProgressWrapper progress);
 
     }
 }

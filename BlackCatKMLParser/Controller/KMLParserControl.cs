@@ -72,33 +72,33 @@ namespace BlackCat
         // Post: A new KML file is written to outputFolderURL, created from the input files and
         // containing the list of MapInfo data fields chosen by the user.
 
-        public int GenerateKMLFile(String outputFileURL, ProgressBar progressBar)
+        public int GenerateKMLFile(String outputFileURL, ProgressWrapper progress)
         {
             bool success;
             int returnValue;
 
             // First, add sociological data if it was requested. SociologicalDataChoice
             // of NONE indicates we do not need to add any sociological data.
-
+            progress.SetPercentage(1);
             if (sociologicalDataChoice == SociologicalDataSelection.SEAT_SAFETY && geoModel != null)
             {
                 // Add winning party information.
 
-                socialLogic.CalculateSeatSafety(geoModel, true);
+                socialLogic.CalculateSeatSafety(geoModel, true, progress);
 
                 // Add seat safety information.
 
-                socialLogic.CalculateSeatWinners(geoModel, false);
+                socialLogic.CalculateSeatWinners(geoModel, false, progress);
             }
             else if (sociologicalDataChoice == SociologicalDataSelection.WINNING_PARTY && geoModel != null)
             {
                 // Add winning party information.
 
-                socialLogic.CalculateSeatSafety(geoModel, false);
+                socialLogic.CalculateSeatSafety(geoModel, false, progress);
 
                 // Add seat safety information.
 
-                socialLogic.CalculateSeatWinners(geoModel, true);
+                socialLogic.CalculateSeatWinners(geoModel, true, progress);
             }
 
             // Otherwise do nothing - if geoModel is null or user doesn't want any sociological data.
@@ -108,7 +108,6 @@ namespace BlackCat
             socialLogic.SetFederalDistricts(geoModel);
 
             // Next, we create a KMLWriter to perform the writing.
-
             KMLWriter writer = new KMLWriter();
 
             // Then pass it the model, destination, MapInfo fields to include and a ProgressBar to update.
@@ -116,15 +115,18 @@ namespace BlackCat
             if (geoModel == null)
                 success = false;
             else
-                success = writer.WriteToFile(geoModel, mapInfoDataFieldsToDisplay, outputFileURL, progressBar);
+                success = writer.WriteToFile(geoModel, mapInfoDataFieldsToDisplay, outputFileURL, progress);
 
             // Now work out the return value for the UI and return it.
 
             if (success == true)
+            {
                 returnValue = 0;
+                progress.SetPercentage(100);
+            }
             else
                 returnValue = 1;
-
+            
             return returnValue;
         }
 
@@ -151,7 +153,7 @@ namespace BlackCat
         // Post: fileURL has been loaded and an integer denoting success or otherwise has 
         // been returned.
 
-        public int LoadKML(String fileURL, ProgressBar progressBar)
+        public int LoadKML(String fileURL, ProgressWrapper progress)
         {
             bool success;
             int returnValue;
@@ -167,7 +169,7 @@ namespace BlackCat
 
                 // Next, build the GeoModel using the reader just created.
 
-                success = geoModel.BuildGeoModel(reader, progressBar);
+                success = geoModel.BuildGeoModel(reader, progress);
             }
 
             // Now work out the return value for the UI and return it.
@@ -187,7 +189,7 @@ namespace BlackCat
         // Post: midFileURL and mifFileURL have been loaded and an integer denoting 
         // success or otherwise has been returned.
 
-        public int LoadMapInfo(String midFileURL, String mifFileURL, ProgressBar progressBar)
+        public int LoadMapInfo(String midFileURL, String mifFileURL, ProgressWrapper progress)
         {
             bool success;
             int returnValue;
@@ -203,7 +205,7 @@ namespace BlackCat
 
                 // Next, build the GeoModel using the reader just created.
 
-                success = geoModel.BuildGeoModel(reader, progressBar);
+                success = geoModel.BuildGeoModel(reader, progress);
             }
 
             // Now work out the return value for the UI and return it.

@@ -28,7 +28,7 @@ namespace TestBlackCatKMLParser
         {
             regions = new List<Region>();
             KMLReader reader = new KMLReader(@"..\..\Data\testKML1.kml");
-            regions = reader.ReadRegions(new ProgressBar());
+            regions = reader.ReadRegions(new ProgressWrapper(new ProgressBar()));
         }
 
         [Test]

@@ -17,7 +17,7 @@ namespace BlackCat
         // This file’s content complies with the requirements set down in Appendices 1, 2 and // 3 of the Requirements Specification. The file contains the data specified in 
         // dataFieldsToDisplay. progressBar was also updated.
 
-        bool WriteToFile(IGeoModel model, List<String> dataFieldsToDisplay, String outputPath, ProgressBar progressBar);
+        bool WriteToFile(IGeoModel model, List<String> dataFieldsToDisplay, String outputPath, ProgressWrapper progressBar);
 
     }
 }

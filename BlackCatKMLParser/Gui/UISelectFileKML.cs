@@ -10,7 +10,6 @@ namespace BlackCat
 {
     public partial class UISelectFileKML : BlackCat.BlackCatParserUI
     {
-        public string KMLFilePath = "";
         public UISelectFileKML(BlackCatParserUI previous)
         {
             this.previous = previous;
@@ -41,28 +40,10 @@ namespace BlackCat
                 }
                 else
                 {
-                    KMLFilePath = txtKmlFilePath.Text;
-                    setProgressVisible(true);
-                    int response = controller.LoadKML(txtKmlFilePath.Text, progressLoading);
-                    if (response == 0)
-                    {
-                        showNext();
-                    }
-                    else
-                    {
-                        //TODO: specific error messages
-                        MessageBox.Show(Messages.MAPINFO_LOAD_ERROR);
-                    }
-                    setProgressVisible(false);
+                    LoadKml();
                 }
 
             }
-        }
-
-        private void setProgressVisible(bool visible)
-        {
-            lblLoading.Visible = visible;
-            progressLoading.Visible = visible;
         }
 
         private void openKMLFileDialog_FileOk(object sender, CancelEventArgs e)
@@ -75,6 +56,29 @@ namespace BlackCat
         {
             openKMLFileDialog.Filter = "KML files (*.kml)|*.kml"; 
             openKMLFileDialog.ShowDialog();
+        }
+
+        private void LoadKml()
+        {
+            log.Debug("loading kml file");
+            SetLoadProgressVisibility(true);
+            ProgressWrapper progress = new ProgressWrapper(progressLoading);
+            int response = controller.LoadKML(txtKmlFilePath.Text, progress);
+            if (response == 0)
+            {
+                showNext();
+            }
+            else
+            {
+                //TODO: specific error messages?
+                MessageBox.Show(Messages.KML_LOAD_ERROR);
+            }
+        }
+
+        private void SetLoadProgressVisibility(bool visible)
+        {
+            lblLoading.Visible = visible;
+            progressLoading.Visible = visible;
         }
     }
 }

@@ -34,7 +34,7 @@ namespace TestBlackCatKMLParser
             model = new GeoModel();
             geoReader = new MapInfoReader(@"..\..\Data\QLD_Federal_Electoral_Boundaries.MID", @"..\..\Data\QLD_Federal_Electoral_Boundaries.mif");
             socialLogic = new SocialLogic();
-            model.BuildGeoModel(geoReader, new ProgressBar());
+            model.BuildGeoModel(geoReader, new ProgressWrapper(new ProgressBar()));
         }
 
         [Test]

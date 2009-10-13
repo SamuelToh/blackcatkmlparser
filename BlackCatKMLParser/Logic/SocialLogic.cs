@@ -32,7 +32,7 @@ namespace BlackCat
         // Pre:model is not null and isMainDisplay is not null;
         // Post: Seat winner data has been added to the model according to whether 
         // isMainDisplay is true or false.
-        public void CalculateSeatWinners(GeoModel model, Boolean isMainDisplay)
+        public void CalculateSeatWinners(GeoModel model, Boolean isMainDisplay, ProgressWrapper progress)
         {
             string winnerParty = "";
             Region[] regions = model.Regions;
@@ -65,6 +65,10 @@ namespace BlackCat
                     colStyle = winnerPartyStyle(winnerParty);
                     model.SetRegionStyle(regions[i].RegionName, colStyle);
                 }
+                if (i != 0)
+                {
+                    progress.SetPercentage((int)(i * 33d / regions.Length) + 30);
+                }
             }
         }
 
@@ -77,7 +81,7 @@ namespace BlackCat
         // Pre: Model is not null and isMainDisplay is not null.
         // Post: Seat safety data has been added to the model according to whether 
         // isMainDisplay is true or false.
-        public void CalculateSeatSafety(GeoModel model, Boolean isMainDisplay)
+        public void CalculateSeatSafety(GeoModel model, Boolean isMainDisplay, ProgressWrapper progress)
         {
             float currMargin = 0;
             int prevWonFact = 0;
@@ -113,6 +117,10 @@ namespace BlackCat
                 {
                     colStyle = seatSafetyStyle(seatSafety);
                     model.SetRegionStyle(regions[i].RegionName, colStyle);
+                }
+                if (i != 0)
+                {
+                    progress.SetPercentage((int)(i * 33d / regions.Length));
                 }
             }
         }
