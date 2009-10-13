@@ -35,7 +35,7 @@ namespace BlackCat
                 else if (fileIsReadable(txtKmlFilePath.Text) == false) {
                     MessageBox.Show(Messages.NO_KML_UnReadable);
                 }
-                else if (validationFileFormat(txtKmlFilePath.Text,".kml") == false)
+                else if (validationFileFormat(txtKmlFilePath.Text, FileFormat.KML) == false)
                 {
                     MessageBox.Show(Messages.KML_Format);
                 }

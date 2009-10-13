@@ -38,7 +38,7 @@ namespace BlackCat
                 else if (urlLengthIsValid(txtOutputPath.Text) == false) {
                     MessageBox.Show(Messages.FOLDER_INVALID_4);
                 }
-                else if (validationFileFormat(txtOutputPath.Text, ".kml") == false)
+                else if (validationFileFormat(txtOutputPath.Text, FileFormat.KML) == false)
                 {
                     MessageBox.Show(Messages.KML_Format);
                 }

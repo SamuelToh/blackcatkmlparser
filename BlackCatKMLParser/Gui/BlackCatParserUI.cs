@@ -21,6 +21,7 @@ namespace BlackCat
         protected static string outputFilePath;
         protected ILog log;
 
+        public enum FileFormat { MID, MIF, KML };
         
         public BlackCatParserUI()
         {
@@ -166,18 +167,18 @@ namespace BlackCat
             }
         }
 
-        public bool validationFileFormat(string filePath, string fileFormat)
+        public bool validationFileFormat(string filePath, FileFormat fileFormat)
         {
-            if (filePath == "" || filePath == null || fileFormat == "" || fileFormat == null)
+            if (filePath == "" || filePath == null )
             {
                 return false;
             }
             FileInfo fileinfo = new FileInfo(filePath);
-            if (fileinfo.Extension.ToUpper() != fileFormat.ToUpper())
+            if (fileinfo.Extension.ToUpper() == "." + fileFormat.ToString())
             {
-                return false;
+                return true;
             }
-            return true;
+            return false;
         }
     }
 }
