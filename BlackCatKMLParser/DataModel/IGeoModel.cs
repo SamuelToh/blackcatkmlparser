@@ -49,6 +49,9 @@ namespace BlackCat
 
         void SetRegionStyle(String regionIdentifier, Style style);
 
+        //TODO: comment
+        void SetRegionCategory(String regionIdentifier, String districtName);
+
         // Set the region data of the region regionIdentifier.
         // There is no return value, as this is a setter.
         // Pre: regionIdentifier is not null and style is not null
