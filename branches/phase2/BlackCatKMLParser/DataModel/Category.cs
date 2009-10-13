@@ -7,8 +7,8 @@ namespace BlackCat
 {
     public class Category : ICategory
     {
-        private String categoryName;
-        private String categoryDesc;
+        private String categoryName = "";
+        private String categoryDesc = "";
 
         //Constructor
         public Category() { }
