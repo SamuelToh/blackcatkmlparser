@@ -470,8 +470,9 @@ namespace BlackCat
 
             writer.WriteStartElement("outerBoundaryIs"); //indicating the style
             writer.WriteStartElement("LinearRing"); //indicating the style
-            writer.WriteStartElement("coordinates");            
-            writer.WriteRaw(data.Coordinates[0]);
+            writer.WriteStartElement("coordinates");
+            String coordinates = CheckCoordinatesLength(data.RegionName, data.Coordinates[0]);
+            writer.WriteRaw(coordinates);
             writer.WriteEndElement(); //</coordinates>
             writer.WriteEndElement(); //</LinearRing>
             writer.WriteEndElement(); //</outerBoundaryIs>
@@ -489,6 +490,30 @@ namespace BlackCat
             }
 
             writer.WriteEndElement(); //</polystyle> 
+        }
+
+        private String CheckCoordinatesLength(String region, String coordinates)
+        {
+            //More than 20000 or so coordinates confuses google earth - reduce 'em
+            String[] coords = coordinates.Split(new string[] { "\r\n" }, StringSplitOptions.RemoveEmptyEntries);
+            log.Debug("Coord count " + region + " - " + coords.Length);
+            if (coords.Length > 20000)
+            {
+                List<String> smaller = new List<string>(coords.Length / 2);
+                for (int i = 0; i < coords.Length; i += 2)
+                {
+                    smaller.Add(coords[i]);
+                }
+                log.Debug("Region " + region + " reduced to " + smaller.Count);
+                StringBuilder builder = new StringBuilder("\r\n");
+                foreach (String s in smaller)
+                {
+                    builder.Append(s);
+                    builder.Append("\r\n");
+                }
+                return builder.ToString();
+            }
+            return coordinates;
         }
 
         #endregion
