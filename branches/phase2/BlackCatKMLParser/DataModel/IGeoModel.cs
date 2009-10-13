@@ -52,15 +52,5 @@ namespace BlackCat
         //TODO: comment
         void SetRegionCategory(String regionIdentifier, String districtName);
 
-        // Set the region data of the region regionIdentifier.
-        // There is no return value, as this is a setter.
-        // Pre: regionIdentifier is not null and style is not null
-        //      data value is clear 
-        // Post: The datavalue of a region is set.
-
-        void SetRegionSecondaryData
-            (bool seatWinnerIsMainDisplay, string regionIdentifier, string data);
-
-
     }
 }

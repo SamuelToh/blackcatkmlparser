@@ -167,7 +167,7 @@ namespace TestBlackCatKMLParser
             logic.CalculateSeatWinners(geoModel, false);
 
             Assert.AreEqual(1, region1.DataNames.Count);
-            Assert.AreEqual("Seat winner", region1.DataNames[0]);
+            Assert.AreEqual("Winning Party : ", region1.DataNames[0]);
         }
 
 
@@ -221,7 +221,7 @@ namespace TestBlackCatKMLParser
 
             logic.CalculateSeatWinners(geoModel, true);
             Assert.AreEqual(1, region1.DataNames.Count);
-            Assert.AreEqual("Seat winner", region1.DataNames[0]);
+            Assert.AreEqual("Winning Party : ", region1.DataNames[0]);
         }
 
         [Test]
