@@ -22,19 +22,12 @@ namespace BlackCat
         private List<String> dataFieldNames; //TODO: data should be held only in region
         private Char delimiter = '\t';
 
-        private OleDbConnection con; //db connection
+        //private OleDbConnection con; //db connection
 
         public MapInfoReader(String midURL, String mifURL)
         {
             this.midURL = midURL;
             this.mifURL = mifURL;
-
-            String dataFilePath = System.IO.Directory.GetCurrentDirectory() + "\\BlackcatKMLParser.accdb";
-            log.Debug("Database file path - " + dataFilePath);
-            String connectionString = "Provider=Microsoft.ACE.OLEDB.12.0;" +
-                "data source= " + dataFilePath + ";";
-
-            con = new OleDbConnection(connectionString);
         }
 
         public List<Region> ReadRegions(ProgressBar bar)
@@ -168,19 +161,12 @@ namespace BlackCat
         private void readHeader(StreamReader mifReader)
         {
             log.Debug("Reading mif header file");
-            //String delimiter = "\t";
-
-            //String[] data = new String[2];
-           
-            //data[0] = "\t";
-            //data[1] = "0";
 
             String line = mifReader.ReadLine();
             while (!line.Trim().ToUpper().Equals("DATA"))
             {
                 if (line.Trim().ToUpper().StartsWith("DELIMITER"))
                 {
-                    //data[0] = line.Substring(line.IndexOf('"') + 1, 1);
                     Boolean delimSuccess = Char.TryParse(line.Substring(line.IndexOf('"') + 1, 1),out delimiter);
                     if (!delimSuccess)
                         throw new MapInfoFormatException("Unexpected delimiter line");
@@ -196,7 +182,6 @@ namespace BlackCat
                         if (!success)
                             throw new MapInfoFormatException("Mif file Column count information in unexpected format");
 
-                        //data[1] = lineParts[1];
                         this.dataFieldNames = new List<string>(dataCount);                        
                         for (int i = 0; i < dataCount; i++)
                         {
@@ -210,8 +195,6 @@ namespace BlackCat
                 }
                 line = mifReader.ReadLine();
             }
-            //log.Debug("Returning delim : \"" + data[0] + "\"");
-            //l/og.Debug("Returning column count : " + data[1]);
             return;
         }
 
@@ -238,12 +221,6 @@ namespace BlackCat
                     log.Debug("Setting region name = " + name);
                     reg.RegionName = name;
 
-                    //12 October Sam
-                    Category c = new Category();
-                    c.CategoryName = getDistrict(reg.RegionName);
-                    reg.RegionCategory = c;
-                    //end 12 october
-
                     //all data
                     foreach (String d in lineParts)
                         reg.AddDataValue(d);
@@ -253,45 +230,6 @@ namespace BlackCat
                 regions.Add(reg);
                 line = midReader.ReadLine();
             }
-        }
-
-        //Newly added by sam 
-        private string getDistrict(string givenRegName)
-        {
-            string selectDistrict =
-                "SELECT Districts.DistrictName " + 
-                "FROM (Districts INNER JOIN Region ON Districts.DistrictId = Region.DistrictId)" +
-                "WHERE (Region.RegionName = '{0}')";
-
-            selectDistrict = string.Format(selectDistrict, givenRegName);
-            string districtName = "Others"; //initialize it as others first
-
-            try
-            {
-                con.Open();
-                OleDbCommand cmdGetDistrict = new OleDbCommand(selectDistrict, con);
-                // execute query
-                OleDbDataReader reader = cmdGetDistrict.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    districtName = reader[0].ToString();
-                }
-            }
-            catch (OleDbException oldEx)
-            {
-                Console.WriteLine(oldEx.ToString());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
-            finally
-            {
-                con.Close();
-            }
-
-            return districtName;
         }
 
         //Reads a MapInfo "Region" - kml calls this a "Polygon"
@@ -340,52 +278,6 @@ namespace BlackCat
             return kmlCoords;
         }
 
-        /*        private void ReadRegion(StreamReader mifReader)
-        {
-            String line;
-            String[] lineParts;
-
-            while ((line = mifReader.ReadLine()) != null)
-            {
-                incrementRead();
-
-                lineParts = line.Split(' ');
-
-                if (lineParts.Length > 1)
-                {
-                    //string test = lineParts[0].ToString().ToUpper();
-                    switch (lineParts[0].ToString().ToUpper())
-                    {
-                        case "REGION": //also known as polygon
-                            {
-                                ReadPolygon(mifReader,
-                                    int.Parse(lineParts[lineParts.Length - 1]));
-
-                                break;
-                            }
-                        case "PLINE":
-                            {
-                                ReadPLINE(mifReader,
-                                     int.Parse(lineParts[lineParts.Length - 1]));
-
-                                break;
-                            }
-                        case "LINE":
-                            {
-                                ReadLine(lineParts);
-
-                                break;
-                            }
-                        case "POINT":
-                            {
-                                ReadPoint(mifReader, lineParts);
-
-                                break;
-                            }
-                    };
-                }
-            }
-        }*/
 
         private void ReadPolygon(StreamReader mifReader, int polyCount)
         {

@@ -37,7 +37,9 @@ namespace BlackCat
         // Pre: model is not null
         // Post: True has been returned if sociological data for this data set can be found, else // false has been returned.
 
-        Boolean CanMatchSociologicalData(GeoModel model);    
+        Boolean CanMatchSociologicalData(GeoModel model);
 
+
+        void SetFederalDistricts(GeoModel model);
     }
 }

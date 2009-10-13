@@ -18,7 +18,7 @@ namespace BlackCat
         private string regionName;
         private string regionType;
         private Style regionStyle;
-        private Category regionCategory;
+        private Category regionCategory = new Category();
 
         //Constructor
         public Region(string regionName, List<String> coordinates, string regionType)

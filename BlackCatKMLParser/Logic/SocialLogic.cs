@@ -156,6 +156,18 @@ namespace BlackCat
             return true;
         }
 
+        public void SetFederalDistricts(GeoModel model)
+        {
+            List<IDistrict> districts = sr.GetFederalElectorateDistricts();
+            foreach(IDistrict d in districts)
+            {
+                foreach(String region in d.RegionNames)
+                {
+                    model.SetRegionCategory(region, d.DistrictName);
+                }
+            }
+        }
+
         private Style winnerPartyStyle(string winParty)
         {
             Style style;
