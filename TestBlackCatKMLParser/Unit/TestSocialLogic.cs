@@ -149,10 +149,14 @@ namespace TestBlackCatKMLParser
             region2.RegionName = "electorate2";
             geoModel.Regions = new Region[] { region1, region2 };
 
+            Style defaultStyle = new Style();
+
             logic.CalculateSeatWinners(geoModel, false, new ProgressWrapper(new ProgressBar()));
-            Assert.AreEqual(0, geoModel.Styles.Length);
-            Assert.IsNull(geoModel.Regions[0].RegionStyle);
-            Assert.IsNull(geoModel.Regions[1].RegionStyle);
+            Assert.AreEqual(1, geoModel.Styles.Length);
+            Assert.AreEqual(defaultStyle.StyleName, geoModel.Regions[0].RegionStyle.StyleName);
+            Assert.AreEqual(defaultStyle.ColorCode, geoModel.Regions[0].RegionStyle.ColorCode);
+            Assert.AreEqual(defaultStyle.StyleName, geoModel.Regions[1].RegionStyle.StyleName);
+            Assert.AreEqual(defaultStyle.ColorCode, geoModel.Regions[1].RegionStyle.ColorCode);
         }
 
         [Test]

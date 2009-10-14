@@ -36,14 +36,18 @@ namespace TestBlackCatKMLParser
 
             testLines = File.ReadAllLines(tempKmlPath);
             for (int i = 0; i < testLines.Length; i++)
+            {
                 testLines[i] = testLines[i].Trim();
+                log.Debug(testLines[i]);
+            }
         }
 
         [Test]
-        public void TestWriteStyleNoSociological()
+        public void TestWriteStyleNoSociologicalDefaultStyle()
         {
             WriteReadTestKMLNoExtras();
             Assert.Contains("<Style id=\"White\">", testLines);
         }
+            
     }
 }

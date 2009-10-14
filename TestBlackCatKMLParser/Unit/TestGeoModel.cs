@@ -146,7 +146,7 @@ namespace TestBlackCatKMLParser
         public void TestStylesInitial()
         {
             Style[] styles = model.Styles;
-            Assert.AreEqual(0, styles.Length);
+            Assert.AreEqual(1, styles.Length);
         }
 
         [Test]
@@ -156,7 +156,7 @@ namespace TestBlackCatKMLParser
             model.Regions[0].RegionStyle = style;
 
             Style[] storedStyles = model.Styles;
-            Assert.AreEqual(1, storedStyles.Length);
+            Assert.AreEqual(2, storedStyles.Length);
         }
 
         [Test]
