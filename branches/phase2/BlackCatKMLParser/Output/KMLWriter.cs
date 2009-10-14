@@ -57,7 +57,8 @@ namespace BlackCat
                 return false;
             }
 
-            dataFieldsToDisplay.Clear(); //clear the list
+            if(dataFieldsToDisplay != null)
+                dataFieldsToDisplay.Clear(); //clear the list
             writer.Close(); //close writer
             return true;
         }
