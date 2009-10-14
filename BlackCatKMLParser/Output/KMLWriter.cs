@@ -52,9 +52,12 @@ namespace BlackCat
             }
             catch
             {
+                dataFieldsToDisplay.Clear(); //clear the list
+                writer.Close();
                 return false;
             }
 
+            dataFieldsToDisplay.Clear(); //clear the list
             writer.Close(); //close writer
             return true;
         }
