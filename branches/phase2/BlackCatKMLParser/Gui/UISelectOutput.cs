@@ -10,6 +10,9 @@ namespace BlackCat
 {
     public partial class UISelectOutput : BlackCat.BlackCatParserUI
     {
+        private enum DisplayMode {OUTPUT_PATH,CONVERTING};
+        private DisplayMode displayMode = DisplayMode.OUTPUT_PATH;
+
         public UISelectOutput(BlackCatParserUI previous)
         {
             this.previous = previous;
@@ -20,7 +23,7 @@ namespace BlackCat
 
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if (!lblConverting.Visible)
+            if (displayMode == DisplayMode.OUTPUT_PATH)
             {
                 if (txtOutputPath.Text == null || txtOutputPath.Text.Length == 0)
                     MessageBox.Show(Messages.NO_OUTPUT_FILE_PATH);
@@ -72,21 +75,20 @@ namespace BlackCat
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            if (lblConverting.Visible)
+            if (displayMode == DisplayMode.CONVERTING)
                 SwitchDisplayMode();
             else
             {
-                SwitchDisplayMode();
                 showPrevious();
             }
         }
 
         private void SwitchDisplayMode()
         {
-            log.Debug("Switching display mode");
+            log.Debug("Switching display mode from " + displayMode.ToString());
             String step3Label = "Step #3 Choose your output folder";
             String step4Label = "Step #4 - Generating your new KML file";
-            if (lblStepDescriptor.Text == step3Label)
+            if (displayMode == DisplayMode.OUTPUT_PATH)
             {
                 //Switch to step 4 layout
                 lblStepDescriptor.Text = step4Label;
@@ -100,6 +102,7 @@ namespace BlackCat
                 lblConvertNow.ForeColor = lblDestinationFolder.ForeColor;
                 lblDestinationFolder.BackColor = lblAddAdditionalInput.BackColor;
                 lblDestinationFolder.ForeColor = lblAddAdditionalInput.ForeColor;
+                displayMode = DisplayMode.CONVERTING;
 
                 GenerateKML();
             }
@@ -117,6 +120,7 @@ namespace BlackCat
                 lblDestinationFolder.ForeColor = lblConvertNow.ForeColor;
                 lblConvertNow.BackColor = lblAddAdditionalInput.BackColor;
                 lblConvertNow.ForeColor = lblAddAdditionalInput.ForeColor;
+                displayMode = DisplayMode.OUTPUT_PATH;
             }
         }
 
