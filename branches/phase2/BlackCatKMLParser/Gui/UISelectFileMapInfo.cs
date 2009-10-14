@@ -80,6 +80,11 @@ namespace BlackCat
             txtMifFilePath.Text = openMifFileDialog.FileName;
         }
 
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            showPrevious();
+        }
+
         private void LoadMapInfo()
         {
             ProgressWrapper progress = new ProgressWrapper(progressLoading);

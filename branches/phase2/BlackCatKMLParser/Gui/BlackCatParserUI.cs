@@ -54,6 +54,7 @@ namespace BlackCat
         // Post: this form is hidden, the previous is shown.
         protected void showPrevious()
         {
+            log.Debug("Showing previous");
             if (previous != null)
             {
                 previous.DesktopLocation = this.DesktopLocation;
