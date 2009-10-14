@@ -10,11 +10,17 @@ namespace BlackCat
         private String colorCode;
         private String styleName;
 
-        //Constructor
+        //Constructors
         public Style(string colorCode, string styleName)
         {
             this.colorCode = colorCode;
             this.styleName = styleName;
+        }
+
+        public Style()
+        {
+            this.colorCode = "#7dFFFFFF";
+            this.styleName = "White";
         }
 
         //Properties

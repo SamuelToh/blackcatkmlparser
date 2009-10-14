@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="IntegrationTestController.cs" />
     <Compile Include="IntegrationTestGeoModel.cs" />
+    <Compile Include="IntegrationTestKMLWriter.cs" />
     <Compile Include="IntegrationTestSocialLogic.cs" />
     <Compile Include="Unit\TestBlackCatKMLParserUI.cs" />
     <Compile Include="Unit\TestFederalElectorateData.cs" />
