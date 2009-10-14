@@ -14,9 +14,6 @@ namespace BlackCat
         const string RAW_INDENTATION = "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t";
         private const string KML_NAMESPACE_ADDR = "http://www.opengis.net/kml/2.2";
         private IGeoModel geoModel;
-        /*private string[] regCategories = new string[5]
-            {"Northern Queensland", "East Queensland", 
-                "Southern Queensland", "West Queensland", "Others"};*/
 
         private List<Category> district;
 
@@ -160,6 +157,7 @@ namespace BlackCat
                 //if desc not empty
                 if(c.CategoryDesc != null)
                 {
+                    log.Debug("Writing cat description - " + c.CategoryDesc);
                     writer.WriteStartElement("description"); //<description>
                     writer.WriteString(c.CategoryDesc); //write the description out
                     writer.WriteEndElement(); //</description>

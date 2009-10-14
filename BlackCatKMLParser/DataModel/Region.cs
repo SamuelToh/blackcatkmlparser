@@ -17,7 +17,7 @@ namespace BlackCat
         private List<string> dataValues = new List<string>();
         private string regionName;
         private string regionType;
-        private Style regionStyle;
+        private Style regionStyle = new Style();
         private Category regionCategory = new Category();
 
         //Constructor
@@ -39,8 +39,8 @@ namespace BlackCat
             this.RegionType = regionType;
         }
 
-        public Region() 
-        { 
+        public Region()
+        {
         }
 
         //Properties 
