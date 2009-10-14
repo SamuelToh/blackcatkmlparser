@@ -16,9 +16,7 @@ namespace BlackCat
         public UISelectOutput(BlackCatParserUI previous)
         {
             this.previous = previous;
-            //this.next = new UIConvertKML(this);
             InitializeComponent();
-            //txtOutputPath.Text = @"C:\Users\Sabers Father\Desktop\Output\test2.kml"; //Testing
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -55,7 +53,6 @@ namespace BlackCat
                     {
                         outputFilePath = txtOutputPath.Text;
                         log.Debug("Output path entered - " + outputFilePath);
-                        //showNext();
                         SwitchDisplayMode();
                     }
                 }

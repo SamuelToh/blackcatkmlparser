@@ -82,7 +82,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.label1.Location = new System.Drawing.Point(31, 20);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(220, 26);
+            this.label1.Size = new System.Drawing.Size(219, 25);
             this.label1.TabIndex = 103;
             this.label1.Text = "Black Cat Technologies";
             // 
@@ -109,7 +109,7 @@
             this.lblConvertNow.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblConvertNow.Location = new System.Drawing.Point(9, 190);
             this.lblConvertNow.Name = "lblConvertNow";
-            this.lblConvertNow.Size = new System.Drawing.Size(114, 21);
+            this.lblConvertNow.Size = new System.Drawing.Size(110, 20);
             this.lblConvertNow.TabIndex = 9;
             this.lblConvertNow.Text = "Convert Now";
             // 
@@ -121,7 +121,7 @@
             this.lblDestinationFolder.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblDestinationFolder.Location = new System.Drawing.Point(9, 139);
             this.lblDestinationFolder.Name = "lblDestinationFolder";
-            this.lblDestinationFolder.Size = new System.Drawing.Size(156, 21);
+            this.lblDestinationFolder.Size = new System.Drawing.Size(157, 20);
             this.lblDestinationFolder.TabIndex = 8;
             this.lblDestinationFolder.Text = "Destination Folder";
             // 
@@ -133,7 +133,7 @@
             this.lblAddAdditionalInput.ForeColor = System.Drawing.SystemColors.ControlText;
             this.lblAddAdditionalInput.Location = new System.Drawing.Point(9, 86);
             this.lblAddAdditionalInput.Name = "lblAddAdditionalInput";
-            this.lblAddAdditionalInput.Size = new System.Drawing.Size(181, 21);
+            this.lblAddAdditionalInput.Size = new System.Drawing.Size(182, 20);
             this.lblAddAdditionalInput.TabIndex = 7;
             this.lblAddAdditionalInput.Text = "Add Additional Inputs";
             // 
@@ -145,7 +145,7 @@
             this.lblSelectFiles.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.lblSelectFiles.Location = new System.Drawing.Point(9, 34);
             this.lblSelectFiles.Name = "lblSelectFiles";
-            this.lblSelectFiles.Size = new System.Drawing.Size(103, 21);
+            this.lblSelectFiles.Size = new System.Drawing.Size(103, 20);
             this.lblSelectFiles.TabIndex = 6;
             this.lblSelectFiles.Text = "Select Files";
             // 
@@ -167,7 +167,6 @@
             this.btnPrevious.TabIndex = 111;
             this.btnPrevious.Text = "<< &Previous";
             this.btnPrevious.UseVisualStyleBackColor = true;
-            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // btnNext
             // 
@@ -184,7 +183,7 @@
             this.lblStepDescriptor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.lblStepDescriptor.Location = new System.Drawing.Point(249, 88);
             this.lblStepDescriptor.Name = "lblStepDescriptor";
-            this.lblStepDescriptor.Size = new System.Drawing.Size(44, 15);
+            this.lblStepDescriptor.Size = new System.Drawing.Size(45, 13);
             this.lblStepDescriptor.TabIndex = 114;
             this.lblStepDescriptor.Text = "Step #";
             // 

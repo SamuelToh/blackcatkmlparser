@@ -57,6 +57,11 @@ namespace BlackCat
             openKMLFileDialog.Filter = "KML files (*.kml)|*.kml"; 
             openKMLFileDialog.ShowDialog();
         }
+        
+        private void btnPrevious_Click(object sender, EventArgs e)
+        {
+            showPrevious();
+        }
 
         private void LoadKml()
         {

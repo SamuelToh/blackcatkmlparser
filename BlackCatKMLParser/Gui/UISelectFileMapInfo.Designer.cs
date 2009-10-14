@@ -61,6 +61,7 @@
             // btnPrevious
             // 
             this.btnPrevious.Enabled = false;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // btnNext
             // 
