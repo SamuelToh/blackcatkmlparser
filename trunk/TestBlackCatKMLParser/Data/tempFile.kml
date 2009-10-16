@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+				<Document>
+								<name>BlackCat KML generated file</name>
+								<open>1</open>
+								<Style id="White">
+												<LineStyle>
+																<width>3</width>
+																<color>ff000000</color>
+												</LineStyle>
+												<PolyStyle>
+																<color>#7dFFFFFF</color>
+												</PolyStyle>
+								</Style>
+								<Folder>
+												<name />
+												<description />
+												<Placemark>
+																<name>regionName1</name>
+																<description><![CDATA[Map info data<br><hr><table><tr><td>Data_Item2</td><td>data4</td></tr><tr><td>Elect_div</td><td>regionName1</td></tr></table><br><hr>]]></description>
+																<visibility>0</visibility>
+																<styleUrl>White</styleUrl>
+																<Polygon>
+																				<extrude>1</extrude>
+																				<tessellate>1</tessellate>
+																				<altitudeMode>clampToGround</altitudeMode>
+																				<outerBoundaryIs>
+																								<LinearRing>
+																												<coordinates>
+152,-27,0
+153,-29,0</coordinates>
+																								</LinearRing>
+																				</outerBoundaryIs>
+																</Polygon>
+												</Placemark>
+												<Placemark>
+																<name>regionName2</name>
+																<description><![CDATA[Map info data<br><hr><table><tr><td>Data_Item2</td><td>data5</td></tr><tr><td>Elect_div</td><td>regionName2</td></tr></table><br><hr>]]></description>
+																<visibility>0</visibility>
+																<styleUrl>White</styleUrl>
+																<Polygon>
+																				<extrude>1</extrude>
+																				<tessellate>1</tessellate>
+																				<altitudeMode>clampToGround</altitudeMode>
+																				<outerBoundaryIs>
+																								<LinearRing>
+																												<coordinates>
+156,-34,0
+45,-23,0
+87,-35,0
+345,-86,0</coordinates>
+																								</LinearRing>
+																				</outerBoundaryIs>
+																				<innerBoundaryIs>
+																								<LinearRing>
+																												<coordinates>
+67,-90,0
+45,-91,0</coordinates>
+																								</LinearRing>
+																				</innerBoundaryIs>
+																				<innerBoundaryIs>
+																								<LinearRing>
+																												<coordinates>
+56,-90,0
+57,-89,0
+58,-90,0
+56,-91,0
+57,-87,0
+45,-666,0</coordinates>
+																								</LinearRing>
+																				</innerBoundaryIs>
+																</Polygon>
+												</Placemark>
+												<Placemark>
+																<name>regionName3</name>
+																<description><![CDATA[Map info data<br><hr><table><tr><td>Data_Item2</td><td>data6</td></tr><tr><td>Elect_div</td><td>regionName3</td></tr></table><br><hr>]]></description>
+																<visibility>0</visibility>
+																<styleUrl>White</styleUrl>
+																<Polygon>
+																				<extrude>1</extrude>
+																				<tessellate>1</tessellate>
+																				<altitudeMode>clampToGround</altitudeMode>
+																				<outerBoundaryIs>
+																								<LinearRing>
+																												<coordinates>
+152,-27,0
+153,-29,0</coordinates>
+																								</LinearRing>
+																				</outerBoundaryIs>
+																				<innerBoundaryIs>
+																								<LinearRing>
+																												<coordinates>
+154,-28,0
+153,-34,0
+154,-23,0
+155,-27,0
+157,-28,0
+154,-56,0
+123,-78,0</coordinates>
+																								</LinearRing>
+																				</innerBoundaryIs>
+																</Polygon>
+												</Placemark>
+								</Folder>
+				</Document>
+</kml>
