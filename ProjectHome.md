@@ -1,0 +1,1 @@
+This program takes mapinfo files and excel data and converts them into kml files.
